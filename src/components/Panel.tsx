@@ -6,7 +6,7 @@ const Panel: React.FC = () => {
   const currentState = ExtensionState.CONFIGURING;
 
   return (
-    <div className="jp-SparkConnectExtension-scrollable">
+    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       {currentState === ExtensionState.CONFIGURING && <Configure />}
     </div>
   );
