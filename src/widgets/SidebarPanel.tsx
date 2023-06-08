@@ -3,20 +3,7 @@ import { VDomRenderer } from '@jupyterlab/apputils';
 import { JupyterFrontEnd } from '@jupyterlab/application';
 import { JupyterLabAppContext } from '../const';
 import SparkIcon from '../icons/SparkIcon';
-import SparkLogo from '../components/SparkLogo';
-
-const Panel: React.FC = () => {
-  return (
-    <div style={{ padding: 12 }}>
-      <SparkLogo />
-    </div>
-  );
-};
-
-const ErrorPanel: React.FC<{ error: string }> = ({ error }) => {
-  return <div style={{ padding: 12 }}>{error}</div>;
-};
-
+import Panel from '../components/Panel';
 export interface SidebarPanelOptions {
   app: JupyterFrontEnd;
 }
@@ -46,7 +33,7 @@ export class SidebarPanel extends VDomRenderer {
 
   render(): React.ReactElement {
     if (this.error) {
-      return <ErrorPanel error={this.error} />;
+      return <div style={{ padding: 12 }}>{this.error}</div>;
     }
 
     return (

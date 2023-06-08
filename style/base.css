@@ -3,3 +3,14 @@
 
     https://jupyterlab.readthedocs.io/en/stable/developer/css.html
 */
+
+.jp-SparkConnectExtension-scrollable {
+    overflow: auto;
+}
+
+.jp-SparkConnectExtension-heading {
+    font-weight: normal;
+    margin: 0;
+    margin-top: 8px;
+    padding: 0;
+}
