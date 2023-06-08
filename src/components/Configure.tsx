@@ -2,12 +2,14 @@ import React from 'react';
 import SparkLogo from './SparkLogo';
 import Select from './Select';
 import { Section } from './Section';
+import ConfigBundle from './configure/ConfigBundle';
 
 const Configure: React.FC = () => {
   const options = [
     { label: 'Cloud Containers (k8s)', value: 'k8s' },
     { label: 'Analytix', value: 'analytix' }
   ];
+
   return (
     <div style={{ flex: 1 }}>
       <div style={{ padding: 8 }}>
@@ -23,10 +25,9 @@ const Configure: React.FC = () => {
       </Section>
       <Section
         title="Configuration Bundle"
-        style={{ padding: 8 }}
         headingStyle={{ marginTop: 8 }}
       >
-        Config bundles
+        <ConfigBundle />
       </Section>
       <Section
         title="Extra Configuration"

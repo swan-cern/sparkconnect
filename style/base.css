@@ -5,23 +5,45 @@
 */
 
 .jp-SparkConnectExtension-scrollable {
-    overflow: auto;
-    height: 100%;
+  overflow: auto;
+  height: 100%;
 }
 
 .jp-SparkConnectExtension-heading {
-    font-weight: normal;
-    margin: 0;
-    margin-top: 8px;
-    padding: 0;
+  font-weight: normal;
+  margin: 0;
+  margin-top: 8px;
+  padding: 0;
 }
 
 .jp-SparkConnectExtension-section-header {
-    flex: 0 0 auto;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    padding: 8px;
-    font-size: var(--jp-ui-font-size0);
-    border-bottom: var(--jp-border-width) solid var(--jp-border-color2);
-  }
+  flex: 0 0 auto;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px;
+  font-size: var(--jp-ui-font-size0);
+  border-bottom: var(--jp-border-width) solid var(--jp-border-color2);
+}
+
+.jp-SparkConnectExtension-configBundle-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jp-border-width);
+  background-color: var(--jp-border-color3);
+}
+
+.jp-SparkConnectExtension-configBundle-list > div {
+  padding: 4px;
+  background-color: var(--jp-layout-color1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--jp-ui-font-size0);
+}
+
+.jp-SparkConnectExtension-configBundle-list > div:hover {
+  background-color: var(--jp-layout-color2);
+  cursor: pointer;
+}

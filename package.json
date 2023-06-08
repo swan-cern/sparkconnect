@@ -64,7 +64,8 @@
     "@jupyterlab/services": "^7.0.0",
     "@jupyterlab/settingregistry": "^4.0.0",
     "pullstate": "^1.25.0",
-    "react-select": "^5.7.3"
+    "react-select": "^5.7.3",
+    "react-useanimations": "^2.10.0"
   },
   "devDependencies": {
     "@jupyterlab/builder": "^4.0.0",

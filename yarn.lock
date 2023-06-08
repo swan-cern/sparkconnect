@@ -8110,6 +8110,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lottie-web@npm:^5.5.7":
+  version: 5.12.0
+  resolution: "lottie-web@npm:5.12.0"
+  checksum: 77c35be880e484d1a766f21f789ede7c7be59e957579580a18c2dfec08c4812c03e1d652e453166c31fd80556446d6b857fb490d901e34154105532519bc5ef5
+  languageName: node
+  linkType: hard
+
 "lru-cache@npm:^5.1.1":
   version: 5.1.1
   resolution: "lru-cache@npm:5.1.1"
@@ -9303,6 +9310,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-useanimations@npm:^2.10.0":
+  version: 2.10.0
+  resolution: "react-useanimations@npm:2.10.0"
+  dependencies:
+    lottie-web: ^5.5.7
+  peerDependencies:
+    react: ">=16"
+    react-dom: ">=16"
+  checksum: 0934887b86ab7fb3a762afba384c989c57c39bf83938139b95f1d2511ad5249979fc764b2bd96ad56f88b7196fa3bb873ebf60f223f65f5f41bee3e6e0558673
+  languageName: node
+  linkType: hard
+
 "react@npm:^18.2.0":
   version: 18.2.0
   resolution: "react@npm:18.2.0"
@@ -9997,6 +10016,7 @@ __metadata:
     prettier: ^2.8.7
     pullstate: ^1.25.0
     react-select: ^5.7.3
+    react-useanimations: ^2.10.0
     rimraf: ^4.4.1
     source-map-loader: ^1.0.2
     style-loader: ^3.3.1
