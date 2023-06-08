@@ -2,20 +2,26 @@ import React from 'react';
 import { VDomRenderer } from '@jupyterlab/apputils';
 import { JupyterFrontEnd } from '@jupyterlab/application';
 import { JupyterLabAppContext } from '../const';
+import SparkIcon from '../icons/SparkIcon';
+import SparkLogo from '../components/SparkLogo';
 
 const Panel: React.FC = () => {
-  return <div style={{ padding: 8 }}>Hello</div>;
+  return (
+    <div style={{ padding: 12 }}>
+      <SparkLogo />
+    </div>
+  );
 };
 
 const ErrorPanel: React.FC<{ error: string }> = ({ error }) => {
-  return <div style={{ padding: 8 }}>{error}</div>;
+  return <div style={{ padding: 12 }}>{error}</div>;
 };
 
 export interface SidebarPanelOptions {
   app: JupyterFrontEnd;
 }
 
-const PANEL_CLASS = 'jp-RucioExtensionPanel';
+const PANEL_CLASS = 'jp-SparkConnectExtensionPanel';
 
 export class SidebarPanel extends VDomRenderer {
   error?: string;
@@ -25,7 +31,7 @@ export class SidebarPanel extends VDomRenderer {
     super();
     super.addClass(PANEL_CLASS);
     super.title.closable = true;
-    // super.title.icon = rucioIcon;
+    super.title.icon = SparkIcon;
 
     const { app } = options;
     this.app = app;
