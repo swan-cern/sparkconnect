@@ -19,7 +19,7 @@ const Configure: React.FC = () => {
       <Section
         title="Cluster"
         style={{ padding: 8 }}
-        headingStyle={{ marginTop: 8 }}
+        headingStyle={{ marginTop: 16 }}
       >
         <Select options={options} />
       </Section>
@@ -32,7 +32,7 @@ const Configure: React.FC = () => {
       <Section
         title="Extra Configuration"
         style={{ padding: 8 }}
-        headingStyle={{ marginTop: 8 }}
+        headingStyle={{ marginTop: 16 }}
       >
         Extra configs
       </Section>
