@@ -38,7 +38,7 @@ const ConfigBundle: React.FC = () => {
             render={(eventProps, animationProps) => (
               <div {...eventProps}>
                 <div {...animationProps} />
-                <span style={{ color: isSelected ? 'var(--jp-ui-font-color1)' : 'var(--jp-ui-font-color2)' }}>
+                <span style={{ color: 'var(--jp-ui-font-color1)' }}>
                   {bundle.label}
                 </span>
               </div>
