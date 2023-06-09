@@ -3,6 +3,7 @@ import SparkLogo from './SparkLogo';
 import Select from './Select';
 import { Section } from './Section';
 import ConfigBundle from './configure/ConfigBundle';
+import { TextField } from './TextField';
 
 const Configure: React.FC = () => {
   const options = [
@@ -23,10 +24,7 @@ const Configure: React.FC = () => {
       >
         <Select options={options} />
       </Section>
-      <Section
-        title="Configuration Bundle"
-        headingStyle={{ marginTop: 8 }}
-      >
+      <Section title="Configuration Bundle" headingStyle={{ marginTop: 8 }}>
         <ConfigBundle />
       </Section>
       <Section
@@ -34,7 +32,9 @@ const Configure: React.FC = () => {
         style={{ padding: 8 }}
         headingStyle={{ marginTop: 16 }}
       >
-        Extra configs
+        <TextField placeholder="Option" />
+        <div style={{ marginTop: 8 }} />
+        <TextField placeholder="Value" />
       </Section>
     </div>
   );
