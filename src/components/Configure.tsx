@@ -35,6 +35,15 @@ const Configure: React.FC = () => {
         <TextField placeholder="Option" />
         <div style={{ marginTop: 8 }} />
         <TextField placeholder="Value" />
+        <div style={{ marginLeft: 8, marginTop: 4, color: 'var(--jp-ui-font-color2)' }}>
+          <small>
+            To use environment variables, input{' '}
+            <code>
+              <small>{'{ENV_VAR_NAME}'}</small>
+            </code>
+            .
+          </small>
+        </div>
       </Section>
     </div>
   );
