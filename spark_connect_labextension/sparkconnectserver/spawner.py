@@ -31,4 +31,8 @@ class SparkConnectCluster:
         
         self.running = False
     
+    def __del__(self):
+        if self.running:
+            self.stop()
+    
     
