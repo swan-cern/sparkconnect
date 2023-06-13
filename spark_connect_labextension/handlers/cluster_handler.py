@@ -1,6 +1,7 @@
 from jupyter_server.base.handlers import APIHandler
 import tornado
 import json
+import traceback
 from spark_connect_labextension.sparkconnectserver.cluster import cluster
 
 
@@ -13,8 +14,8 @@ class StartClusterRouteHandler(APIHandler):
                 "success": True,
                 "message": "STARTED_SPARK_CONNECT_SERVER"
             }))
-        except Exception as e:
-            print(e)
+        except:
+            traceback.print_exc()
             self.set_status(500)
             self.finish(json.dumps({
                 "error": "FAILED_TO_START_SPARK_CONNECT_SERVER"
@@ -30,8 +31,8 @@ class StopClusterRouteHandler(APIHandler):
                 "success": True,
                 "message": "STOPPED_SPARK_CONNECT_SERVER"
             }))
-        except Exception as e:
-            print(e)
+        except:
+            traceback.print_exc()
             self.set_status(500)
             self.finish(json.dumps({
                 "error": "FAILED_TO_STOP_CONNECT_SERVER"
