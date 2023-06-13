@@ -1,11 +1,11 @@
-from jupyter_server.base.handlers import APIHandler
+from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json
 import traceback
 from spark_connect_labextension.sparkconnectserver.cluster import cluster
 
 
-class StopClusterRouteHandler(APIHandler):
+class StopClusterRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     def get(self):  # TODO use POST
         try:

@@ -13,7 +13,8 @@
         "--notebook-dir=notebooks",
         "--no-browser",
         "--ServerApp.token=''",
-        "--port=9999"
+        "--port=9999",
+        "--JupyterApp.config_file=jupyter-config/server-config/spark_connect_labextension.json"
       ],
       "justMyCode": false,
       "module": "jupyterlab.labapp",

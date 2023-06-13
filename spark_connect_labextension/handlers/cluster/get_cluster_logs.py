@@ -1,9 +1,9 @@
-from jupyter_server.base.handlers import APIHandler
+from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 from spark_connect_labextension.sparkconnectserver.cluster import cluster
 
 
-class GetClusterLogRouteHandler(APIHandler):
+class GetClusterLogRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     def get(self):
         logs = cluster.get_log()
