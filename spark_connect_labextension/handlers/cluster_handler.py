@@ -1,9 +1,8 @@
 from jupyter_server.base.handlers import APIHandler
 import tornado
 import json
-from spark_connect_labextension.sparkconnectserver.spawner import SparkConnectCluster
+from spark_connect_labextension.sparkconnectserver.cluster import cluster
 
-cluster = SparkConnectCluster()
 
 class StartClusterRouteHandler(APIHandler):
     @tornado.web.authenticated
@@ -49,3 +48,10 @@ class GetClusterLogRouteHandler(APIHandler):
             return
 
         self.finish(logs)
+
+class GetClusterStatusRouteHandler(APIHandler):
+    @tornado.web.authenticated
+    def get(self):
+        status = cluster.get_status()
+        self.finish(json.dumps({'status': status.name}))
+

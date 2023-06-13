@@ -2,63 +2,78 @@ import os
 import subprocess
 import tempfile
 import glob
+import socket
 from enum import Enum
 
 SPARK_HOME = os.getenv('SPARK_HOME')
 SPARK_CONNECT_PACKAGE = os.getenv('SPARK_CONNECT_PACKAGE', 'org.apache.spark:spark-connect_2.12:3.4.0')
+SPARK_CONNECT_PORT = int(os.getenv('SPARK_CONNECT_PORT', '15002'))
 
-class SparkConnectCluster:
+class _SparkConnectCluster:
     class Status(Enum):
         STOPPED = "STOPPED"
         PROVISIONING = "PROVISIONING"
         READY = "READY"
 
     def __init__(self):
-        self.status = SparkConnectCluster.Status.STOPPED
-        self.tmpdir = None
+        self.tmpdir = tempfile.TemporaryDirectory()
 
-    def start(self, options: dict = None, envs: dict = None):
+    def start(self, options: dict = {}, envs: dict = None):
         print("Starting Spark Connect server...")
 
-        self.tmpdir = tempfile.TemporaryDirectory()
+        self.tmpdir.cleanup()
+
         env_variables = self.get_envs(envs)
         env_variables['SPARK_LOG_DIR'] = self.tmpdir.name
         print("Spark log dir", self.tmpdir.name)
 
+        options['spark.connect.grpc.binding.port'] = str(SPARK_CONNECT_PORT)
         config_args = self.get_config_args(options)
         run_script = f"{SPARK_HOME}/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
         print(run_script)
         retcode = subprocess.Popen(run_script, shell=True, env=env_variables).wait()
         if retcode != 0:
             raise Exception("Cannot start Spark Connect server")
-        
-        self.status = SparkConnectCluster.Status.PROVISIONING
 
     def stop(self):
-        if self.tmpdir:
-            self.tmpdir.cleanup()
-            self.tmpdir = None
-
-        if self.status == SparkConnectCluster.Status.READY:
-            print("No running Spark Connect server")
-            return
-
         print("Stopping Spark Connect server...")
         run_script = f"{SPARK_HOME}/sbin/stop-connect-server.sh"
         retcode = subprocess.Popen(run_script, shell=True).wait()
         if retcode != 0:
             raise Exception("Cannot stop Spark Connect server")
-        
-        self.status = SparkConnectCluster.Status.STOPPED
-    
+            
     def get_log(self):
-        if not self.tmpdir:
+        logfile = self.get_logfile_path()
+        if not logfile:
             return None
-        
-        files = glob.glob(self.tmpdir.name + '/*.out')
-        logfile = files[-1]
+
         with open(logfile, 'r') as f:
             return f.read()
+    
+    def get_logfile_path(self):
+        files = glob.glob(self.tmpdir.name + '/*.out')
+        if len(files) == 0:
+            return None
+        logfile = files[-1]
+        return logfile
+
+    def get_status(self):
+        if not self.is_connect_server_running():
+            return SparkConnectCluster.Status.STOPPED
+        if not self.is_port_exposed():
+            return SparkConnectCluster.Status.PROVISIONING
+        return SparkConnectCluster.Status.READY
+    
+    def is_connect_server_running(self):
+        run_script = f"{SPARK_HOME}/sbin/spark-daemon.sh status org.apache.spark.sql.connect.service.SparkConnectServer 1"
+        retcode = subprocess.Popen(run_script, shell=True).wait()
+        return retcode == 0
+
+    def is_port_exposed(self):
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        result = sock.connect_ex(('127.0.0.1', SPARK_CONNECT_PORT))
+        sock.close()
+        return result == 0
  
     
     def get_envs(self, envs: dict):
@@ -81,5 +96,6 @@ class SparkConnectCluster:
 
     
     def __del__(self):
-        if self.status != SparkConnectCluster.Status.STOPPED:
-            self.stop()
+        self.stop()
+
+cluster = _SparkConnectCluster()
