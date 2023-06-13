@@ -3,7 +3,10 @@ import json
 from jupyter_server.base.handlers import APIHandler
 from jupyter_server.utils import url_path_join
 import tornado
-from spark_connect_labextension.handlers.cluster_handler import StartClusterRouteHandler, StopClusterRouteHandler, GetClusterLogRouteHandler, GetClusterStatusRouteHandler
+from spark_connect_labextension.handlers.cluster.start_cluster import StartClusterRouteHandler
+from spark_connect_labextension.handlers.cluster.stop_cluster import StopClusterRouteHandler
+from spark_connect_labextension.handlers.cluster.get_cluster_logs import GetClusterLogRouteHandler
+from spark_connect_labextension.handlers.cluster.get_cluster_status import GetClusterStatusRouteHandler
 
 class RouteHandler(APIHandler):
     # The following decorator should be present on all verb methods (head, get, post,

@@ -9,12 +9,12 @@ SPARK_HOME = os.getenv('SPARK_HOME')
 SPARK_CONNECT_PACKAGE = os.getenv('SPARK_CONNECT_PACKAGE', 'org.apache.spark:spark-connect_2.12:3.4.0')
 SPARK_CONNECT_PORT = int(os.getenv('SPARK_CONNECT_PORT', '15002'))
 
-class _SparkConnectCluster:
-    class Status(Enum):
-        STOPPED = "STOPPED"
-        PROVISIONING = "PROVISIONING"
-        READY = "READY"
+class ClusterStatus(Enum):
+    STOPPED = "STOPPED"
+    PROVISIONING = "PROVISIONING"
+    READY = "READY"
 
+class _SparkConnectCluster:
     def __init__(self):
         self.tmpdir = tempfile.TemporaryDirectory()
 
@@ -42,7 +42,7 @@ class _SparkConnectCluster:
         if retcode != 0:
             raise Exception("Cannot stop Spark Connect server")
             
-    def get_log(self):
+    def get_log(self) -> str:
         logfile = self.get_logfile_path()
         if not logfile:
             return None
@@ -50,40 +50,39 @@ class _SparkConnectCluster:
         with open(logfile, 'r') as f:
             return f.read()
     
-    def get_logfile_path(self):
+    def get_logfile_path(self) -> str:
         files = glob.glob(self.tmpdir.name + '/*.out')
         if len(files) == 0:
             return None
         logfile = files[-1]
         return logfile
 
-    def get_status(self):
+    def get_status(self) -> ClusterStatus:
         if not self.is_connect_server_running():
-            return SparkConnectCluster.Status.STOPPED
-        if not self.is_port_exposed():
-            return SparkConnectCluster.Status.PROVISIONING
-        return SparkConnectCluster.Status.READY
+            return ClusterStatus.STOPPED
+        if not self.is_server_ready():
+            return ClusterStatus.PROVISIONING
+        return ClusterStatus.READY
     
-    def is_connect_server_running(self):
+    def is_connect_server_running(self) -> bool:
         run_script = f"{SPARK_HOME}/sbin/spark-daemon.sh status org.apache.spark.sql.connect.service.SparkConnectServer 1"
         retcode = subprocess.Popen(run_script, shell=True).wait()
         return retcode == 0
 
-    def is_port_exposed(self):
+    def is_server_ready(self) -> bool:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         result = sock.connect_ex(('127.0.0.1', SPARK_CONNECT_PORT))
         sock.close()
         return result == 0
  
-    
-    def get_envs(self, envs: dict):
+    def get_envs(self, envs: dict) -> dict:
         my_env = os.environ.copy()
         if envs:
             for key in envs:
                 my_env[key] = envs[key]
         return my_env
 
-    def get_config_args(self, options: dict):
+    def get_config_args(self, options: dict) -> str:
         if not options:
             return []
         
@@ -97,5 +96,6 @@ class _SparkConnectCluster:
     
     def __del__(self):
         self.stop()
+
 
 cluster = _SparkConnectCluster()
