@@ -27,7 +27,7 @@ const Configure: React.FC = () => {
           <Section title="Configuration Bundle" headingStyle={{ marginTop: 8 }}>
             <ConfigBundle clusterName={cluster.value} selected={selectedConfigBundles} setSelected={setSelectedConfigBundles} />
           </Section>
-          <Section title="Extra Configuration" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
+          <Section title="Extra Configuration" headingStyle={{ marginTop: 16 }}>
             <ExtraConfig clusterName={cluster.value} selectedConfigBundles={selectedConfigBundles} extraConfig={extraConfig} setExtraConfig={setExtraConfig} />
           </Section>
         </>

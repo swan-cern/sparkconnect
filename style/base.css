@@ -49,3 +49,20 @@
   background-color: var(--jp-layout-color2);
   cursor: pointer;
 }
+
+.jp-SparkConnectExtension-extraConfig-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jp-border-width);
+  background-color: var(--jp-border-color3);
+}
+
+.jp-SparkConnectExtension-extraConfig-list > div {
+  padding: 6px 8px;
+  background-color: var(--jp-layout-color1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--jp-ui-font-size0);
+}
