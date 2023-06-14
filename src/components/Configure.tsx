@@ -7,7 +7,7 @@ import { TextField } from './TextField';
 import { UIStore } from '../store/UIStore';
 
 const Configure: React.FC = () => {
-  const options = UIStore.useState(s => s.clusters).map(c => ({ label: c.displayName ?? c.name, value: c.name }));
+  const options = UIStore.useState(s => s.clusters).map(c => ({ label: c.displayName, value: c.name }));
 
   const [cluster, setCluster] = useState<{ label: String; value: string }>();
   const [selectedConfigBundles, setSelectedConfigBundles] = useState<string[]>([]);

@@ -13,7 +13,7 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
   const configBundles = UIStore.useState(s => s.configBundleOptions)
     .filter(b => !b.clusterFilter || b.clusterFilter.includes(clusterName))
     .map(b => ({
-      label: b.displayName ?? b.name,
+      label: b.displayName,
       value: b.name
     }));
 

@@ -11,6 +11,6 @@ class GetClustersRouteHandler(SparkConnectAPIHandler):
             cluster = self.spark_clusters[cluster_name]
             clusters.append({
                 'name': cluster_name,
-                'displayName': cluster.get('display_name')
+                'displayName': cluster.get('display_name', cluster_name)
             })
         self.finish(json.dumps(clusters))

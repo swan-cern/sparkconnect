@@ -11,7 +11,7 @@ class GetConfigBundlesRouteHandler(SparkConnectAPIHandler):
             bundle = self.spark_config_bundles[bundle_name]
             bundles.append({
                 'name': bundle_name,
-                'displayName': bundle.get('display_name'),
+                'displayName': bundle.get('display_name', bundle_name),
                 'clusterFilter': bundle.get('cluster_filter'),
                 'options': bundle.get('options', [])
             })

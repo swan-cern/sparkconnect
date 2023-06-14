@@ -7,12 +7,12 @@ export enum ExtensionState {
 
 export interface SparkCluster {
   name: string;
-  displayName?: string;
+  displayName: string;
 }
 
 export interface SparkConfigBundle {
   name: string;
-  displayName?: string;
+  displayName: string;
   options: Array<{
     name: string;
     value: string;
