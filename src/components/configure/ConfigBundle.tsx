@@ -75,8 +75,7 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
             render={(eventProps, animationProps) => (
               <div {...eventProps} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                 <div {...animationProps} />
-                <span style={{ color: 'var(--jp-ui-font-color1)' }}>{bundle.label}</span>
-                <div style={{ flex: 1 }} />
+                <span style={{ color: 'var(--jp-ui-font-color1)', flex: 1, textOverflow: 'ellipsis', overflow: 'hidden' }}>{bundle.label}</span>
                 <div
                   onClick={e => {
                     showDetails(bundle.bundle);
