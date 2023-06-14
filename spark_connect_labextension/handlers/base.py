@@ -13,3 +13,7 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
     @property
     def spark_config_bundles(self):
         return self.ext_config['config_bundles']
+    
+    @property
+    def spark_options(self):
+        return self.ext_config['spark_options']

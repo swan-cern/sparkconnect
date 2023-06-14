@@ -6,6 +6,7 @@ from spark_connect_labextension.handlers.cluster.get_cluster_logs import GetClus
 from spark_connect_labextension.handlers.cluster.get_cluster_status import GetClusterStatusRouteHandler
 from spark_connect_labextension.handlers.cluster.get_clusters import GetClustersRouteHandler
 from spark_connect_labextension.handlers.cluster.get_config_bundles import GetConfigBundlesRouteHandler
+from spark_connect_labextension.handlers.cluster.get_config_options import GetConfigOptionsRouteHandler
 
 
 class SparkConnectExtensionApp(ExtensionApp):
@@ -27,6 +28,7 @@ class SparkConnectExtensionApp(ExtensionApp):
         handlers = [
             (f"{self.base_url}/clusters", GetClustersRouteHandler),
             (f"{self.base_url}/config-bundles", GetConfigBundlesRouteHandler),
+            (f"{self.base_url}/config-options", GetConfigOptionsRouteHandler),
             (f"{self.base_url}/cluster/start", StartClusterRouteHandler),
             (f"{self.base_url}/cluster/stop", StopClusterRouteHandler),
             (f"{self.base_url}/cluster/logs", GetClusterLogRouteHandler),

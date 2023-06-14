@@ -2,7 +2,7 @@ import { ILabShell, JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/a
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 import { requestAPI } from './handler';
 import SidebarPanel from './widgets/SidebarPanel';
-import { SparkCluster, SparkConfigBundle } from './types';
+import { SparkCluster, SparkConfigBundle, SparkConfigOption } from './types';
 import { UIStore } from './store/UIStore';
 
 const EXTENSION_ID = 'spark-connect-labextension';
@@ -46,9 +46,11 @@ function activateSidebarPanel(app: JupyterFrontEnd, labShell: ILabShell) {
 async function loadExtensionState() {
   const clusters = await requestAPI<SparkCluster[]>('/clusters');
   const configBundles = await requestAPI<SparkConfigBundle[]>('/config-bundles');
+  const configOptions = await requestAPI<SparkConfigOption[]>('/config-options');
   UIStore.update(s => {
     s.clusters = clusters;
     s.configBundleOptions = configBundles;
+    s.configOptions = configOptions;
   });
 }
 

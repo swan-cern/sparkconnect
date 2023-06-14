@@ -20,3 +20,8 @@ export interface SparkConfigBundle {
   }>;
   clusterFilter?: string[];
 }
+
+export interface SparkConfigOption {
+  category?: string;
+  name: string;
+}
