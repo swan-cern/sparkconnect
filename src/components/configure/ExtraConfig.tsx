@@ -21,7 +21,12 @@ const ExtraConfig: React.FC<MyProps> = ({ clusterName, selectedConfigBundles, ex
 
   return (
     <div>
-      <button onClick={addExtraConfig}>Add config</button>
+      <button onClick={addExtraConfig} className="jp-Button" style={{ width: '100%' }}>
+        <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
+          add_circle
+        </span>{' '}
+        &nbsp;Add
+      </button>
     </div>
   );
 };
