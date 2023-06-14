@@ -39,6 +39,16 @@ const Configure: React.FC = () => {
                 .
               </small>
             </div>
+            <div
+              style={{ fontSize: '11px', marginTop: 8, padding: 4, borderRadius: 'var(--jp-border-radius)', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, color: 'var(--jp-warn-color1)', border: '1px solid var(--jp-warn-color2)' }}
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
+                error
+              </span>
+              <div>
+                This will override option from <b>S3Filesystem</b>.
+              </div>
+            </div>
           </Section>
         </>
       )}
