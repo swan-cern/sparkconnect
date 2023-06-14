@@ -1,17 +1,21 @@
-import React, { useState } from 'react';
+import React from 'react';
 import UseAnimations from 'react-useanimations';
 import checkBox from 'react-useanimations/lib/checkBox';
+import { UIStore } from '../../store/UIStore';
 
-const ConfigBundle: React.FC = () => {
-  const configBundles = [
-    { label: 'Long running analysis', value: 'longRunningAnalysis' },
-    { label: 'Memory-intensive', value: 'memoryIntensive' },
-    { label: 'Compute-intensive', value: 'computeIntensive' },
-    { label: 'Enable Spark metrics', value: 'enableSparkMetrics' },
-    { label: 'Enable S3 filesystem', value: 'enableS3Filesystem' },
-  ];
+interface MyProps {
+  clusterName: string;
+  selected: string[];
+  setSelected: (selected: string[]) => void;
+}
 
-  const [selected, setSelected] = useState<string[]>([]);
+const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected }) => {
+  const configBundles = UIStore.useState(s => s.configBundleOptions)
+    .filter(b => !b.clusterFilter || b.clusterFilter.includes(clusterName))
+    .map(b => ({
+      label: b.displayName ?? b.name,
+      value: b.name
+    }));
 
   const toggle = (value: string) => {
     const isSelected = selected.includes(value);
@@ -29,6 +33,7 @@ const ConfigBundle: React.FC = () => {
         const isSelected = selected.includes(bundle.value);
         return (
           <UseAnimations
+            key={bundle.value}
             animation={checkBox}
             size={20}
             speed={2}
@@ -38,9 +43,7 @@ const ConfigBundle: React.FC = () => {
             render={(eventProps, animationProps) => (
               <div {...eventProps}>
                 <div {...animationProps} />
-                <span style={{ color: 'var(--jp-ui-font-color1)' }}>
-                  {bundle.label}
-                </span>
+                <span style={{ color: 'var(--jp-ui-font-color1)' }}>{bundle.label}</span>
               </div>
             )}
           />
