@@ -1,7 +1,9 @@
 import React from 'react';
 import UseAnimations from 'react-useanimations';
 import checkBox from 'react-useanimations/lib/checkBox';
+import { showDialog } from '@jupyterlab/apputils';
 import { UIStore } from '../../store/UIStore';
+import { SparkConfigBundle } from '../../types';
 
 interface MyProps {
   clusterName: string;
@@ -14,7 +16,8 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
     .filter(b => !b.clusterFilter || b.clusterFilter.includes(clusterName))
     .map(b => ({
       label: b.displayName,
-      value: b.name
+      value: b.name,
+      bundle: b
     }));
 
   const toggle = (value: string) => {
@@ -25,6 +28,35 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
     } else {
       setSelected(selected.filter(x => x !== value));
     }
+  };
+
+  const showDetails = (bundle: SparkConfigBundle) => {
+    showDialog({
+      title: bundle.displayName,
+      buttons: [
+        {
+          label: 'Close',
+          caption: 'Close dialog',
+          className: '',
+          accept: true,
+          displayType: 'default',
+          ariaLabel: '',
+          iconClass: '',
+          iconLabel: '',
+          actions: []
+        }
+      ],
+      body: (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 400 }}>
+          {bundle.options.map(option => (
+            <div>
+              <div>{option.name}</div>
+              <small style={{ color: 'var(--jp-ui-font-color2)' }}>{option.value}</small>
+            </div>
+          ))}
+        </div>
+      )
+    });
   };
 
   return (
@@ -41,9 +73,20 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
             onClick={() => toggle(bundle.value)}
             strokeColor={isSelected ? 'var(--md-green-600)' : 'var(--jp-ui-font-color2)'}
             render={(eventProps, animationProps) => (
-              <div {...eventProps}>
+              <div {...eventProps} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
                 <div {...animationProps} />
                 <span style={{ color: 'var(--jp-ui-font-color1)' }}>{bundle.label}</span>
+                <div style={{ flex: 1 }} />
+                <div
+                  onClick={e => {
+                    showDetails(bundle.bundle);
+                    e.stopPropagation();
+                  }}
+                >
+                  <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-content-link-color)' }}>
+                    info
+                  </span>
+                </div>
               </div>
             )}
           />

@@ -55,7 +55,7 @@ const Configure: React.FC = () => {
   }, [selectedConfigBundles, configuredOptionsFromBundle, configOption]);
 
   return (
-    <div style={{ flex: 1 }}>
+    <div style={{ flex: 1, overflow: 'auto' }}>
       <div style={{ padding: 8 }}>
         <SparkLogo />
         <h3 className="jp-SparkConnectExtension-heading">Connect to Cluster</h3>
