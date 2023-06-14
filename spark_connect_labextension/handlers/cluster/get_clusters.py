@@ -6,4 +6,11 @@ import json
 class GetClustersRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     def get(self):
-        self.finish(json.dumps(self.spark_clusters))
+        clusters = []
+        for cluster_name in self.spark_clusters:
+            cluster = self.spark_clusters[cluster_name]
+            clusters.append({
+                'name': cluster_name,
+                'displayName': cluster.get('display_name')
+            })
+        self.finish(json.dumps(clusters))

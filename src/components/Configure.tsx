@@ -4,12 +4,10 @@ import Select from './Select';
 import { Section } from './Section';
 import ConfigBundle from './configure/ConfigBundle';
 import { TextField } from './TextField';
+import { UIStore } from '../store/UIStore';
 
 const Configure: React.FC = () => {
-  const options = [
-    { label: 'Cloud Containers (k8s)', value: 'k8s' },
-    { label: 'Analytix', value: 'analytix' }
-  ];
+  const options = UIStore.useState(s => s.clusters).map(c => ({ label: c.displayName ?? c.name, value: c.name }));
 
   return (
     <div style={{ flex: 1 }}>
@@ -17,21 +15,13 @@ const Configure: React.FC = () => {
         <SparkLogo />
         <h3 className="jp-SparkConnectExtension-heading">Connect to Cluster</h3>
       </div>
-      <Section
-        title="Cluster"
-        style={{ padding: 8 }}
-        headingStyle={{ marginTop: 16 }}
-      >
+      <Section title="Cluster" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
         <Select options={options} />
       </Section>
       <Section title="Configuration Bundle" headingStyle={{ marginTop: 8 }}>
         <ConfigBundle />
       </Section>
-      <Section
-        title="Extra Configuration"
-        style={{ padding: 8 }}
-        headingStyle={{ marginTop: 16 }}
-      >
+      <Section title="Extra Configuration" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
         <TextField placeholder="Option" />
         <div style={{ marginTop: 8 }} />
         <TextField placeholder="Value" />
