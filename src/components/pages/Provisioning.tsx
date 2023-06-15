@@ -3,6 +3,7 @@ import MoonLoader from 'react-spinners/MoonLoader';
 import SparkLogo from '../SparkLogo';
 import useStatus from '../../hooks/useStatus';
 import useCluster from '../../hooks/useCluster';
+import useJupyterLabApp from '../../hooks/useJupyterLabApp';
 
 const Provisioning: React.FC = () => {
   const { mutate } = useStatus();
@@ -13,6 +14,11 @@ const Provisioning: React.FC = () => {
   }, []);
 
   const cluster = useCluster();
+
+  const app = useJupyterLabApp();
+  const viewLogs = () => {
+    app?.commands.execute('sparkconnect:viewLogs');
+  };
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -27,8 +33,8 @@ const Provisioning: React.FC = () => {
         </div>
       </div>
       <div style={{ padding: 8 }}>
-        <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }}>
-          View log
+        <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }} onClick={viewLogs}>
+          View logs
         </button>
       </div>
     </div>

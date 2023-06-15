@@ -4,6 +4,7 @@ import { Section } from '../Section';
 import { requestAPI } from '../../handler';
 import useStatus from '../../hooks/useStatus';
 import useCluster from '../../hooks/useCluster';
+import useJupyterLabApp from '../../hooks/useJupyterLabApp';
 
 const Ready: React.FC = () => {
   const { mutate } = useStatus();
@@ -12,6 +13,11 @@ const Ready: React.FC = () => {
   };
 
   const cluster = useCluster();
+
+  const app = useJupyterLabApp();
+  const viewLogs = () => {
+    app?.commands.execute('sparkconnect:viewLogs');
+  };
 
   return (
     <div style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
@@ -32,7 +38,7 @@ const Ready: React.FC = () => {
         <code>Code</code>
       </Section>
       <Section title="Logs" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
-        <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }}>
+        <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }} onClick={viewLogs}>
           View logs
         </button>
       </Section>
