@@ -4,6 +4,7 @@ import { JupyterFrontEnd } from '@jupyterlab/application';
 import { JupyterLabAppContext } from '../const';
 import { SWRConfig } from 'swr';
 import { requestAPI } from '../handler';
+import LogsWidget from '../components/LogsWidget';
 
 export interface SidebarPanelOptions {
   app: JupyterFrontEnd;
@@ -29,7 +30,9 @@ export class LogsMainAreaWidget extends VDomRenderer {
 
     return (
       <JupyterLabAppContext.Provider value={this.app}>
-        <SWRConfig value={swrOptions}>Logs panel</SWRConfig>
+        <SWRConfig value={swrOptions}>
+          <LogsWidget />
+        </SWRConfig>
       </JupyterLabAppContext.Provider>
     );
   }
