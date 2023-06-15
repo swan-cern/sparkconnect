@@ -5,6 +5,8 @@ import { Section } from './Section';
 import ConfigBundle from './configure/ConfigBundle';
 import { UIStore } from '../store/UIStore';
 import ExtraConfig from './configure/ExtraConfig';
+import { requestAPI } from '../handler';
+import useStatus from '../hooks/useStatus';
 
 const Configure: React.FC = () => {
   const clusterOptions = UIStore.useState(s => s.clusters).map(c => ({ label: c.displayName, value: c.name }));
@@ -12,6 +14,20 @@ const Configure: React.FC = () => {
   const [cluster, setCluster] = useState<{ label: String; value: string }>();
   const [selectedConfigBundles, setSelectedConfigBundles] = useState<string[]>([]);
   const [extraConfig, setExtraConfig] = useState<{ [key: string]: any }>({});
+
+  const { mutate } = useStatus();
+  const connect = () => {
+    UIStore.update(s => {
+      s.isConnecting = true;
+    });
+    requestAPI<any>('/cluster/start', { method: 'GET' })
+      .then(mutate)
+      .finally(() => {
+        UIStore.update(s => {
+          s.isConnecting = false;
+        });
+      });
+  };
 
   return (
     <div style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
@@ -32,7 +48,7 @@ const Configure: React.FC = () => {
           </Section>
           <div style={{ flex: 1 }} />
           <div style={{ padding: 8 }}>
-            <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }}>
+            <button className="jp-Button jp-mod-styled jp-mod-accept" onClick={connect} style={{ width: '100%' }}>
               Connect
             </button>
           </div>

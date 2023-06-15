@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import MoonLoader from 'react-spinners/MoonLoader';
 import SparkLogo from './SparkLogo';
+import useStatus from '../hooks/useStatus';
 
 const Provisioning: React.FC = () => {
+  const { mutate } = useStatus();
+
+  useEffect(() => {
+    const handle = setInterval(mutate, 1000);
+    return () => clearInterval(handle);
+  }, []);
+
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}>

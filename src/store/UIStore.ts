@@ -5,10 +5,12 @@ interface IUIStore {
   clusters: SparkCluster[];
   configBundleOptions: SparkConfigBundle[];
   configOptions: SparkConfigOption[];
+  isConnecting: boolean;
 }
 
 export const UIStore = new Store<IUIStore>({
   clusters: [],
   configBundleOptions: [],
-  configOptions: []
+  configOptions: [],
+  isConnecting: false
 });

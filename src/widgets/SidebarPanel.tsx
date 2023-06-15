@@ -4,6 +4,8 @@ import { JupyterFrontEnd } from '@jupyterlab/application';
 import { JupyterLabAppContext } from '../const';
 import SparkIcon from '../icons/SparkIcon';
 import Panel from '../components/Panel';
+import { SWRConfig } from 'swr';
+import { requestAPI } from '../handler';
 export interface SidebarPanelOptions {
   app: JupyterFrontEnd;
 }
@@ -24,9 +26,7 @@ export class SidebarPanel extends VDomRenderer {
     this.app = app;
 
     if (error) {
-      this.error =
-        error ??
-        'Failed to activate extension. Make sure that the extension is configured and installed properly.';
+      this.error = error ?? 'Failed to activate extension. Make sure that the extension is configured and installed properly.';
       return;
     }
   }
@@ -36,9 +36,15 @@ export class SidebarPanel extends VDomRenderer {
       return <div style={{ padding: 12 }}>{this.error}</div>;
     }
 
+    const swrOptions = {
+      fetcher: (url: string, init: RequestInit) => requestAPI<any>(url, init)
+    };
+
     return (
       <JupyterLabAppContext.Provider value={this.app}>
-        <Panel />
+        <SWRConfig value={swrOptions}>
+          <Panel />
+        </SWRConfig>
       </JupyterLabAppContext.Provider>
     );
   }
