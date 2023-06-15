@@ -14,7 +14,7 @@ const Configure: React.FC = () => {
   const [extraConfig, setExtraConfig] = useState<{ [key: string]: any }>({});
 
   return (
-    <div style={{ flex: 1, overflow: 'auto' }}>
+    <div style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
       <div style={{ padding: 8 }}>
         <SparkLogo />
         <h3 className="jp-SparkConnectExtension-heading">Connect to Cluster</h3>
@@ -30,6 +30,12 @@ const Configure: React.FC = () => {
           <Section title="Extra Configuration" headingStyle={{ marginTop: 16 }}>
             <ExtraConfig clusterName={cluster.value} selectedConfigBundles={selectedConfigBundles} extraConfig={extraConfig} setExtraConfig={setExtraConfig} />
           </Section>
+          <div style={{ flex: 1 }} />
+          <div style={{ padding: 8 }}>
+            <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }}>
+              Connect
+            </button>
+          </div>
         </>
       )}
     </div>
