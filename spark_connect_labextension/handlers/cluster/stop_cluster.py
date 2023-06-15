@@ -7,7 +7,7 @@ from spark_connect_labextension.sparkconnectserver.cluster import cluster
 
 class StopClusterRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
-    def get(self):  # TODO use POST
+    def post(self):
         try:
             cluster.stop()
             self.finish(json.dumps({

@@ -4,6 +4,7 @@ import Configure from './pages/Configure';
 import Provisioning from './pages/Provisioning';
 import { UIStore } from '../store/UIStore';
 import useStatus from '../hooks/useStatus';
+import Ready from './pages/Ready';
 
 const Panel: React.FC = () => {
   const isConnecting = UIStore.useState(s => s.isConnecting);
@@ -38,6 +39,7 @@ const Panel: React.FC = () => {
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       {currentState === ExtensionState.CONFIGURING && <Configure />}
       {currentState === ExtensionState.PROVISIONING && <Provisioning />}
+      {currentState === ExtensionState.READY && <Ready />}
     </div>
   );
 };

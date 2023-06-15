@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import MoonLoader from 'react-spinners/MoonLoader';
 import SparkLogo from '../SparkLogo';
 import useStatus from '../../hooks/useStatus';
-import { UIStore } from '../../store/UIStore';
+import useCluster from '../../hooks/useCluster';
 
 const Provisioning: React.FC = () => {
   const { mutate } = useStatus();
@@ -12,9 +12,7 @@ const Provisioning: React.FC = () => {
     return () => clearInterval(handle);
   }, []);
 
-  const clusterName = UIStore.useState(s => s.clusterName);
-  const clusters = UIStore.useState(s => s.clusters);
-  const clusterDisplayName = clusters.find(c => c.name === clusterName)?.displayName;
+  const cluster = useCluster();
 
   return (
     <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
@@ -22,7 +20,7 @@ const Provisioning: React.FC = () => {
         <SparkLogo />
         <h3 className="jp-SparkConnectExtension-heading">Connecting</h3>
         <p style={{ marginTop: 8 }}>
-          Please wait, we're connecting to <b>{clusterDisplayName}</b>.
+          Please wait, we're connecting to <b>{cluster?.displayName}</b>.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 120, marginTop: 8 }}>
           <MoonLoader size={36} color="var(--jp-ui-font-color1)" />
