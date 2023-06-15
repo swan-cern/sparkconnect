@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo } from 'react';
 import { ExtensionState } from '../types';
-import Configure from './Configure';
-import Provisioning from './Provisioning';
+import Configure from './pages/Configure';
+import Provisioning from './pages/Provisioning';
 import { UIStore } from '../store/UIStore';
 import useStatus from '../hooks/useStatus';
 

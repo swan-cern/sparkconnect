@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import SparkLogo from './SparkLogo';
-import Select from './Select';
-import { Section } from './Section';
-import ConfigBundle from './configure/ConfigBundle';
-import { UIStore } from '../store/UIStore';
-import ExtraConfig from './configure/ExtraConfig';
-import { requestAPI } from '../handler';
-import useStatus from '../hooks/useStatus';
+import SparkLogo from '../SparkLogo';
+import Select from '../Select';
+import { Section } from '../Section';
+import ConfigBundle from '../configure/ConfigBundle';
+import { UIStore } from '../../store/UIStore';
+import ExtraConfig from '../configure/ExtraConfig';
+import { requestAPI } from '../../handler';
+import useStatus from '../../hooks/useStatus';
 
 const Configure: React.FC = () => {
   const clusterOptions = UIStore.useState(s => s.clusters).map(c => ({ label: c.displayName, value: c.name }));

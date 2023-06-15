@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import MoonLoader from 'react-spinners/MoonLoader';
-import SparkLogo from './SparkLogo';
-import useStatus from '../hooks/useStatus';
-import { UIStore } from '../store/UIStore';
+import SparkLogo from '../SparkLogo';
+import useStatus from '../../hooks/useStatus';
+import { UIStore } from '../../store/UIStore';
 
 const Provisioning: React.FC = () => {
   const { mutate } = useStatus();
