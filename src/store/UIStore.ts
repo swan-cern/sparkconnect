@@ -6,6 +6,7 @@ interface IUIStore {
   configBundleOptions: SparkConfigBundle[];
   configOptions: SparkConfigOption[];
   isConnecting: boolean;
+  clusterName?: string;
 }
 
 export const UIStore = new Store<IUIStore>({

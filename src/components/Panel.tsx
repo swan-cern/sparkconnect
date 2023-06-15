@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { ExtensionState } from '../types';
 import Configure from './Configure';
 import Provisioning from './Provisioning';
@@ -8,6 +8,15 @@ import useStatus from '../hooks/useStatus';
 const Panel: React.FC = () => {
   const isConnecting = UIStore.useState(s => s.isConnecting);
   const { data } = useStatus();
+  const clusterName = data?.clusterName;
+  useEffect(() => {
+    if (!!clusterName) {
+      UIStore.update(s => {
+        s.clusterName = clusterName;
+      });
+    }
+  }, [clusterName]);
+
   const status = data?.status;
   const currentState = useMemo(() => {
     if (isConnecting) {

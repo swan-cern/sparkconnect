@@ -8,4 +8,7 @@ class GetClusterStatusRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     def get(self):
         status = cluster.get_status()
-        self.finish(json.dumps({'status': status.name}))
+        self.finish(json.dumps({
+            'status': status.name, 
+            'clusterName': cluster.cluster_name
+        }))

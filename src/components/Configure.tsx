@@ -19,8 +19,18 @@ const Configure: React.FC = () => {
   const connect = () => {
     UIStore.update(s => {
       s.isConnecting = true;
+      s.clusterName = cluster?.value;
     });
-    requestAPI<any>('/cluster/start', { method: 'GET' })
+
+    const requestBody = {
+      cluster: cluster?.value
+    };
+
+    requestAPI<any>('/cluster/start', {
+      method: 'POST',
+      body: JSON.stringify(requestBody),
+      headers: { 'Content-Type': 'application/json' }
+    })
       .then(mutate)
       .finally(() => {
         UIStore.update(s => {

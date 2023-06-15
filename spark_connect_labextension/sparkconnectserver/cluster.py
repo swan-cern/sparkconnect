@@ -17,9 +17,11 @@ class ClusterStatus(Enum):
 class _SparkConnectCluster:
     def __init__(self):
         self.tmpdir = tempfile.TemporaryDirectory()
+        self.cluster_name = None
 
-    def start(self, options: dict = {}, envs: dict = None):
+    def start(self, cluster_name: str, options: dict = {}, envs: dict = None):
         print("Starting Spark Connect server...")
+        self.cluster_name = cluster_name
 
         self.tmpdir.cleanup()
 
