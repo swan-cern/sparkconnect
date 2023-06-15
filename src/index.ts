@@ -1,9 +1,12 @@
 import { ILabShell, JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
+import { MainAreaWidget, ICommandPalette } from '@jupyterlab/apputils';
 import { requestAPI } from './handler';
 import SidebarPanel from './widgets/SidebarPanel';
 import { SparkCluster, SparkConfigBundle, SparkConfigOption } from './types';
 import { UIStore } from './store/UIStore';
+import LogsMainAreaWidget from './widgets/LogsMainAreaWidget';
+import SparkIcon from './icons/SparkIcon';
 
 const EXTENSION_ID = 'spark-connect-labextension';
 
@@ -14,9 +17,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
   id: EXTENSION_ID + ':plugin',
   description: 'A JupyterLab Extension to connect to Apache Spark using Spark Connect',
   autoStart: true,
-  optional: [ISettingRegistry],
+  optional: [ISettingRegistry, ICommandPalette],
   requires: [ILabShell],
-  activate: (app: JupyterFrontEnd, labShell: ILabShell, settingRegistry: ISettingRegistry | null) => {
+  activate: (app: JupyterFrontEnd, labShell: ILabShell, settingRegistry: ISettingRegistry | null, commandPalette: ICommandPalette) => {
     console.log('JupyterLab extension spark-connect-labextension is activated!');
 
     if (settingRegistry) {
@@ -28,6 +31,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         .then(loadExtensionState)
         .then(() => {
           activateSidebarPanel(app, labShell);
+          addLogsMainAreaWidget(app, commandPalette);
         })
         .catch(reason => {
           console.error('Failed to load settings for spark-connect-labextension.', reason);
@@ -41,6 +45,40 @@ function activateSidebarPanel(app: JupyterFrontEnd, labShell: ILabShell) {
   sidebarPanel.id = EXTENSION_ID + ':panel';
   labShell.add(sidebarPanel, 'right', { rank: 900 });
   labShell.activateById(sidebarPanel.id);
+}
+
+function addLogsMainAreaWidget(app: JupyterFrontEnd, palette: ICommandPalette) {
+  // Define a widget creator function,
+  // then call it to make a new widget
+  const newWidget = () => {
+    // Create a blank content widget inside of a MainAreaWidget
+    const content = new LogsMainAreaWidget({ app });
+    const widget = new MainAreaWidget({ content });
+    widget.id = 'sparkconnect-logs';
+    widget.title.label = 'Spark Logs';
+    widget.title.closable = true;
+    widget.title.icon = SparkIcon;
+    return widget;
+  };
+
+  let widget = newWidget();
+
+  const command: string = 'sparkconnect:viewLogs';
+  app.commands.addCommand(command, {
+    label: 'View Spark Logs',
+    execute: () => {
+      if (widget.isDisposed) {
+        widget = newWidget();
+      }
+      if (!widget.isAttached) {
+        app.shell.add(widget, 'main');
+      }
+
+      app.shell.activateById(widget.id);
+    }
+  });
+
+  palette.addItem({ command, category: 'View Spark Logs' });
 }
 
 async function loadExtensionState() {
