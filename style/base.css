@@ -66,3 +66,12 @@
   gap: 8px;
   font-size: var(--jp-ui-font-size0);
 }
+
+.jp-SparkConnectExtension-link {
+  color: var(--md-blue-300);
+  cursor: pointer;
+}
+
+.jp-SparkConnectExtension-link:hover {
+  color: var(--md-blue-400);
+}

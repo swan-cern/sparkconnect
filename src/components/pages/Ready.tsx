@@ -5,6 +5,7 @@ import { requestAPI } from '../../handler';
 import useStatus from '../../hooks/useStatus';
 import useCluster from '../../hooks/useCluster';
 import useJupyterLabApp from '../../hooks/useJupyterLabApp';
+import CodePreview from '../ready/CodePreview';
 
 const Ready: React.FC = () => {
   const { mutate } = useStatus();
@@ -40,7 +41,8 @@ const Ready: React.FC = () => {
         </div>
       </div>
       <Section title="Code" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
-        <code>Code</code>
+        <p style={{ marginTop: 4, fontSize: 'var(--jp-ui-font-size1)' }}>Use this code to start using:</p>
+        <CodePreview />
       </Section>
       <Section title="Menu" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
         <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }} onClick={viewWebUI}>
