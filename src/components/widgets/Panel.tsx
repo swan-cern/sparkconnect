@@ -1,10 +1,10 @@
 import React, { useEffect, useMemo } from 'react';
-import { ExtensionState } from '../types';
-import Configure from './pages/Configure';
-import Provisioning from './pages/Provisioning';
-import { UIStore } from '../store/UIStore';
-import useStatus from '../hooks/useStatus';
-import Ready from './pages/Ready';
+import { ExtensionState } from '../../types';
+import Configure from '../pages/Configure';
+import Provisioning from '../pages/Provisioning';
+import { UIStore } from '../../store/UIStore';
+import useStatus from '../../hooks/useStatus';
+import Ready from '../pages/Ready';
 
 const Panel: React.FC = () => {
   const isConnecting = UIStore.useState(s => s.isConnecting);

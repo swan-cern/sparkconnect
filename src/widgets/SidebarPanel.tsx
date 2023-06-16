@@ -3,7 +3,7 @@ import { VDomRenderer } from '@jupyterlab/apputils';
 import { JupyterFrontEnd } from '@jupyterlab/application';
 import { JupyterLabAppContext } from '../const';
 import SparkIcon from '../icons/SparkIcon';
-import Panel from '../components/Panel';
+import Panel from '../components/widgets/Panel';
 import { SWRConfig } from 'swr';
 import { requestAPI } from '../handler';
 export interface SidebarPanelOptions {

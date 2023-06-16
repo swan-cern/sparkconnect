@@ -4,7 +4,7 @@ import { JupyterFrontEnd } from '@jupyterlab/application';
 import { JupyterLabAppContext } from '../const';
 import { SWRConfig } from 'swr';
 import { requestAPI } from '../handler';
-import LogsWidget from '../components/LogsWidget';
+import LogsWidget from '../components/widgets/LogsWidget';
 
 export interface SidebarPanelOptions {
   app: JupyterFrontEnd;
