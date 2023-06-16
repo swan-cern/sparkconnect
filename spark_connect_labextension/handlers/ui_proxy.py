@@ -1,9 +1,14 @@
 from jupyter_server_proxy.handlers import ProxyHandler
+from spark_connect_labextension.config import EXTENSION_ID
 
 SPARK_WEBUI_HOST = 'localhost'
 SPARK_WEBUI_PORT = 4040
 
 class SparkUIProxyHandler(ProxyHandler):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.proxy_base = f'/{EXTENSION_ID}/ui'
+
     async def http_get(self, proxied_path):
         return await self.proxy(proxied_path)
 

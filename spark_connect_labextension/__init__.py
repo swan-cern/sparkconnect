@@ -1,11 +1,12 @@
 from ._version import __version__
 from .app import SparkConnectExtensionApp
+from .config import EXTENSION_ID
 
 
 def _jupyter_labextension_paths():
     return [{
         "src": "labextension",
-        "dest": "spark-connect-labextension"
+        "dest": EXTENSION_ID
     }]
 
 

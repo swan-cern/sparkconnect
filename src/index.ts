@@ -7,8 +7,8 @@ import { SparkCluster, SparkConfigBundle, SparkConfigOption } from './types';
 import { UIStore } from './store/UIStore';
 import LogsMainAreaWidget from './widgets/LogsMainAreaWidget';
 import SparkIcon from './icons/SparkIcon';
-
-const EXTENSION_ID = 'spark-connect-labextension';
+import SparkWebuiMainAreaWidget from './widgets/SparkWebuiMainAreaWidget';
+import { EXTENSION_ID } from './const';
 
 /**
  * Initialization data for the spark-connect-labextension extension.
@@ -32,6 +32,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         .then(() => {
           activateSidebarPanel(app, labShell);
           addLogsMainAreaWidget(app, commandPalette);
+          addSparkWebuiMainAreaWidget(app, commandPalette);
         })
         .catch(reason => {
           console.error('Failed to load settings for spark-connect-labextension.', reason);
@@ -79,6 +80,37 @@ function addLogsMainAreaWidget(app: JupyterFrontEnd, palette: ICommandPalette) {
   });
 
   palette.addItem({ command, category: 'View Spark Logs' });
+}
+
+function addSparkWebuiMainAreaWidget(app: JupyterFrontEnd, palette: ICommandPalette) {
+  const newWidget = () => {
+    const content = new SparkWebuiMainAreaWidget({ app });
+    const widget = new MainAreaWidget({ content });
+    widget.id = 'sparkconnect-webui';
+    widget.title.label = 'Spark WebUI';
+    widget.title.closable = true;
+    widget.title.icon = SparkIcon;
+    return widget;
+  };
+
+  let widget = newWidget();
+
+  const command: string = 'sparkconnect:viewWebUI';
+  app.commands.addCommand(command, {
+    label: 'View Spark WebUI',
+    execute: () => {
+      if (widget.isDisposed) {
+        widget = newWidget();
+      }
+      if (!widget.isAttached) {
+        app.shell.add(widget, 'main');
+      }
+
+      app.shell.activateById(widget.id);
+    }
+  });
+
+  palette.addItem({ command, category: 'View Spark WebUI' });
 }
 
 async function loadExtensionState() {
