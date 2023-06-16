@@ -25,7 +25,7 @@ const Provisioning: React.FC = () => {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}>
         <SparkLogo />
         <h3 className="jp-SparkConnectExtension-heading">Connecting</h3>
-        <p style={{ marginTop: 8 }}>
+        <p style={{ padding: 8 }}>
           Please wait, we're connecting to <b>{cluster?.displayName}</b>.
         </p>
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 120, marginTop: 8 }}>
