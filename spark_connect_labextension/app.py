@@ -1,13 +1,27 @@
 from jupyter_server.extension.application import ExtensionApp
 from traitlets import List, Dict, Unicode, Enum
-from spark_connect_labextension.handlers.cluster.start_cluster import StartClusterRouteHandler
-from spark_connect_labextension.handlers.cluster.stop_cluster import StopClusterRouteHandler
-from spark_connect_labextension.handlers.cluster.get_cluster_logs import GetClusterLogRouteHandler
-from spark_connect_labextension.handlers.cluster.get_cluster_status import GetClusterStatusRouteHandler
-from spark_connect_labextension.handlers.cluster.get_clusters import GetClustersRouteHandler
-from spark_connect_labextension.handlers.cluster.get_config_bundles import GetConfigBundlesRouteHandler
-from spark_connect_labextension.handlers.cluster.get_config_options import GetConfigOptionsRouteHandler
-from spark_connect_labextension.handlers.ui_proxy import SparkUIProxyRouteHandler
+from spark_connect_labextension.handlers.cluster.start_cluster import (
+    StartClusterRouteHandler,
+)
+from spark_connect_labextension.handlers.cluster.stop_cluster import (
+    StopClusterRouteHandler,
+)
+from spark_connect_labextension.handlers.cluster.get_cluster_logs import (
+    GetClusterLogRouteHandler,
+)
+from spark_connect_labextension.handlers.cluster.get_cluster_status import (
+    GetClusterStatusRouteHandler,
+)
+from spark_connect_labextension.handlers.cluster.get_clusters import (
+    GetClustersRouteHandler,
+)
+from spark_connect_labextension.handlers.cluster.get_config_bundles import (
+    GetConfigBundlesRouteHandler,
+)
+from spark_connect_labextension.handlers.cluster.get_config_options import (
+    GetConfigOptionsRouteHandler,
+)
+from spark_connect_labextension.handlers.ui_proxy import SparkUIProxyHandler
 
 
 class SparkConnectExtensionApp(ExtensionApp):
@@ -23,7 +37,9 @@ class SparkConnectExtensionApp(ExtensionApp):
     template_paths = []
 
     def initialize_settings(self):
-        self.settings.update({'spark_connect_config': self.config['SparkConnectConfig']})
+        self.settings.update(
+            {"spark_connect_config": self.config["SparkConnectConfig"]}
+        )
 
     def initialize_handlers(self):
         handlers = [
@@ -34,6 +50,6 @@ class SparkConnectExtensionApp(ExtensionApp):
             (f"{self.base_url}/cluster/stop", StopClusterRouteHandler),
             (f"{self.base_url}/cluster/logs", GetClusterLogRouteHandler),
             (f"{self.base_url}/cluster/status", GetClusterStatusRouteHandler),
-            (r"/spark-connect-labextension/ui/(.*?)?", SparkUIProxyRouteHandler),
+            (f"{self.base_url}/ui/(?P<proxied_path>.+)", SparkUIProxyHandler),
         ]
         self.handlers.extend(handlers)

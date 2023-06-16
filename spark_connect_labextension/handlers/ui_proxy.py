@@ -1,22 +1,32 @@
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
-import tornado
-import json
-import requests
+from jupyter_server_proxy.handlers import ProxyHandler
 
-# TODO add requests to setup.py
+SPARK_WEBUI_HOST = 'localhost'
+SPARK_WEBUI_PORT = 4040
 
-base_url = "/spark-connect-labextension/ui"
-spark_ui_base_url = 'http://localhost:4040'
+class SparkUIProxyHandler(ProxyHandler):
+    async def http_get(self, proxied_path):
+        return await self.proxy(proxied_path)
 
-class SparkUIProxyRouteHandler(SparkConnectAPIHandler):
-    @tornado.web.authenticated
-    def get(self, *args, **kwargs):
-        ui_path = self.request.uri[len(base_url):]
-        request_path = f"{spark_ui_base_url}{ui_path}"
-        r = requests.get(request_path, headers=dict(self.request.headers), allow_redirects=False)
-        # for header in r.headers:
-        #     value = r.headers[header]
-        #     self.add_header(header, value)
-        
-        content_type = r.headers.get('Content-Type', 'text/plain')
-        self.finish(r.text, set_content_type=content_type)
+    async def open(self, proxied_path):
+        return await super().proxy_open(SPARK_WEBUI_HOST, SPARK_WEBUI_PORT, proxied_path)
+
+    def post(self, proxied_path):
+        return self.proxy(proxied_path)
+
+    def put(self, proxied_path):
+        return self.proxy(proxied_path)
+
+    def delete(self, proxied_path):
+        return self.proxy(proxied_path)
+
+    def head(self, proxied_path):
+        return self.proxy(proxied_path)
+
+    def patch(self, proxied_path):
+        return self.proxy(proxied_path)
+
+    def options(self, proxied_path):
+        return self.proxy(proxied_path)
+
+    def proxy(self, proxied_path):
+        return super().proxy(SPARK_WEBUI_HOST, SPARK_WEBUI_PORT, proxied_path)

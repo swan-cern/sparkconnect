@@ -30,8 +30,6 @@ class _SparkConnectCluster:
         print("Spark log dir", self.tmpdir.name)
 
         options['spark.connect.grpc.binding.port'] = str(SPARK_CONNECT_PORT)
-        options['spark.ui.reverseProxyUrl'] = str("/spark-connect-labextension/ui")
-        options['spark.ui.reverseProxy'] = "true"
         config_args = self.get_config_args(options)
         run_script = f"{SPARK_HOME}/sbin/start-connect-server.sh --master local --packages {SPARK_CONNECT_PACKAGE} {config_args}"
         print(run_script)
