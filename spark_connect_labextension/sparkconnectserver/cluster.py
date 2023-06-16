@@ -32,7 +32,6 @@ class _SparkConnectCluster:
         options['spark.connect.grpc.binding.port'] = str(SPARK_CONNECT_PORT)
         config_args = self.get_config_args(options)
         run_script = f"{SPARK_HOME}/sbin/start-connect-server.sh --master local --packages {SPARK_CONNECT_PACKAGE} {config_args}"
-        print(run_script)
         retcode = subprocess.Popen(run_script, shell=True, env=env_variables).wait()
         if retcode != 0:
             raise Exception("Cannot start Spark Connect server")
