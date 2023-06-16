@@ -65,11 +65,13 @@ const ExtraConfig: React.FC<MyProps> = ({ clusterName, selectedConfigBundles, ex
         ))}
       </div>
       <div style={{ padding: 8 }}>
-        <button onClick={addExtraConfig} className="jp-Button jp-mod-styled jp-mod-reject" style={{ width: '100%' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
+        <button className="jp-ToolbarButtonComponent jp-mod-minimal jp-Button" style={{ background: 'var(--jp-layout-color2)', width: '100%' }} onClick={addExtraConfig}>
+          <span className="material-symbols-outlined" style={{ fontSize: 16 }}>
             add_circle
-          </span>{' '}
-          &nbsp;Add
+          </span>
+          <span className="jp-ToolbarButtonComponent-label" style={{ color: 'var(--jp-ui-font-color2)' }}>
+            Add
+          </span>
         </button>
       </div>
     </div>
