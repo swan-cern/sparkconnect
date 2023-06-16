@@ -7,7 +7,7 @@ import { SparkCluster, SparkConfigBundle, SparkConfigOption } from './types';
 import { UIStore } from './store/UIStore';
 import LogsMainAreaWidget from './widgets/LogsMainAreaWidget';
 import SparkIcon from './icons/SparkIcon';
-import SparkWebuiMainAreaWidget from './widgets/SparkWebuiMainAreaWidget';
+import SparkWebuiMainAreaWidget, { SparkWebuiToolbarWidget } from './widgets/SparkWebuiMainAreaWidget';
 import { EXTENSION_ID } from './const';
 
 /**
@@ -90,6 +90,8 @@ function addSparkWebuiMainAreaWidget(app: JupyterFrontEnd, palette: ICommandPale
     widget.title.label = 'Spark WebUI';
     widget.title.closable = true;
     widget.title.icon = SparkIcon;
+
+    widget.toolbar.addItem('spark-webui-toolbar', new SparkWebuiToolbarWidget({ app }));
     return widget;
   };
 

@@ -15,6 +15,11 @@ const Ready: React.FC = () => {
   const cluster = useCluster();
 
   const app = useJupyterLabApp();
+
+  const viewWebUI = () => {
+    app?.commands.execute('sparkconnect:viewWebUI');
+  };
+
   const viewLogs = () => {
     app?.commands.execute('sparkconnect:viewLogs');
   };
@@ -37,8 +42,11 @@ const Ready: React.FC = () => {
       <Section title="Code" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
         <code>Code</code>
       </Section>
-      <Section title="Logs" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
-        <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }} onClick={viewLogs}>
+      <Section title="Menu" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
+        <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }} onClick={viewWebUI}>
+          View Spark WebUI
+        </button>
+        <button className="jp-Button jp-mod-styled jp-mod-reject" style={{ width: '100%', marginTop: 8 }} onClick={viewLogs}>
           View logs
         </button>
       </Section>
