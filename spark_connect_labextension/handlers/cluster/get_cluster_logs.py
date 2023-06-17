@@ -8,8 +8,7 @@ class GetClusterLogRouteHandler(SparkConnectAPIHandler):
     def get(self):
         logs = cluster.get_log()
         if not logs:
-            self.set_status(404)
-            self.finish("Not Found")
+            self.finish("No Spark logs found.", set_content_type='text/plain')
             return
 
-        self.finish(logs)
+        self.finish(logs, set_content_type='text/plain')

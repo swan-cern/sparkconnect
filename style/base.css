@@ -89,11 +89,6 @@
   cursor: pointer;
 }
 
-.jp-SparkConnectExtension-link {
-  color: var(--md-blue-300);
-  cursor: pointer;
-}
-
-.jp-SparkConnectExtension-link:hover {
-  color: var(--md-blue-400);
+.jp-SparkConnectExtensionLogsWidget .cm-editor {
+  height: 100%;
 }

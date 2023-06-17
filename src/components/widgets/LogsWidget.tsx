@@ -1,14 +1,24 @@
 import React from 'react';
 import useSWR from 'swr';
+import CodeMirror from '@uiw/react-codemirror';
+import { jupyterTheme } from '@jupyterlab/codemirror';
 
 const LogsWidget: React.FC = () => {
   const { data } = useSWR('/cluster/logs', { refreshInterval: 500 });
 
   return (
-    <div style={{ padding: 8, overflow: 'auto', width: '100%', height: '100%', fontSize: 'var(--jp-ui-font-size0)' }}>
-      <small>
-        <pre>{data}</pre>
-      </small>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', width: '100%', height: '100%' }}>
+      <CodeMirror
+        value={data}
+        style={{ height: '100%' }}
+        theme={jupyterTheme}
+        editable={false}
+        basicSetup={{
+          highlightActiveLine: true,
+          lineNumbers: true,
+          highlightActiveLineGutter: true
+        }}
+      />
     </div>
   );
 };
