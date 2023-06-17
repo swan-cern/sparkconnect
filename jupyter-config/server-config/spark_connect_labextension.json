@@ -7,9 +7,14 @@
   "SparkConnectConfig": {
     "error_suggestions": [
       {
-        "pattern": "ERROR SparkContext: Failed to add file:(.+)",
+        "pattern": "ERROR SparkContext: Failed to add file:",
         "type": "error",
         "message": "Required files are missing."
+      },
+      {
+        "pattern": "org.apache.hadoop.security.AccessControlException: Client cannot authenticate via:[TOKEN, KERBEROS]",
+        "type": "info",
+        "message": "Please authenticate using <code>kinit</code> first."
       }
     ],
     "clusters": {

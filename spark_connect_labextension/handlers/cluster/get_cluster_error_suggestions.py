@@ -17,7 +17,6 @@ class GetClusterErrorSuggestionsRouteHandler(SparkConnectAPIHandler):
     
     def get_valid_suggestions(self, logs):
         valid_suggestions = []
-        print(self.error_suggestions)
         for suggestion in self.error_suggestions:
             match = re.search(suggestion['pattern'], logs)
             if match:
