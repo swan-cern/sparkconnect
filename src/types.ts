@@ -25,3 +25,9 @@ export interface SparkConfigOption {
   category?: string;
   name: string;
 }
+
+export interface SparkClusterStatus {
+  status: string;
+  clusterName: string;
+  port: number;
+}

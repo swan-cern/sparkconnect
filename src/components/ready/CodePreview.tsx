@@ -3,23 +3,27 @@ import { copyIcon } from '@jupyterlab/ui-components';
 import CodeMirror from '@uiw/react-codemirror';
 import { jupyterTheme } from '@jupyterlab/codemirror';
 import { python } from '@codemirror/lang-python';
+import useStatus from '../../hooks/useStatus';
 
 const CODE = `
 from pyspark.sql import SparkSession
 
 spark = SparkSession.builder \\
-          .remote("sc://localhost") \\
+          .remote("sc://localhost:{PORT}") \\
           .getOrCreate()
 `.trim();
 
 export default function CodePreview() {
   const [copied, setCopied] = useState<boolean>(false);
+  const { data } = useStatus();
+  const port = data?.port ?? 15002;
+  const code = CODE.replace('{PORT}', `${port}`);
 
   return (
     <div>
       <div style={{ border: '1px solid var(--jp-border-color2)' }}>
         <CodeMirror
-          value={CODE}
+          value={code}
           height="200px"
           extensions={[python()]}
           theme={jupyterTheme}

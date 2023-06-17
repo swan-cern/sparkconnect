@@ -5,10 +5,8 @@ import glob
 import socket
 from string import Formatter
 from enum import Enum
+from spark_connect_labextension.config import SPARK_HOME, SPARK_CONNECT_PORT, SPARK_CONNECT_PACKAGE
 
-SPARK_HOME = os.getenv('SPARK_HOME')
-SPARK_CONNECT_PACKAGE = os.getenv('SPARK_CONNECT_PACKAGE', 'org.apache.spark:spark-connect_2.12:3.4.0')
-SPARK_CONNECT_PORT = int(os.getenv('SPARK_CONNECT_PORT', '15002'))
 
 class ClusterStatus(Enum):
     STOPPED = "STOPPED"
@@ -30,7 +28,7 @@ class _SparkConnectCluster:
         env_variables['SPARK_LOG_DIR'] = self.tmpdir.name
         print("Spark log dir", self.tmpdir.name)
 
-        options['spark.connect.grpc.binding.port'] = str(SPARK_CONNECT_PORT)
+        options['spark.connect.grpc.binding.port'] = str(self.get_port())
         options['spark.ui.proxyRedirectUri'] = "/"
         config_args = self.get_config_args(options)
         run_script = f"{SPARK_HOME}/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
@@ -67,6 +65,9 @@ class _SparkConnectCluster:
             return ClusterStatus.PROVISIONING
         return ClusterStatus.READY
     
+    def get_port(self) -> int:
+        return SPARK_CONNECT_PORT
+    
     def is_connect_server_running(self) -> bool:
         run_script = f"{SPARK_HOME}/sbin/spark-daemon.sh status org.apache.spark.sql.connect.service.SparkConnectServer 1"
         retcode = subprocess.Popen(run_script, shell=True).wait()
@@ -74,7 +75,7 @@ class _SparkConnectCluster:
 
     def is_server_ready(self) -> bool:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        result = sock.connect_ex(('127.0.0.1', SPARK_CONNECT_PORT))
+        result = sock.connect_ex(('127.0.0.1', self.get_port()))
         sock.close()
         return result == 0
  

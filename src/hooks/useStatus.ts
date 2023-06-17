@@ -1,5 +1,6 @@
 import useSWR from 'swr';
+import { SparkClusterStatus } from '../types';
 
 export default function useStatus() {
-  return useSWR('/cluster/status');
+  return useSWR<SparkClusterStatus>('/cluster/status');
 }

@@ -10,5 +10,6 @@ class GetClusterStatusRouteHandler(SparkConnectAPIHandler):
         status = cluster.get_status()
         self.finish(json.dumps({
             'status': status.name, 
-            'clusterName': cluster.cluster_name
+            'clusterName': cluster.cluster_name,
+            'port': cluster.get_port()
         }))
