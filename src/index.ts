@@ -1,6 +1,6 @@
 import { ILabShell, JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
-import { MainAreaWidget, ICommandPalette } from '@jupyterlab/apputils';
+import { MainAreaWidget } from '@jupyterlab/apputils';
 import { requestAPI } from './handler';
 import SidebarPanel from './widgets/SidebarPanel';
 import { SparkCluster, SparkConfigBundle, SparkConfigOption } from './types';
@@ -17,9 +17,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
   id: EXTENSION_ID + ':plugin',
   description: 'A JupyterLab Extension to connect to Apache Spark using Spark Connect',
   autoStart: true,
-  optional: [ISettingRegistry, ICommandPalette],
+  optional: [ISettingRegistry],
   requires: [ILabShell],
-  activate: (app: JupyterFrontEnd, labShell: ILabShell, settingRegistry: ISettingRegistry | null, commandPalette: ICommandPalette) => {
+  activate: (app: JupyterFrontEnd, labShell: ILabShell, settingRegistry: ISettingRegistry | null) => {
     console.log('JupyterLab extension spark-connect-labextension is activated!');
 
     if (settingRegistry) {
@@ -31,8 +31,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
         .then(loadExtensionState)
         .then(() => {
           activateSidebarPanel(app, labShell);
-          addLogsMainAreaWidget(app, commandPalette);
-          addSparkWebuiMainAreaWidget(app, commandPalette);
+          addLogsMainAreaWidget(app);
+          addSparkWebuiMainAreaWidget(app);
         })
         .catch(reason => {
           console.error('Failed to load settings for spark-connect-labextension.', reason);
@@ -48,7 +48,7 @@ function activateSidebarPanel(app: JupyterFrontEnd, labShell: ILabShell) {
   labShell.activateById(sidebarPanel.id);
 }
 
-function addLogsMainAreaWidget(app: JupyterFrontEnd, palette: ICommandPalette) {
+function addLogsMainAreaWidget(app: JupyterFrontEnd) {
   // Define a widget creator function,
   // then call it to make a new widget
   const newWidget = () => {
@@ -78,11 +78,9 @@ function addLogsMainAreaWidget(app: JupyterFrontEnd, palette: ICommandPalette) {
       app.shell.activateById(widget.id);
     }
   });
-
-  palette.addItem({ command, category: 'View Spark Logs' });
 }
 
-function addSparkWebuiMainAreaWidget(app: JupyterFrontEnd, palette: ICommandPalette) {
+function addSparkWebuiMainAreaWidget(app: JupyterFrontEnd) {
   const newWidget = () => {
     const content = new SparkWebuiMainAreaWidget({ app });
     const widget = new MainAreaWidget({ content });
@@ -111,8 +109,6 @@ function addSparkWebuiMainAreaWidget(app: JupyterFrontEnd, palette: ICommandPale
       app.shell.activateById(widget.id);
     }
   });
-
-  palette.addItem({ command, category: 'View Spark WebUI' });
 }
 
 async function loadExtensionState() {
