@@ -31,3 +31,9 @@ export interface SparkClusterStatus {
   clusterName: string;
   port: number;
 }
+
+export interface SparkClusterErrorSuggestion {
+  pattern: string;
+  type: 'error' | 'info' | 'warn';
+  message: string;
+}

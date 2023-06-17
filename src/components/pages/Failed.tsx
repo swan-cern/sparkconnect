@@ -1,12 +1,17 @@
 import React from 'react';
+import useSWR from 'swr';
 import SparkLogo from '../SparkLogo';
 import useCluster from '../../hooks/useCluster';
 import useJupyterLabApp from '../../hooks/useJupyterLabApp';
 import { UIStore } from '../../store/UIStore';
 import { Section } from '../Section';
+import SuggestionItem from '../failed/SuggestionItem';
+import { SparkClusterErrorSuggestion } from '../../types';
 
 const Failed: React.FC = () => {
   const cluster = useCluster();
+
+  const { data: errorSuggestions } = useSWR<SparkClusterErrorSuggestion[]>('/cluster/errors');
 
   const app = useJupyterLabApp();
   const viewLogs = () => {
@@ -44,6 +49,15 @@ const Failed: React.FC = () => {
           </div>
         </div>
       </Section>
+      {errorSuggestions?.length !== 0 && (
+        <Section title="Suggestions" headingStyle={{ marginTop: 16 }}>
+          <div style={{ padding: 8, display: 'flex', flexDirection: 'column', alignItems: 'stretch', gap: 8 }}>
+            {errorSuggestions?.map(suggestion => (
+              <SuggestionItem type={suggestion.type} text={suggestion.message} />
+            ))}
+          </div>
+        </Section>
+      )}
       <div style={{ flex: 1 }} />
       <div style={{ padding: 8 }}>
         <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }} onClick={retry}>

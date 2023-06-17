@@ -17,3 +17,7 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
     @property
     def spark_options(self):
         return self.ext_config['spark_options']
+    
+    @property
+    def error_suggestions(self):
+        return self.ext_config.get('error_suggestions', [])

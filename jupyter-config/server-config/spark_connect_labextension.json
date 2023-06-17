@@ -5,6 +5,13 @@
     }
   },
   "SparkConnectConfig": {
+    "error_suggestions": [
+      {
+        "pattern": "ERROR SparkContext: Failed to add file:(.+)",
+        "type": "error",
+        "message": "Required files are missing."
+      }
+    ],
     "clusters": {
       "k8s": {
         "display_name": "Cloud Containers (k8s)",
