@@ -4,12 +4,25 @@ import SparkLogo from '../SparkLogo';
 import useStatus from '../../hooks/useStatus';
 import useCluster from '../../hooks/useCluster';
 import useJupyterLabApp from '../../hooks/useJupyterLabApp';
+import { UIStore } from '../../store/UIStore';
 
 const Provisioning: React.FC = () => {
   const { mutate } = useStatus();
 
+  const poll = () => {
+    mutate().then(val => {
+      // If the status is stopped in the middle of connecting, flag as failed
+      const isWaitingForConnectResponse = UIStore.getRawState().isConnecting;
+      if (!isWaitingForConnectResponse && val?.status === 'STOPPED') {
+        UIStore.update(s => {
+          s.isConnectionFailed = true;
+        });
+      }
+    });
+  };
+
   useEffect(() => {
-    const handle = setInterval(mutate, 1000);
+    const handle = setInterval(poll, 1000);
     return () => clearInterval(handle);
   }, []);
 
@@ -33,7 +46,7 @@ const Provisioning: React.FC = () => {
         </div>
       </div>
       <div style={{ padding: 8 }}>
-        <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }} onClick={viewLogs}>
+        <button className="jp-Button jp-mod-styled jp-mod-reject" style={{ width: '100%' }} onClick={viewLogs}>
           View logs
         </button>
       </div>
