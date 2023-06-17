@@ -5,9 +5,9 @@ import Provisioning from '../pages/Provisioning';
 import { UIStore } from '../../store/UIStore';
 import useStatus from '../../hooks/useStatus';
 import Ready from '../pages/Ready';
+import Failed from '../pages/Failed';
 
 const Panel: React.FC = () => {
-  const isConnecting = UIStore.useState(s => s.isConnecting);
   const { data } = useStatus();
   const clusterName = data?.clusterName;
   useEffect(() => {
@@ -19,9 +19,15 @@ const Panel: React.FC = () => {
   }, [clusterName]);
 
   const status = data?.status;
+  const isConnecting = UIStore.useState(s => s.isConnecting);
+  const isConnectionFailed = UIStore.useState(s => s.isConnectionFailed);
   const currentState = useMemo(() => {
     if (isConnecting) {
       return ExtensionState.PROVISIONING;
+    }
+
+    if (isConnectionFailed) {
+      return ExtensionState.ERROR;
     }
 
     if (status === 'PROVISIONING') {
@@ -33,13 +39,14 @@ const Panel: React.FC = () => {
     }
 
     return ExtensionState.CONFIGURING;
-  }, [status, isConnecting]);
+  }, [status, isConnecting, isConnectionFailed]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       {currentState === ExtensionState.CONFIGURING && <Configure />}
       {currentState === ExtensionState.PROVISIONING && <Provisioning />}
       {currentState === ExtensionState.READY && <Ready />}
+      {currentState === ExtensionState.ERROR && <Failed />}
     </div>
   );
 };

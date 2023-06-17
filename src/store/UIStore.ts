@@ -6,6 +6,7 @@ interface IUIStore {
   configBundleOptions: SparkConfigBundle[];
   configOptions: SparkConfigOption[];
   isConnecting: boolean;
+  isConnectionFailed: boolean;
   clusterName?: string;
 }
 
@@ -13,5 +14,6 @@ export const UIStore = new Store<IUIStore>({
   clusters: [],
   configBundleOptions: [],
   configOptions: [],
-  isConnecting: false
+  isConnecting: false,
+  isConnectionFailed: false
 });
