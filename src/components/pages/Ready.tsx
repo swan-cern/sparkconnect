@@ -44,13 +44,21 @@ const Ready: React.FC = () => {
         <p style={{ marginTop: 4, fontSize: 'var(--jp-ui-font-size1)' }}>Use this code to start using:</p>
         <CodePreview />
       </Section>
-      <Section title="Menu" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
-        <button className="jp-Button jp-mod-styled jp-mod-accept" style={{ width: '100%' }} onClick={viewWebUI}>
-          View Spark WebUI
-        </button>
-        <button className="jp-Button jp-mod-styled jp-mod-reject" style={{ width: '100%', marginTop: 8 }} onClick={viewLogs}>
-          View logs
-        </button>
+      <Section title="Menu" headingStyle={{ marginTop: 16 }}>
+        <div className="jp-SparkConnectExtension-menu-list">
+          <div onClick={viewWebUI}>
+            <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
+              monitoring
+            </span>
+            <div>View Spark WebUI</div>
+          </div>
+          <div onClick={viewLogs}>
+            <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
+              monitor_heart
+            </span>
+            <div>View logs</div>
+          </div>
+        </div>
       </Section>
       <div style={{ flex: 1 }} />
       <div style={{ padding: 8 }}>
