@@ -3,6 +3,7 @@ import subprocess
 import tempfile
 import glob
 import socket
+from string import Formatter
 from enum import Enum
 
 SPARK_HOME = os.getenv('SPARK_HOME')
@@ -89,12 +90,20 @@ class _SparkConnectCluster:
             return []
         
         args = []
-        for key in options:
+        for key, val in options.items():
             args.append("--conf")
-            val = options[key].replace('"', '\\"')
+            val = self.replace_env_params(val)
+            val = val.replace('"', '\\"')
             args.append(f'{key}="{val}"')
         return ' '.join(args)
-
+    
+    def replace_env_params(self, value):
+        replacable_values = {}
+        for _, variable, _, _ in Formatter().parse(value):
+            if variable is  not None:
+                replacable_values[variable] = os.getenv(variable, '')
+            
+        return value.format(**replacable_values)
     
     def __del__(self):
         self.stop()
