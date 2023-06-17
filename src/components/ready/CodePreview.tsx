@@ -35,7 +35,7 @@ export default function CodePreview() {
           }}
         />
       </div>
-      <div style={{ marginTop: 4 }}>
+      <div style={{ marginTop: 4, display: 'flex', flexDirection: 'column', alignItems: 'end' }}>
         <button
           className="jp-ToolbarButtonComponent jp-mod-minimal jp-Button"
           onClick={() => {
