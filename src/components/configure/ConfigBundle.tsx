@@ -38,7 +38,7 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
           label: 'Close',
           caption: 'Close dialog',
           className: '',
-          accept: true,
+          accept: false,
           displayType: 'default',
           ariaLabel: '',
           iconClass: '',

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { showDialog } from '@jupyterlab/apputils';
 import SparkLogo from '../SparkLogo';
 import Select from '../Select';
 import { Section } from '../Section';
@@ -15,6 +16,58 @@ const Configure: React.FC = () => {
   const [selectedConfigBundles, setSelectedConfigBundles] = useState<string[]>([]);
   const [extraConfig, setExtraConfig] = useState<{ [key: string]: any }>({});
 
+  const configBundles = UIStore.useState(s => s.configBundleOptions);
+  const configuredOptionsFromBundle = useMemo(() => {
+    if (!cluster) return {};
+
+    const map: any = {};
+    configBundles
+      .filter(b => selectedConfigBundles.includes(b.name))
+      .filter(b => !b.clusterFilter || b.clusterFilter.includes(cluster.value))
+      .forEach(bundle => {
+        bundle.options.forEach(option => {
+          if (!map[option.name] || option.concatenate === undefined) {
+            map[option.name] = option.value;
+          } else {
+            map[option.name] = `${map[option.name] ?? ''}${option.concatenate}${option.value}`;
+          }
+        });
+      });
+    return map;
+  }, [configBundles, cluster?.value, selectedConfigBundles]);
+
+  const configuredOptions: { [key: string]: any } = { ...configuredOptionsFromBundle, ...extraConfig };
+
+  const reviewConfiguration = () => {
+    showDialog({
+      title: 'Review configuration',
+      buttons: [
+        {
+          label: 'Close',
+          caption: 'Close dialog',
+          className: '',
+          accept: false,
+          displayType: 'default',
+          ariaLabel: '',
+          iconClass: '',
+          iconLabel: '',
+          actions: []
+        }
+      ],
+      body: (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 400 }}>
+          {Object.keys(configuredOptions).length === 0 && <div>No configuration</div>}
+          {Object.keys(configuredOptions).map(option => (
+            <div>
+              <div>{option}</div>
+              <small style={{ color: 'var(--jp-ui-font-color2)' }}>{configuredOptions[option]}</small>
+            </div>
+          ))}
+        </div>
+      )
+    });
+  };
+
   const { mutate } = useStatus();
   const connect = () => {
     UIStore.update(s => {
@@ -23,7 +76,8 @@ const Configure: React.FC = () => {
     });
 
     const requestBody = {
-      cluster: cluster?.value
+      cluster: cluster?.value,
+      options: configuredOptions
     };
 
     requestAPI<any>('/cluster/start', {
@@ -58,7 +112,10 @@ const Configure: React.FC = () => {
           </Section>
           <div style={{ flex: 1 }} />
           <div style={{ padding: 8 }}>
-            <button className="jp-Button jp-mod-styled jp-mod-accept" onClick={connect} style={{ width: '100%' }}>
+            <button className="jp-Button jp-mod-styled jp-mod-reject" onClick={reviewConfiguration} style={{ width: '100%' }}>
+              Review configuration
+            </button>
+            <button className="jp-Button jp-mod-styled jp-mod-accept" onClick={connect} style={{ width: '100%', marginTop: 8 }}>
               Connect
             </button>
           </div>

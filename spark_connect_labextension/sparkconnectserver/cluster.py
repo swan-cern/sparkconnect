@@ -91,8 +91,8 @@ class _SparkConnectCluster:
         args = []
         for key in options:
             args.append("--conf")
-            val = options[key].replace(' ', '\\ ')
-            args.append(key + '=' + val)
+            val = options[key].replace('"', '\\"')
+            args.append(f'{key}="{val}"')
         return ' '.join(args)
 
     
