@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import useSWR from 'swr';
 import CodeMirror from '@uiw/react-codemirror';
 import { jupyterTheme } from '@jupyterlab/codemirror';
+import { requestAPI } from '../../handler';
 
 const LogsWidget: React.FC = () => {
-  const { data, mutate } = useSWR('/cluster/logs');
+  const { data, mutate } = useSWR('/cluster/logs', { fetcher: (url: string, init: RequestInit) => requestAPI<any>(url, init, false) });
 
   useEffect(() => {
     const handle = setInterval(mutate, 700);

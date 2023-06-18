@@ -9,7 +9,7 @@ import { ServerConnection } from '@jupyterlab/services';
  * @param init Initial values for the request
  * @returns The response body interpreted as JSON
  */
-export async function requestAPI<T>(endPoint = '', init: RequestInit = {}): Promise<T> {
+export async function requestAPI<T>(endPoint = '', init: RequestInit = {}, isJson: boolean = true): Promise<T> {
   // Make request to Jupyter API
   const settings = ServerConnection.makeSettings();
   const requestUrl = URLExt.join(
@@ -27,7 +27,7 @@ export async function requestAPI<T>(endPoint = '', init: RequestInit = {}): Prom
 
   let data: any = await response.text();
 
-  if (data.length > 0) {
+  if (data.length > 0 && isJson) {
     try {
       data = JSON.parse(data);
     } catch (error) {
