@@ -6,11 +6,8 @@ import { python } from '@codemirror/lang-python';
 import useStatus from '../../hooks/useStatus';
 
 const CODE = `
-from pyspark.sql import SparkSession
-
-spark = SparkSession.builder \\
-          .remote("sc://localhost:{PORT}") \\
-          .getOrCreate()
+%load_ext spark_connect_labextension.kernelextension
+spark = get_spark_session()
 `.trim();
 
 export default function CodePreview() {
