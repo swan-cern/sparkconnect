@@ -25,6 +25,7 @@ class _SparkConnectCluster:
         self.tmpdir.cleanup()
 
         env_variables = self.get_envs(envs)
+        env_variables['SPARK_HOME'] = SPARK_HOME
         env_variables['SPARK_LOG_DIR'] = self.tmpdir.name
         print("Spark log dir", self.tmpdir.name)
 
