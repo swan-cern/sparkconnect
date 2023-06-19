@@ -8,7 +8,6 @@ import useCluster from '../../hooks/useCluster';
 import useJupyterLabApp from '../../hooks/useJupyterLabApp';
 import CodePreview from '../ready/CodePreview';
 import { UIStore } from '../../store/UIStore';
-import SuggestionItem from '../failed/SuggestionItem';
 
 const Ready: React.FC = () => {
   const { data, mutate } = useStatus();
@@ -122,7 +121,12 @@ const Ready: React.FC = () => {
       </div>
       {notebookConfigDiffers && (
         <div style={{ padding: 8 }}>
-          <SuggestionItem type="warn" text="Notebook uses a different configuration." />
+          <div style={{ padding: 8, borderRadius: 'var(--jp-border-radius)', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 8, color: 'var(--jp-ui-inverse-font-color0)', backgroundColor: 'var(--jp-warn-color1)' }}>
+            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
+              error
+            </span>
+            <div>Notebook uses a different configuration.</div>
+          </div>
         </div>
       )}
       <Section title="Code" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
