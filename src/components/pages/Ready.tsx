@@ -152,7 +152,7 @@ const Ready: React.FC = () => {
               <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
                 attach_file_add
               </span>
-              <div>Overwrite notebook config</div>
+              <div>Overwrite attached config</div>
             </div>
           )}
           {!notebookMetadata && !!activeNotebookPanel && (
