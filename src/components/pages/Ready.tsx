@@ -132,7 +132,7 @@ const Ready: React.FC = () => {
               <div>Override notebook config</div>
             </div>
           )}
-          {!notebookMetadata && (
+          {!notebookMetadata && !!activeNotebookPanel && (
             <div onClick={attachConfigToNotebook}>
               <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
                 attach_file_add
