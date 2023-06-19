@@ -132,17 +132,17 @@ const Configure: React.FC = () => {
         <h3 className="jp-SparkConnectExtension-heading">Connect to Cluster</h3>
       </div>
       {!!notebookMetadata && (
-        <div style={{ padding: 8 }}>
+        <Section title="Attached Configuration" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
           <div
             onClick={loadConfigFromMetadata}
-            style={{ padding: 8, cursor: 'pointer', borderRadius: 'var(--jp-border-radius)', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 8, color: 'var(--jp-ui-inverse-font-color1)', background: 'var(--jp-info-color1)' }}
+            style={{ padding: 8, cursor: 'pointer', borderRadius: 'var(--jp-border-radius)', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 8, color: 'var(--jp-info-color1)', border: '1px solid var(--jp-info-color1)' }}
           >
             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
               settings
             </span>
             <div>Load attached configuration</div>
           </div>
-        </div>
+        </Section>
       )}
       <Section title="Cluster" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
         <Select options={clusterOptions} value={cluster} onChange={v => setCluster(v as any)} />
