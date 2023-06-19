@@ -125,7 +125,7 @@ const Ready: React.FC = () => {
             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
               error
             </span>
-            <div>Notebook uses a different configuration.</div>
+            <div>Notebook uses a different configuration. Spark may not work correctly.</div>
           </div>
         </div>
       )}
