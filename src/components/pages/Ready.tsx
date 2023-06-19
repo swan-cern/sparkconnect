@@ -6,9 +6,10 @@ import useStatus from '../../hooks/useStatus';
 import useCluster from '../../hooks/useCluster';
 import useJupyterLabApp from '../../hooks/useJupyterLabApp';
 import CodePreview from '../ready/CodePreview';
+import { UIStore } from '../../store/UIStore';
 
 const Ready: React.FC = () => {
-  const { mutate } = useStatus();
+  const { data, mutate } = useStatus();
   const disconnect = () => {
     requestAPI<any>('/cluster/stop', { method: 'POST' }).then(mutate);
   };
@@ -23,6 +24,22 @@ const Ready: React.FC = () => {
 
   const viewLogs = () => {
     app?.commands.execute('sparkconnect:viewLogs');
+  };
+
+  const activeNotebookPanel = UIStore.useState(s => s.activeNotebookPanel);
+  const attachConfigToNotebook = () => {
+    if (!data) return;
+
+    const configMetadata = {
+      cluster_name: data.clusterName,
+      bundled_options: data.configBundles,
+      list_of_options: Object.keys(data.extraConfig).map(k => ({
+        name: k,
+        value: data.extraConfig[k]
+      }))
+    };
+
+    activeNotebookPanel?.model?.setMetadata('sparkconnect', configMetadata);
   };
 
   return (
@@ -58,7 +75,7 @@ const Ready: React.FC = () => {
             </span>
             <div>View logs</div>
           </div>
-          <div onClick={() => {}}>
+          <div onClick={attachConfigToNotebook}>
             <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
               attach_file_add
             </span>
