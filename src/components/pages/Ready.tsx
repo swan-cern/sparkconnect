@@ -60,6 +60,10 @@ const Ready: React.FC = () => {
     activeNotebookPanel?.model?.setMetadata('sparkconnect', configMetadata);
   };
 
+  const detachNotebookConfig = () => {
+    activeNotebookPanel?.model?.deleteMetadata('sparkconnect');
+  };
+
   const notebookConfigDiffers = useMemo(() => {
     if (!notebookMetadata || !data) return false;
 
@@ -120,6 +124,14 @@ const Ready: React.FC = () => {
             </span>
             <div>View logs</div>
           </div>
+          {notebookConfigDiffers && (
+            <div onClick={attachConfigToNotebook}>
+              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
+                attach_file_add
+              </span>
+              <div>Override notebook config</div>
+            </div>
+          )}
           {!notebookMetadata && (
             <div onClick={attachConfigToNotebook}>
               <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
@@ -128,12 +140,12 @@ const Ready: React.FC = () => {
               <div>Attach config to notebook</div>
             </div>
           )}
-          {notebookConfigDiffers && (
-            <div onClick={attachConfigToNotebook}>
-              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
-                attach_file_add
+          {!!notebookMetadata && (
+            <div onClick={detachNotebookConfig} style={{ color: 'var(--jp-error-color1)' }}>
+              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-error-color1)' }}>
+                link_off
               </span>
-              <div>Override notebook config</div>
+              <div>Detach config from notebook</div>
             </div>
           )}
         </div>
