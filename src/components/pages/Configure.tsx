@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { showDialog } from '@jupyterlab/apputils';
 import SparkLogo from '../SparkLogo';
 import Select from '../Select';
@@ -15,6 +15,36 @@ const Configure: React.FC = () => {
   const [cluster, setCluster] = useState<{ label: String; value: string }>();
   const [selectedConfigBundles, setSelectedConfigBundles] = useState<string[]>([]);
   const [extraConfig, setExtraConfig] = useState<{ [key: string]: any }>({});
+
+  const activeNotebookPanel = UIStore.useState(s => s.activeNotebookPanel);
+  const [notebookMetadata, setNotebookMetadata] = useState<any>();
+
+  useEffect(() => {
+    const model = activeNotebookPanel?.model;
+    const sparkMetadata = model?.metadata.sparkconnect;
+    setNotebookMetadata(sparkMetadata);
+
+    const onMetadataChanged = () => {
+      setNotebookMetadata(model?.metadata.sparkconnect);
+    };
+    model?.metadataChanged.connect(onMetadataChanged);
+
+    return () => {
+      model?.metadataChanged.disconnect(onMetadataChanged);
+    };
+  }, [activeNotebookPanel]);
+
+  const loadConfigFromMetadata = () => {
+    const cluster = clusterOptions.find(o => o.value === notebookMetadata.cluster_name);
+    setCluster(cluster);
+    setSelectedConfigBundles(notebookMetadata.bundled_options);
+    setExtraConfig(
+      notebookMetadata.list_of_options.reduce((acc: any, curr: any) => {
+        acc[curr.name] = curr.value;
+        return acc;
+      }, {})
+    );
+  };
 
   const configBundles = UIStore.useState(s => s.configBundleOptions);
   const configuredOptionsFromBundle = useMemo(() => {
@@ -101,6 +131,19 @@ const Configure: React.FC = () => {
         <SparkLogo />
         <h3 className="jp-SparkConnectExtension-heading">Connect to Cluster</h3>
       </div>
+      {!!notebookMetadata && (
+        <div style={{ padding: 8 }}>
+          <div
+            onClick={loadConfigFromMetadata}
+            style={{ padding: 8, cursor: 'pointer', borderRadius: 'var(--jp-border-radius)', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 8, color: 'var(--jp-ui-inverse-font-color1)', background: 'var(--jp-info-color1)' }}
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
+              settings
+            </span>
+            <div>Load attached configuration</div>
+          </div>
+        </div>
+      )}
       <Section title="Cluster" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
         <Select options={clusterOptions} value={cluster} onChange={v => setCluster(v as any)} />
       </Section>
