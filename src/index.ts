@@ -117,7 +117,6 @@ function addNotebookListener(labShell: ILabShell, notebookTracker: INotebookTrac
   const currentTabChanged = () => {
     const isTabNotebook = labShell.currentWidget === notebookTracker.currentWidget;
     const activeNotebook = isTabNotebook ? notebookTracker.currentWidget : null;
-    console.log(activeNotebook);
     UIStore.update(s => {
       s.activeNotebookPanel = activeNotebook as any;
     });
