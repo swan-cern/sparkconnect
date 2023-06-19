@@ -1,4 +1,5 @@
 import { Store } from 'pullstate';
+import { NotebookPanel } from '@jupyterlab/notebook';
 import { SparkCluster, SparkConfigBundle, SparkConfigOption } from '../types';
 
 interface IUIStore {
@@ -8,6 +9,7 @@ interface IUIStore {
   isConnecting: boolean;
   isConnectionFailed: boolean;
   clusterName?: string;
+  activeNotebookPanel: NotebookPanel | null;
 }
 
 export const UIStore = new Store<IUIStore>({
@@ -15,5 +17,6 @@ export const UIStore = new Store<IUIStore>({
   configBundleOptions: [],
   configOptions: [],
   isConnecting: false,
-  isConnectionFailed: false
+  isConnectionFailed: false,
+  activeNotebookPanel: null
 });

@@ -1,5 +1,6 @@
 import { ILabShell, JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
+import { INotebookTracker } from '@jupyterlab/notebook';
 import { MainAreaWidget } from '@jupyterlab/apputils';
 import { requestAPI } from './handler';
 import SidebarPanel from './widgets/SidebarPanel';
@@ -18,8 +19,8 @@ const plugin: JupyterFrontEndPlugin<void> = {
   description: 'A JupyterLab Extension to connect to Apache Spark using Spark Connect',
   autoStart: true,
   optional: [ISettingRegistry],
-  requires: [ILabShell],
-  activate: (app: JupyterFrontEnd, labShell: ILabShell, settingRegistry: ISettingRegistry | null) => {
+  requires: [ILabShell, INotebookTracker],
+  activate: (app: JupyterFrontEnd, labShell: ILabShell, notebookTracker: INotebookTracker, settingRegistry: ISettingRegistry | null) => {
     console.log('JupyterLab extension spark-connect-labextension is activated!');
 
     if (settingRegistry) {
@@ -33,6 +34,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
           activateSidebarPanel(app, labShell);
           addLogsMainAreaWidget(app);
           addSparkWebuiMainAreaWidget(app);
+          addNotebookListener(labShell, notebookTracker);
         })
         .catch(reason => {
           console.error('Failed to load settings for spark-connect-labextension.', reason);
@@ -109,6 +111,19 @@ function addSparkWebuiMainAreaWidget(app: JupyterFrontEnd) {
       app.shell.activateById(widget.id);
     }
   });
+}
+
+function addNotebookListener(labShell: ILabShell, notebookTracker: INotebookTracker) {
+  const currentTabChanged = () => {
+    const isTabNotebook = labShell.currentWidget === notebookTracker.currentWidget;
+    const activeNotebook = isTabNotebook ? notebookTracker.currentWidget : null;
+    console.log(activeNotebook);
+    UIStore.update(s => {
+      s.activeNotebookPanel = activeNotebook as any;
+    });
+  };
+
+  labShell.currentChanged.connect(currentTabChanged);
 }
 
 async function loadExtensionState() {

@@ -58,6 +58,12 @@ const Ready: React.FC = () => {
             </span>
             <div>View logs</div>
           </div>
+          <div onClick={() => {}}>
+            <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
+              attach_file_add
+            </span>
+            <div>Attach config to notebook</div>
+          </div>
         </div>
       </Section>
       <div style={{ flex: 1 }} />
