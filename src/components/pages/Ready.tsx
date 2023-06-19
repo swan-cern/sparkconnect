@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import { showDialog } from '@jupyterlab/apputils';
 import SparkLogo from '../SparkLogo';
 import { Section } from '../Section';
 import { requestAPI } from '../../handler';
@@ -60,8 +61,26 @@ const Ready: React.FC = () => {
     activeNotebookPanel?.model?.setMetadata('sparkconnect', configMetadata);
   };
 
+  const overrideNotebookConfig = () => {
+    showDialog({
+      title: 'Overwrite attached configuration?',
+      body: 'This will overwrite currently attached configuration.'
+    }).then(res => {
+      if (res.button.accept) {
+        attachConfigToNotebook();
+      }
+    });
+  };
+
   const detachNotebookConfig = () => {
-    activeNotebookPanel?.model?.deleteMetadata('sparkconnect');
+    showDialog({
+      title: 'Detach configuration?',
+      body: 'This will delete currently attached configuration.'
+    }).then(res => {
+      if (res.button.accept) {
+        activeNotebookPanel?.model?.deleteMetadata('sparkconnect');
+      }
+    });
   };
 
   const notebookConfigDiffers = useMemo(() => {
@@ -125,11 +144,11 @@ const Ready: React.FC = () => {
             <div>View logs</div>
           </div>
           {notebookConfigDiffers && (
-            <div onClick={attachConfigToNotebook}>
+            <div onClick={overrideNotebookConfig}>
               <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
                 attach_file_add
               </span>
-              <div>Override notebook config</div>
+              <div>Overwrite notebook config</div>
             </div>
           )}
           {!notebookMetadata && !!activeNotebookPanel && (
