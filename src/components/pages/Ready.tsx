@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import SparkLogo from '../SparkLogo';
 import { Section } from '../Section';
 import { requestAPI } from '../../handler';
@@ -27,6 +27,23 @@ const Ready: React.FC = () => {
   };
 
   const activeNotebookPanel = UIStore.useState(s => s.activeNotebookPanel);
+  const [notebookMetadata, setNotebookMetadata] = useState<any>();
+
+  useEffect(() => {
+    const model = activeNotebookPanel?.model;
+    const sparkMetadata = model?.metadata.sparkconnect;
+    setNotebookMetadata(sparkMetadata);
+
+    const onMetadataChanged = () => {
+      setNotebookMetadata(model?.metadata.sparkconnect);
+    };
+    model?.metadataChanged.connect(onMetadataChanged);
+
+    return () => {
+      model?.metadataChanged.disconnect(onMetadataChanged);
+    };
+  }, [activeNotebookPanel]);
+
   const attachConfigToNotebook = () => {
     if (!data) return;
 
@@ -41,6 +58,28 @@ const Ready: React.FC = () => {
 
     activeNotebookPanel?.model?.setMetadata('sparkconnect', configMetadata);
   };
+
+  const notebookConfigDiffers = useMemo(() => {
+    if (!notebookMetadata || !data) return false;
+
+    const clusterMatches = notebookMetadata.cluster_name === data.clusterName;
+    const configBundlesMatches = notebookMetadata.bundled_options.length === data.configBundles.length && notebookMetadata.bundled_options.every((bundle: string) => data.configBundles.includes(bundle));
+    const extraConfigMatches = notebookMetadata.list_of_options.length === Object.keys(data.extraConfig).length && notebookMetadata.list_of_options.every((opt: any) => data.extraConfig[opt.name] === opt.value);
+
+    if (!!notebookMetadata.cluster_name && !clusterMatches) {
+      return true;
+    }
+
+    if (!!notebookMetadata.bundled_options && !configBundlesMatches) {
+      return true;
+    }
+
+    if (!!notebookMetadata.list_of_options && !extraConfigMatches) {
+      return true;
+    }
+
+    return false;
+  }, [notebookMetadata, data]);
 
   return (
     <div style={{ flex: 1, overflow: 'auto', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
@@ -57,6 +96,7 @@ const Ready: React.FC = () => {
           </h3>
         </div>
       </div>
+      {notebookConfigDiffers && <div style={{ padding: 8 }}>Config differs</div>}
       <Section title="Code" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
         <p style={{ marginTop: 4, fontSize: 'var(--jp-ui-font-size1)' }}>Use this code to start using:</p>
         <CodePreview />
