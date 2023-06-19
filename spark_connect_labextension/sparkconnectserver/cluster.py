@@ -17,10 +17,14 @@ class _SparkConnectCluster:
     def __init__(self):
         self.tmpdir = tempfile.TemporaryDirectory()
         self.cluster_name = None
+        self.config_bundles = []
+        self.extra_config = {}
 
-    def start(self, cluster_name: str, options: dict = {}, envs: dict = None):
+    def start(self, cluster_name: str, options: dict = {}, envs: dict = None, config_bundles: dict = [], extra_config: dict = {}):
         print("Starting Spark Connect server...")
         self.cluster_name = cluster_name
+        self.config_bundles = config_bundles
+        self.extra_config = extra_config
 
         self.tmpdir.cleanup()
 

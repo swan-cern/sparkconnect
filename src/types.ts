@@ -30,6 +30,8 @@ export interface SparkClusterStatus {
   status: string;
   clusterName: string;
   port: number;
+  configBundles: string[];
+  extraConfig: { [key: string]: string };
 }
 
 export interface SparkClusterErrorSuggestion {

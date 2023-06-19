@@ -77,7 +77,9 @@ const Configure: React.FC = () => {
 
     const requestBody = {
       cluster: cluster?.value,
-      options: configuredOptions
+      options: configuredOptions,
+      configBundles: selectedConfigBundles,
+      extraConfig: extraConfig
     };
 
     requestAPI<any>('/cluster/start', {

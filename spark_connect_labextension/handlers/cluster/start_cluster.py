@@ -10,12 +10,14 @@ class StartClusterRouteHandler(SparkConnectAPIHandler):
     def post(self):
         json_body = self.get_json_body()
         cluster_name = json_body['cluster']
+        config_bundles = json_body.get('configBundles', [])
+        extra_config = json_body.get('extraConfig', {})
         options = json_body.get('options', {})
         cluster_metadata = self.spark_clusters[cluster_name]
         cluster_env = cluster_metadata.get('env', {})
 
         try:
-            cluster.start(cluster_name=cluster_name, options=options, envs=cluster_env)
+            cluster.start(cluster_name=cluster_name, options=options, envs=cluster_env, config_bundles=config_bundles, extra_config=extra_config)
             self.finish(json.dumps({
                 "success": True,
                 "message": "STARTED_SPARK_CONNECT_SERVER"
