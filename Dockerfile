@@ -6,12 +6,15 @@ USER $NB_UID
 RUN conda install -y -c conda-forge pyspark grpcio grpcio-status \
     && conda clean --all -f -y
 
-RUN wget https://dlcdn.apache.org/spark/spark-3.4.0/spark-3.4.0-bin-hadoop3.tgz \
-    && tar xvf spark-3.4.0-bin-hadoop3.tgz
-
-ENV SPARK_HOME $HOME/spark-3.4.0-bin-hadoop3.tgz
-
 USER root
+
+RUN mkdir /spark \
+    && cd /spark \
+    && wget https://dlcdn.apache.org/spark/spark-3.4.0/spark-3.4.0-bin-hadoop3.tgz \
+    && tar xvf spark-3.4.0-bin-hadoop3.tgz \
+    && fix-permissions /spark
+
+ENV SPARK_HOME /spark/spark-3.4.0-bin-hadoop3
 
 # Install OpenJDK-8
 RUN apt-get update && \
@@ -25,19 +28,16 @@ RUN apt-get update && \
     apt-get clean && \
     update-ca-certificates -f;
 
-# Setup JAVA_HOME -- useful for docker commandline
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64/
-RUN export JAVA_HOME
-
 COPY . /spark_connect_labextension
 WORKDIR /spark_connect_labextension
+RUN cp ./jupyter-config/server-config/spark_connect_labextension.json /etc/jupyter/jupyter_server_config.json
 
 RUN fix-permissions /spark_connect_labextension
 
 USER $NB_UID
 
 RUN pip install -e . \
-    && jupyter serverextension enable --py spark_connect_labextension --sys-prefix \
+    && jupyter server extension enable --py spark_connect_labextension --sys-prefix \
     && jupyter labextension link . --dev-build=False \
     && jupyter lab clean -y \
     && npm cache clean --force \
