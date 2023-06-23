@@ -19,9 +19,11 @@ class _SparkConnectCluster:
         self.cluster_name = None
         self.config_bundles = []
         self.extra_config = {}
+        self.started = False
 
     def start(self, cluster_name: str, options: dict = {}, envs: dict = None, config_bundles: dict = [], extra_config: dict = {}):
         print("Starting Spark Connect server...")
+        self.started = True
         self.cluster_name = cluster_name
         self.config_bundles = config_bundles
         self.extra_config = extra_config
@@ -47,6 +49,7 @@ class _SparkConnectCluster:
         retcode = subprocess.Popen(run_script, shell=True).wait()
         if retcode != 0:
             raise Exception("Cannot stop Spark Connect server")
+        self.started = False
             
     def get_log(self) -> str:
         logfile = self.get_logfile_path()
@@ -112,7 +115,8 @@ class _SparkConnectCluster:
         return value.format(**replacable_values)
     
     def __del__(self):
-        self.stop()
+        if self.started:
+            self.stop()
 
 
 cluster = _SparkConnectCluster()
