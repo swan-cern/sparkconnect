@@ -21,7 +21,7 @@ class _SparkConnectCluster:
         self.extra_config = {}
         self.started = False
 
-    def start(self, cluster_name: str, options: dict = {}, envs: dict = None, config_bundles: dict = [], extra_config: dict = {}):
+    def start(self, cluster_name: str, options: dict = {}, envs: dict = None, config_bundles: dict = [], extra_config: dict = {}, pre_script: str = None):
         print("Starting Spark Connect server...")
         self.started = True
         self.cluster_name = cluster_name
@@ -39,6 +39,9 @@ class _SparkConnectCluster:
         options['spark.ui.proxyRedirectUri'] = "/"
         config_args = self.get_config_args(options)
         run_script = f"{SPARK_HOME}/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
+        if pre_script:
+            run_script = pre_script + ' && ' + run_script
+        
         retcode = subprocess.Popen(run_script, shell=True, env=env_variables).wait()
         if retcode != 0:
             raise Exception("Cannot start Spark Connect server")
