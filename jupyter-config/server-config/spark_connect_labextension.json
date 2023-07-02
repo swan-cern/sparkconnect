@@ -5,6 +5,7 @@
     }
   },
   "SparkConnectConfig": {
+    "disable_cluster_selection_on_preselected": false,
     "error_suggestions": [
       {
         "pattern": "ERROR SparkContext: Failed to add file:",

@@ -11,6 +11,7 @@ import useStatus from '../../hooks/useStatus';
 
 const Configure: React.FC = () => {
   const clusterOptions = UIStore.useState(s => s.clusters).map(c => ({ label: c.displayName, value: c.name }));
+  const [selectionDisabled, setSelectionDisabled] = useState<boolean>(false);
 
   const [cluster, setCluster] = useState<{ label: String; value: string }>();
   const [selectedConfigBundles, setSelectedConfigBundles] = useState<string[]>([]);
@@ -18,6 +19,18 @@ const Configure: React.FC = () => {
 
   const activeNotebookPanel = UIStore.useState(s => s.activeNotebookPanel);
   const [notebookMetadata, setNotebookMetadata] = useState<any>();
+
+  const { data: status } = useStatus();
+  useEffect(() => {
+    const preselectedClusterName = status?.extensionConfig.preselectedClusterName;
+    if (preselectedClusterName) {
+      const preselectedCluster = clusterOptions.find(s => s.value === preselectedClusterName);
+      setCluster(preselectedCluster);
+    }
+
+    const selectionDisabled = !!status?.extensionConfig.disableClusterSelectionOnPreselected && !!preselectedClusterName;
+    setSelectionDisabled(selectionDisabled);
+  }, [status?.extensionConfig]);
 
   useEffect(() => {
     const model = activeNotebookPanel?.model;
@@ -36,7 +49,9 @@ const Configure: React.FC = () => {
 
   const loadConfigFromMetadata = () => {
     const cluster = clusterOptions.find(o => o.value === notebookMetadata.cluster_name);
-    setCluster(cluster);
+    if (!status?.extensionConfig.disableClusterSelectionOnPreselected || !status?.extensionConfig.preselectedClusterName) {
+      setCluster(cluster);
+    }
     setSelectedConfigBundles(notebookMetadata.bundled_options);
     setExtraConfig(
       notebookMetadata.list_of_options.reduce((acc: any, curr: any) => {
@@ -131,6 +146,9 @@ const Configure: React.FC = () => {
         <SparkLogo />
         <h3 className="jp-SparkConnectExtension-heading">Connect to Cluster</h3>
       </div>
+      <Section title="Cluster" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
+        <Select isDisabled={selectionDisabled} options={clusterOptions} value={cluster} onChange={v => setCluster(v as any)} />
+      </Section>
       {!!notebookMetadata && (
         <Section title="Attached Configuration" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
           <div
@@ -144,12 +162,9 @@ const Configure: React.FC = () => {
           </div>
         </Section>
       )}
-      <Section title="Cluster" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
-        <Select options={clusterOptions} value={cluster} onChange={v => setCluster(v as any)} />
-      </Section>
       {!!cluster && (
         <>
-          <Section title="Configuration Bundle" headingStyle={{ marginTop: 8 }}>
+          <Section title="Configuration Bundle" headingStyle={{ marginTop: 16 }}>
             <ConfigBundle clusterName={cluster.value} selected={selectedConfigBundles} setSelected={setSelectedConfigBundles} />
           </Section>
           <Section title="Extra Configuration" headingStyle={{ marginTop: 16 }}>
