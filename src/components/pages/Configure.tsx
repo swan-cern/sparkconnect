@@ -22,13 +22,13 @@ const Configure: React.FC = () => {
 
   const { data: status } = useStatus();
   useEffect(() => {
-    const preselectedClusterName = status?.extensionConfig.preselectedClusterName;
+    const preselectedClusterName = status?.extensionConfig?.preselectedClusterName;
     if (preselectedClusterName) {
       const preselectedCluster = clusterOptions.find(s => s.value === preselectedClusterName);
       setCluster(preselectedCluster);
     }
 
-    const selectionDisabled = !!status?.extensionConfig.disableClusterSelectionOnPreselected && !!preselectedClusterName;
+    const selectionDisabled = !!status?.extensionConfig?.disableClusterSelectionOnPreselected && !!preselectedClusterName;
     setSelectionDisabled(selectionDisabled);
   }, [status?.extensionConfig]);
 
