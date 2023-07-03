@@ -37,6 +37,7 @@ export interface SparkClusterStatus {
   port: number;
   configBundles: string[];
   extraConfig: { [key: string]: string };
+  sparkOptions: { [key: string]: string };
   extensionConfig: ExtensionConfig;
 }
 

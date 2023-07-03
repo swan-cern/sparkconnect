@@ -19,6 +19,7 @@ class _SparkConnectCluster:
         self.cluster_name = None
         self.config_bundles = []
         self.extra_config = {}
+        self.options = {}
         self.started = False
 
     def start(self, cluster_name: str, options: dict = {}, envs: dict = None, config_bundles: dict = [], extra_config: dict = {}, pre_script: str = None):
@@ -35,9 +36,12 @@ class _SparkConnectCluster:
         env_variables['SPARK_LOG_DIR'] = self.tmpdir.name
         print("Spark log dir", self.tmpdir.name)
 
+        self.options = options
+
         options['spark.connect.grpc.binding.port'] = str(self.get_port())
         options['spark.ui.proxyRedirectUri'] = "/"
         config_args = self.get_config_args(options)
+
         run_script = f"{SPARK_HOME}/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
         if pre_script:
             run_script = pre_script + ' && ' + run_script
@@ -78,6 +82,9 @@ class _SparkConnectCluster:
     
     def get_port(self) -> int:
         return SPARK_CONNECT_PORT
+    
+    def get_options(self) -> dict:
+        return self.options
     
     def is_connect_server_running(self) -> bool:
         run_script = f"{SPARK_HOME}/sbin/spark-daemon.sh status org.apache.spark.sql.connect.service.SparkConnectServer 1"

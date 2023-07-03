@@ -15,6 +15,7 @@ class GetClusterStatusRouteHandler(SparkConnectAPIHandler):
             'port': cluster.get_port(),
             'configBundles': cluster.config_bundles,
             'extraConfig': cluster.extra_config,
+            'sparkOptions': cluster.get_options(),
             'extensionConfig': {
                 'preselectedClusterName': SPARK_CLUSTER_NAME,
                 'disableClusterSelectionOnPreselected': self.ext_config.get('disable_cluster_selection_on_preselected', False)
