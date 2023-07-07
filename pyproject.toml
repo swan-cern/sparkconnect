@@ -23,7 +23,6 @@ classifiers = [
 ]
 dependencies = [
     "jupyter_server>=2.0.1,<3",
-    "requests",
     "jupyter-server-proxy",
     "pyspark",
     "jsonpath-ng"
