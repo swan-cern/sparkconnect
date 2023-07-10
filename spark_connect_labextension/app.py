@@ -14,7 +14,7 @@ from spark_connect_labextension.config import EXTENSION_ID
 class SparkConnectExtensionApp(ExtensionApp):
     name = "spark_connect_labextension"
     default_url = f"/{EXTENSION_ID}"
-    base_url = f"/{EXTENSION_ID}"
+    # base_url = f"${self.base_url}{EXTENSION_ID}"
     load_other_extensions = True
     file_url_prefix = "/render"
 
@@ -29,15 +29,16 @@ class SparkConnectExtensionApp(ExtensionApp):
         )
 
     def initialize_handlers(self):
+        base_url = f"{self.serverapp.base_url}{EXTENSION_ID}"
         handlers = [
-            (f"{self.base_url}/clusters", GetClustersRouteHandler),
-            (f"{self.base_url}/config-bundles", GetConfigBundlesRouteHandler),
-            (f"{self.base_url}/config-options", GetConfigOptionsRouteHandler),
-            (f"{self.base_url}/cluster/start", StartClusterRouteHandler),
-            (f"{self.base_url}/cluster/stop", StopClusterRouteHandler),
-            (f"{self.base_url}/cluster/logs", GetClusterLogRouteHandler),
-            (f"{self.base_url}/cluster/errors", GetClusterErrorSuggestionsRouteHandler),
-            (f"{self.base_url}/cluster/status", GetClusterStatusRouteHandler),
-            (f"{self.base_url}/ui(?P<proxied_path>.*)", SparkUIProxyHandler),
+            (f"{base_url}/clusters", GetClustersRouteHandler),
+            (f"{base_url}/config-bundles", GetConfigBundlesRouteHandler),
+            (f"{base_url}/config-options", GetConfigOptionsRouteHandler),
+            (f"{base_url}/cluster/start", StartClusterRouteHandler),
+            (f"{base_url}/cluster/stop", StopClusterRouteHandler),
+            (f"{base_url}/cluster/logs", GetClusterLogRouteHandler),
+            (f"{base_url}/cluster/errors", GetClusterErrorSuggestionsRouteHandler),
+            (f"{base_url}/cluster/status", GetClusterStatusRouteHandler),
+            (f"{base_url}/ui(?P<proxied_path>.*)", SparkUIProxyHandler),
         ]
         self.handlers.extend(handlers)
