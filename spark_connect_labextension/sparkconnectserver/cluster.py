@@ -32,7 +32,8 @@ class _SparkConnectCluster:
         self.tmpdir.cleanup()
 
         env_variables = self.get_envs(envs)
-        env_variables['SPARK_HOME'] = SPARK_HOME
+        if SPARK_HOME:
+            env_variables['SPARK_HOME'] = SPARK_HOME
         env_variables['SPARK_LOG_DIR'] = self.tmpdir.name
         print("Spark log dir", self.tmpdir.name)
 
@@ -42,7 +43,7 @@ class _SparkConnectCluster:
         options['spark.ui.proxyRedirectUri'] = "/"
         config_args = self.get_config_args(options)
 
-        run_script = f"{SPARK_HOME}/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
+        run_script = f"$SPARK_HOME/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
         if pre_script:
             run_script = pre_script + ' && ' + run_script
         
@@ -52,8 +53,11 @@ class _SparkConnectCluster:
 
     def stop(self):
         print("Stopping Spark Connect server...")
-        run_script = f"{SPARK_HOME}/sbin/stop-connect-server.sh"
-        retcode = subprocess.Popen(run_script, shell=True).wait()
+        env_variables = self.get_envs({})
+        if SPARK_HOME:
+            env_variables['SPARK_HOME'] = SPARK_HOME
+        run_script = f"$SPARK_HOME/sbin/stop-connect-server.sh"
+        retcode = subprocess.Popen(run_script, shell=True, env=env_variables).wait()
         if retcode != 0:
             raise Exception("Cannot stop Spark Connect server")
         self.started = False
