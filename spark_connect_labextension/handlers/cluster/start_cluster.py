@@ -18,7 +18,6 @@ class StartClusterRouteHandler(SparkConnectAPIHandler):
         pre_script = cluster_metadata.get('pre_script')
 
         try:
-            options['spark.ui.proxyRedirectUri'] = self.base_url
             cluster.start(cluster_name=cluster_name, options=options, envs=cluster_env, config_bundles=config_bundles, extra_config=extra_config, pre_script=pre_script)
             self.finish(json.dumps({
                 "success": True,
