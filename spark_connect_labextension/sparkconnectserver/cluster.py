@@ -21,6 +21,7 @@ class _SparkConnectCluster:
         self.extra_config = {}
         self.options = {}
         self.started = False
+        self.pre_script = None
 
     def start(self, cluster_name: str, options: dict = {}, envs: dict = None, config_bundles: dict = [], extra_config: dict = {}, pre_script: str = None):
         print("Starting Spark Connect server...")
@@ -28,6 +29,7 @@ class _SparkConnectCluster:
         self.cluster_name = cluster_name
         self.config_bundles = config_bundles
         self.extra_config = extra_config
+        self.pre_script = pre_script
 
         self.tmpdir.cleanup()
 
@@ -44,8 +46,8 @@ class _SparkConnectCluster:
         config_args = self.get_config_args(options)
 
         run_script = f"$SPARK_HOME/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
-        if pre_script:
-            run_script = pre_script + ' && ' + run_script
+        if self.pre_script:
+            run_script = self.pre_script + ' && ' + run_script
         
         retcode = subprocess.Popen(run_script, shell=True, env=env_variables).wait()
         if retcode != 0:
@@ -57,6 +59,9 @@ class _SparkConnectCluster:
         if SPARK_HOME:
             env_variables['SPARK_HOME'] = SPARK_HOME
         run_script = f"$SPARK_HOME/sbin/stop-connect-server.sh"
+        if self.pre_script:
+            run_script = self.pre_script + ' && ' + run_script
+
         retcode = subprocess.Popen(run_script, shell=True, env=env_variables).wait()
         if retcode != 0:
             raise Exception("Cannot stop Spark Connect server")
@@ -91,8 +96,15 @@ class _SparkConnectCluster:
         return self.options
     
     def is_connect_server_running(self) -> bool:
-        run_script = f"{SPARK_HOME}/sbin/spark-daemon.sh status org.apache.spark.sql.connect.service.SparkConnectServer 1"
-        retcode = subprocess.Popen(run_script, shell=True).wait()
+        env_variables = self.get_envs({})
+        if SPARK_HOME:
+            env_variables['SPARK_HOME'] = SPARK_HOME
+
+        run_script = f"$SPARK_HOME/sbin/spark-daemon.sh status org.apache.spark.sql.connect.service.SparkConnectServer 1"
+        if self.pre_script:
+            run_script = self.pre_script + ' && ' + run_script
+
+        retcode = subprocess.Popen(run_script, shell=True, env=env_variables).wait()
         return retcode == 0
 
     def is_server_ready(self) -> bool:
