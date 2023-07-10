@@ -29,7 +29,7 @@ class SparkConnectExtensionApp(ExtensionApp):
         )
 
     def initialize_handlers(self):
-        base_url = f"{self.serverapp.base_url}{EXTENSION_ID}"
+        base_url = f"/{EXTENSION_ID}"
         handlers = [
             (f"{base_url}/clusters", GetClustersRouteHandler),
             (f"{base_url}/config-bundles", GetConfigBundlesRouteHandler),
