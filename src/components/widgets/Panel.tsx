@@ -6,6 +6,7 @@ import { UIStore } from '../../store/UIStore';
 import useStatus from '../../hooks/useStatus';
 import Ready from '../pages/Ready';
 import Failed from '../pages/Failed';
+import LoadingState from '../pages/LoadingState';
 
 const Panel: React.FC = () => {
   const { data } = useStatus();
@@ -38,11 +39,16 @@ const Panel: React.FC = () => {
       return ExtensionState.READY;
     }
 
-    return ExtensionState.CONFIGURING;
+    if (status === 'STOPPED') {
+      return ExtensionState.CONFIGURING;
+    }
+
+    return undefined;
   }, [status, isConnecting, isConnectionFailed]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+      {currentState === undefined && <LoadingState />}
       {currentState === ExtensionState.CONFIGURING && <Configure />}
       {currentState === ExtensionState.PROVISIONING && <Provisioning />}
       {currentState === ExtensionState.READY && <Ready />}
