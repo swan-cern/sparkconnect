@@ -7,7 +7,7 @@ SPARK_WEBUI_PORT = 4040
 class SparkUIProxyHandler(ProxyHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.proxy_base = f'{self.base_url}/{EXTENSION_ID}/ui'
+        self.proxy_base = f'/{EXTENSION_ID}/ui'
 
     async def http_get(self, proxied_path):
         return await self.proxy(proxied_path)
