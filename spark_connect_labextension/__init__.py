@@ -31,3 +31,6 @@ def _load_jupyter_server_extension(server_app):
 
 # For backward compatibility with notebook server - useful for Binder/JupyterHub
 # load_jupyter_server_extension = SparkConnectExtensionApp.load_classic_server_extension
+def load_jupyter_server_extension(server_app):
+    from .app import SparkConnectExtensionApp
+    SparkConnectExtensionApp.load_classic_server_extension(server_app)
