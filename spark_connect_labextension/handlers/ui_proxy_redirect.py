@@ -6,5 +6,8 @@ from spark_connect_labextension.config import EXTENSION_ID
 class SparkUIProxyRedirectHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     def get(self):
-        url = f'/{EXTENSION_ID}/ui/'
+        # FIXME: This is a strange but necessary workaround. 
+        # On JupyterHub installation, opening /ui or /ui/ would cause it to 
+        # redirect to /jobs/ instead of /user/{username}/spark-connect-labextension/ui/jobs/
+        url = f'/{EXTENSION_ID}/ui/jobs/'
         self.redirect(url)
