@@ -23,7 +23,7 @@ class _SparkConnectCluster:
         self.started = False
         self.pre_script = None
 
-    def start(self, cluster_name: str, options: dict = {}, envs: dict = None, config_bundles: dict = [], extra_config: dict = {}, pre_script: str = None):
+    def start(self, cluster_name: str, options: dict = {}, envs: dict = None, config_bundles: dict = [], extra_config: dict = {}, pre_script: str = None, proxy_redirect_uri = '/'):
         print("Starting Spark Connect server...")
         self.started = True
         self.cluster_name = cluster_name
@@ -42,7 +42,7 @@ class _SparkConnectCluster:
         self.options = options
 
         options['spark.connect.grpc.binding.port'] = str(self.get_port())
-        options['spark.ui.proxyRedirectUri'] = "/"
+        options['spark.ui.proxyRedirectUri'] = proxy_redirect_uri
         config_args = self.get_config_args(options)
 
         run_script = f"$SPARK_HOME/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
