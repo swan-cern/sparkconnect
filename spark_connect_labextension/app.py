@@ -7,6 +7,7 @@ from spark_connect_labextension.handlers.cluster.get_cluster_status import GetCl
 from spark_connect_labextension.handlers.cluster.get_clusters import GetClustersRouteHandler
 from spark_connect_labextension.handlers.cluster.get_config_bundles import GetConfigBundlesRouteHandler
 from spark_connect_labextension.handlers.cluster.get_config_options import GetConfigOptionsRouteHandler
+from spark_connect_labextension.handlers.ui_proxy_redirect import SparkUIProxyRedirectHandler
 from spark_connect_labextension.handlers.ui_proxy import SparkUIProxyHandler
 from spark_connect_labextension.config import EXTENSION_ID
 
@@ -39,6 +40,7 @@ class SparkConnectExtensionApp(ExtensionApp):
             (f"{base_url}/cluster/logs", GetClusterLogRouteHandler),
             (f"{base_url}/cluster/errors", GetClusterErrorSuggestionsRouteHandler),
             (f"{base_url}/cluster/status", GetClusterStatusRouteHandler),
+            (f"{base_url}/ui", SparkUIProxyRedirectHandler),
             (f"{base_url}/ui(?P<proxied_path>.*)", SparkUIProxyHandler),
         ]
         self.handlers.extend(handlers)
