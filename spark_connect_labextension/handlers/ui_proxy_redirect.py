@@ -9,5 +9,5 @@ class SparkUIProxyRedirectHandler(SparkConnectAPIHandler):
         # FIXME: This is a strange but necessary workaround. 
         # On JupyterHub installation, opening /ui or /ui/ would cause it to 
         # redirect to /jobs/ instead of /user/{username}/spark-connect-labextension/ui/jobs/
-        url = f'/{EXTENSION_ID}/ui/jobs/'
+        url = f'{self.base_url}{EXTENSION_ID}/ui/jobs/'
         self.redirect(url)
