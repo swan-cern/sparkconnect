@@ -150,7 +150,7 @@ const Ready: React.FC = () => {
         </div>
       )}
       <Section title="Code" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
-        <p style={{ marginTop: 4, fontSize: 'var(--jp-ui-font-size1)' }}>Use this code to create Spark Session:</p>
+        <p style={{ marginTop: 4, fontSize: 'var(--jp-ui-font-size1)' }}>Use this code to create a Spark Session:</p>
         <CodePreview />
       </Section>
       <Section title="Menu" headingStyle={{ marginTop: 16 }}>
