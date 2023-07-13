@@ -9,7 +9,6 @@ spark_session = None
 def attach_config():
     frontend_comm = Comm(target_name=FRONTEND_COMM_NAME)
     frontend_comm.send(data={'action': 'attach-config-to-notebook'})
-    print("Spark configuration is attached to the notebook!")
 
 def get_spark_session():
     attach_config()
