@@ -1,15 +1,16 @@
 import { ILabShell, JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
-import { INotebookTracker } from '@jupyterlab/notebook';
-import { MainAreaWidget } from '@jupyterlab/apputils';
+import { INotebookTracker, NotebookPanel } from '@jupyterlab/notebook';
+import { MainAreaWidget, ISessionContext } from '@jupyterlab/apputils';
 import { requestAPI } from './handler';
 import SidebarPanel from './widgets/SidebarPanel';
-import { SparkCluster, SparkConfigBundle, SparkConfigOption } from './types';
+import { SparkCluster, SparkClusterStatus, SparkConfigBundle, SparkConfigOption } from './types';
 import { UIStore } from './store/UIStore';
 import LogsMainAreaWidget from './widgets/LogsMainAreaWidget';
 import SparkIcon from './icons/SparkIcon';
 import SparkWebuiMainAreaWidget, { SparkWebuiToolbarWidget } from './widgets/SparkWebuiMainAreaWidget';
-import { EXTENSION_ID } from './const';
+import { EXTENSION_ID, FRONTEND_COMM_ID } from './const';
+import { ICommMsgMsg } from '@jupyterlab/services/lib/kernel/messages';
 
 /**
  * Initialization data for the spark-connect-labextension extension.
@@ -122,7 +123,52 @@ function addNotebookListener(labShell: ILabShell, notebookTracker: INotebookTrac
     });
   };
 
+  const onNotebookAdded = (sender: INotebookTracker, panel: NotebookPanel) => {
+    panel.sessionContext.kernelChanged.connect((sender: ISessionContext, changed) => {
+      const newKernel = changed.newValue;
+      if (newKernel) {
+        panel.sessionContext.ready.then(() => {
+          newKernel.removeCommTarget(FRONTEND_COMM_ID, (comm, msg) => {});
+          newKernel.registerCommTarget(FRONTEND_COMM_ID, (comm, openMsg) => {
+            comm.onMsg = msg => handleKernelMessage(msg, panel);
+          });
+        });
+      }
+    });
+  };
+
+  const handleKernelMessage = (msg: ICommMsgMsg, panel: NotebookPanel) => {
+    const { data } = msg.content;
+    const { action } = data;
+    if (action === 'attach-config-to-notebook') {
+      attachConfigToNotebook(panel);
+    }
+  };
+
   labShell.currentChanged.connect(currentTabChanged);
+  notebookTracker.widgetAdded.connect(onNotebookAdded);
+}
+
+function attachConfigToNotebook(notebook: NotebookPanel) {
+  requestAPI<SparkClusterStatus>('/cluster/status')
+    .then(status => {
+      if (status.status !== 'READY') {
+        return;
+      }
+
+      const configMetadata = {
+        cluster_name: status.clusterName,
+        bundled_options: status.configBundles,
+        list_of_options: Object.keys(status.extraConfig).map(k => ({
+          name: k,
+          value: status.extraConfig[k]
+        }))
+      };
+      notebook.model?.setMetadata('sparkconnect', configMetadata);
+    })
+    .catch(e => {
+      console.error('Failed attaching config to notebook', e);
+    });
 }
 
 async function loadExtensionState() {
