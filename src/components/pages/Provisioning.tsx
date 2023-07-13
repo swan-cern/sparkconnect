@@ -22,7 +22,7 @@ const Provisioning: React.FC = () => {
   };
 
   useEffect(() => {
-    const handle = setInterval(poll, 1000);
+    const handle = setInterval(poll, 4000);
     return () => clearInterval(handle);
   }, []);
 
