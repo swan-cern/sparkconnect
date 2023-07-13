@@ -92,3 +92,24 @@
 .jp-SparkConnectExtensionLogsWidget .cm-editor {
   height: 100%;
 }
+
+.jp-SparkConnectExtension-configBundle-list-checkbox {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--jp-ui-font-color2);
+  border-radius: 3px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.jp-SparkConnectExtension-configBundle-list-checkbox.checked {
+  border: 1.5px solid var(--md-green-600);
+}
+
+.jp-SparkConnectExtension-configBundle-list-checkbox.checked > div {
+  background-color: var(--md-green-600);
+  width: 8px;
+  height: 8px;
+  margin: 2px;
+  border-radius: 1px;
+}

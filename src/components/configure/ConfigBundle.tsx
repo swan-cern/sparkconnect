@@ -1,6 +1,4 @@
 import React from 'react';
-import UseAnimations from 'react-useanimations';
-import checkBox from 'react-useanimations/lib/checkBox';
 import { showDialog } from '@jupyterlab/apputils';
 import { UIStore } from '../../store/UIStore';
 import { SparkConfigBundle } from '../../types';
@@ -22,7 +20,6 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
 
   const toggle = (value: string) => {
     const isSelected = selected.includes(value);
-    console.log(isSelected);
     if (!isSelected) {
       setSelected([...selected, value]);
     } else {
@@ -64,31 +61,27 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
       {configBundles.map(bundle => {
         const isSelected = selected.includes(bundle.value);
         return (
-          <UseAnimations
-            key={bundle.value}
-            animation={checkBox}
-            size={20}
-            speed={2}
-            reverse={isSelected}
-            onClick={() => toggle(bundle.value)}
-            strokeColor={isSelected ? 'var(--md-green-600)' : 'var(--jp-ui-font-color2)'}
-            render={(eventProps, animationProps) => (
-              <div {...eventProps} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
-                <div {...animationProps} />
-                <span style={{ color: 'var(--jp-ui-font-color1)', flex: 1, textOverflow: 'ellipsis', overflow: 'hidden' }}>{bundle.label}</span>
-                <div
-                  onClick={e => {
-                    showDetails(bundle.bundle);
-                    e.stopPropagation();
-                  }}
-                >
-                  <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-content-link-color)' }}>
-                    info
-                  </span>
+          <div key={bundle.value} onClick={() => toggle(bundle.value)} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+            <div>
+              {isSelected && (
+                <div className="jp-SparkConnectExtension-configBundle-list-checkbox checked">
+                  <div />
                 </div>
-              </div>
-            )}
-          />
+              )}
+              {!isSelected && <div className="jp-SparkConnectExtension-configBundle-list-checkbox"></div>}
+            </div>
+            <span style={{ color: 'var(--jp-ui-font-color1)', flex: 1, textOverflow: 'ellipsis', overflow: 'hidden' }}>{bundle.label}</span>
+            <div
+              onClick={e => {
+                showDetails(bundle.bundle);
+                e.stopPropagation();
+              }}
+            >
+              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-content-link-color)' }}>
+                info
+              </span>
+            </div>
+          </div>
         );
       })}
     </div>
