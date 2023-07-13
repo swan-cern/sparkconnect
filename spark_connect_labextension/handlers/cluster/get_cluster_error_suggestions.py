@@ -2,13 +2,14 @@ import re
 import json
 from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
+import asyncio
 from spark_connect_labextension.sparkconnectserver.cluster import cluster
 
 
 class GetClusterErrorSuggestionsRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
-    def get(self):
-        logs = cluster.get_log()
+    async def get(self):
+        logs = await asyncio.to_thread(cluster.get_log)
         valid_suggestions = []
         if logs:
             valid_suggestions = self.get_valid_suggestions(logs)

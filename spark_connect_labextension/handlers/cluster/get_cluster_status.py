@@ -1,14 +1,15 @@
 from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json
+import asyncio
 from spark_connect_labextension.sparkconnectserver.cluster import cluster
 from spark_connect_labextension.config import SPARK_CLUSTER_NAME
 
 
 class GetClusterStatusRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
-    def get(self):
-        status = cluster.get_status()
+    async def get(self):
+        status = await asyncio.to_thread(cluster.get_status)
         self.finish(json.dumps({
             'status': status.name, 
             'clusterName': cluster.cluster_name,

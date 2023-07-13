@@ -2,12 +2,13 @@ from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json
 import traceback
+import asyncio
 from spark_connect_labextension.sparkconnectserver.cluster import cluster
 
 
 class StartClusterRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
-    def post(self):
+    async def post(self):
         json_body = self.get_json_body()
         cluster_name = json_body['cluster']
         config_bundles = json_body.get('configBundles', [])
@@ -18,7 +19,7 @@ class StartClusterRouteHandler(SparkConnectAPIHandler):
         pre_script = cluster_metadata.get('pre_script')
 
         try:
-            cluster.start(cluster_name=cluster_name, options=options, envs=cluster_env, config_bundles=config_bundles, extra_config=extra_config, pre_script=pre_script)
+            await asyncio.to_thread(cluster.start, cluster_name=cluster_name, options=options, envs=cluster_env, config_bundles=config_bundles, extra_config=extra_config, pre_script=pre_script)
             self.finish(json.dumps({
                 "success": True,
                 "message": "STARTED_SPARK_CONNECT_SERVER"
