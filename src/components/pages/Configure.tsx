@@ -120,7 +120,27 @@ const Configure: React.FC = () => {
   };
 
   const { mutate } = useStatus();
+
+  const attachConfigToNotebook = () => {
+    if (!activeNotebookPanel) {
+      return;
+    }
+
+    const configMetadata = {
+      cluster_name: cluster?.value,
+      bundled_options: selectedConfigBundles,
+      list_of_options: Object.keys(extraConfig).map(k => ({
+        name: k,
+        value: extraConfig[k]
+      }))
+    };
+
+    activeNotebookPanel.model?.setMetadata('sparkconnect', configMetadata);
+  };
+
   const connect = () => {
+    attachConfigToNotebook();
+
     UIStore.update(s => {
       s.isConnecting = true;
       s.clusterName = cluster?.value;

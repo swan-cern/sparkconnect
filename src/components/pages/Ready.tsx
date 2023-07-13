@@ -102,17 +102,6 @@ const Ready: React.FC = () => {
     });
   };
 
-  const detachNotebookConfig = () => {
-    showDialog({
-      title: 'Detach configuration?',
-      body: 'This will delete currently attached configuration.'
-    }).then(res => {
-      if (res.button.accept) {
-        activeNotebookPanel?.model?.deleteMetadata('sparkconnect');
-      }
-    });
-  };
-
   const notebookConfigDiffers = useMemo(() => {
     if (!notebookMetadata || !data) return false;
 
@@ -198,14 +187,6 @@ const Ready: React.FC = () => {
                 attach_file_add
               </span>
               <div>Attach config to notebook</div>
-            </div>
-          )}
-          {!!notebookMetadata && (
-            <div onClick={detachNotebookConfig} style={{ color: 'var(--jp-error-color1)' }}>
-              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-error-color1)' }}>
-                link_off
-              </span>
-              <div>Detach config from notebook</div>
             </div>
           )}
         </div>
