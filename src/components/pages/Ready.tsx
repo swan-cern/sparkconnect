@@ -165,7 +165,7 @@ const Ready: React.FC = () => {
             <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
               monitor_heart
             </span>
-            <div>View logs</div>
+            <div>View connection logs</div>
           </div>
           <div onClick={viewSparkOptions}>
             <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>

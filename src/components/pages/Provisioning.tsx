@@ -47,7 +47,7 @@ const Provisioning: React.FC = () => {
       </div>
       <div style={{ padding: 8 }}>
         <button className="jp-Button jp-mod-styled jp-mod-reject" style={{ width: '100%' }} onClick={viewLogs}>
-          View logs
+          View connection logs
         </button>
       </div>
     </div>
