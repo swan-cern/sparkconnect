@@ -45,7 +45,7 @@ class _SparkConnectCluster:
         options['spark.ui.proxyRedirectUri'] = proxy_redirect_uri
         config_args = self.get_config_args(options)
 
-        run_script = f"$SPARK_HOME/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
+        run_script = f"sh $SPARK_HOME/sbin/start-connect-server.sh --packages {SPARK_CONNECT_PACKAGE} {config_args}"
         if self.pre_script:
             run_script = self.pre_script + ' && ' + run_script
         
@@ -58,7 +58,7 @@ class _SparkConnectCluster:
         env_variables = self.get_envs({})
         if SPARK_HOME:
             env_variables['SPARK_HOME'] = SPARK_HOME
-        run_script = f"$SPARK_HOME/sbin/stop-connect-server.sh"
+        run_script = f"sh $SPARK_HOME/sbin/stop-connect-server.sh"
         if self.pre_script:
             run_script = self.pre_script + ' && ' + run_script
 
@@ -100,7 +100,7 @@ class _SparkConnectCluster:
         if SPARK_HOME:
             env_variables['SPARK_HOME'] = SPARK_HOME
 
-        run_script = f"$SPARK_HOME/sbin/spark-daemon.sh status org.apache.spark.sql.connect.service.SparkConnectServer 1"
+        run_script = f"sh $SPARK_HOME/sbin/spark-daemon.sh status org.apache.spark.sql.connect.service.SparkConnectServer 1"
         if self.pre_script:
             run_script = self.pre_script + ' && ' + run_script
 
