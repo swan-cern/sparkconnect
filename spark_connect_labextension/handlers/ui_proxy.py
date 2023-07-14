@@ -55,5 +55,5 @@ class SparkUIProxyHandler(ExtensionHandlerMixin, ProxyHandler):
 
     def proxy(self, proxied_path):
         self.host_allowlist = [self.spark_webui_host]
-        print(self.host_allowlist)
+        print("Host allowlist", self.host_allowlist)
         return super().proxy(self.spark_webui_host, self.spark_webui_port, proxied_path)
