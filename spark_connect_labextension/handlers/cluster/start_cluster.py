@@ -16,10 +16,13 @@ class StartClusterRouteHandler(SparkConnectAPIHandler):
         options = json_body.get('options', {})
         cluster_metadata = self.spark_clusters[cluster_name]
         cluster_env = cluster_metadata.get('env', {})
+        cluster_opts = cluster_metadata.get('opts', {})
         pre_script = cluster_metadata.get('pre_script')
 
+        spark_opts = {**cluster_opts, **options}
+
         try:
-            await asyncio.to_thread(cluster.start, cluster_name=cluster_name, options=options, envs=cluster_env, config_bundles=config_bundles, extra_config=extra_config, pre_script=pre_script)
+            await asyncio.to_thread(cluster.start, cluster_name=cluster_name, options=spark_opts, envs=cluster_env, config_bundles=config_bundles, extra_config=extra_config, pre_script=pre_script)
             self.finish(json.dumps({
                 "success": True,
                 "message": "STARTED_SPARK_CONNECT_SERVER"
