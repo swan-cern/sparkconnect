@@ -159,7 +159,7 @@ const Ready: React.FC = () => {
             <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
               monitoring
             </span>
-            <div>View Spark WebUI</div>
+            <div>View Spark Web UI</div>
           </div>
           <div onClick={viewLogs}>
             <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>

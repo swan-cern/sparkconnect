@@ -88,7 +88,7 @@ function addSparkWebuiMainAreaWidget(app: JupyterFrontEnd) {
     const content = new SparkWebuiMainAreaWidget({ app });
     const widget = new MainAreaWidget({ content });
     widget.id = 'sparkconnect-webui';
-    widget.title.label = 'Spark WebUI';
+    widget.title.label = 'Spark Web UI';
     widget.title.closable = true;
     widget.title.icon = SparkIcon;
 
@@ -100,7 +100,7 @@ function addSparkWebuiMainAreaWidget(app: JupyterFrontEnd) {
 
   const command: string = 'sparkconnect:viewWebUI';
   app.commands.addCommand(command, {
-    label: 'View Spark WebUI',
+    label: 'View Spark Web UI',
     execute: () => {
       if (widget.isDisposed) {
         widget = newWidget();

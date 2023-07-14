@@ -14,12 +14,14 @@ class StartClusterRouteHandler(SparkConnectAPIHandler):
         config_bundles = json_body.get('configBundles', [])
         extra_config = json_body.get('extraConfig', {})
         options = json_body.get('options', {})
+
         cluster_metadata = self.spark_clusters[cluster_name]
         cluster_env = cluster_metadata.get('env', {})
         cluster_opts = cluster_metadata.get('opts', {})
         pre_script = cluster_metadata.get('pre_script')
+        webui_port = cluster_metadata.get('webui_port', 4040)
 
-        spark_opts = {**cluster_opts, **options}
+        spark_opts = {**cluster_opts, **options, 'spark.ui.port': webui_port}
 
         try:
             await asyncio.to_thread(cluster.start, cluster_name=cluster_name, options=spark_opts, envs=cluster_env, config_bundles=config_bundles, extra_config=extra_config, pre_script=pre_script)
