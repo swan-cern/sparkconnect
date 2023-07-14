@@ -27,12 +27,12 @@ class SparkUIProxyHandler(ExtensionHandlerMixin, ProxyHandler):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.proxy_base = f'/{EXTENSION_ID}/ui'
-        self.host_allowlist = [self.spark_webui_host]
 
     async def http_get(self, proxied_path):
         return await self.proxy(proxied_path)
 
     async def open(self, proxied_path):
+        self.host_allowlist = [self.spark_webui_host]
         return await super().proxy_open(self.spark_webui_host, self.spark_webui_port, proxied_path)
 
     def post(self, proxied_path):
@@ -54,4 +54,6 @@ class SparkUIProxyHandler(ExtensionHandlerMixin, ProxyHandler):
         return self.proxy(proxied_path)
 
     def proxy(self, proxied_path):
+        self.host_allowlist = [self.spark_webui_host]
+        print(self.host_allowlist)
         return super().proxy(self.spark_webui_host, self.spark_webui_port, proxied_path)
