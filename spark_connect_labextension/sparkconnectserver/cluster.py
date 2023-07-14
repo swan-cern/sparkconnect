@@ -133,6 +133,7 @@ class _SparkConnectCluster:
         return ' '.join(args)
     
     def replace_env_params(self, value):
+        value = f"{value}"
         replacable_values = {}
         for _, variable, _, _ in Formatter().parse(value):
             if variable is  not None:
