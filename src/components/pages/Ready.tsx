@@ -128,7 +128,7 @@ const Ready: React.FC = () => {
           ariaLabel: '',
           iconClass: '',
           iconLabel: '',
-          actions: []
+          actions: ['overwrite']
         },
         {
           label: 'Restart connection',
@@ -139,7 +139,7 @@ const Ready: React.FC = () => {
           ariaLabel: '',
           iconClass: '',
           iconLabel: '',
-          actions: []
+          actions: ['restart']
         },
         {
           label: 'Dismiss',
@@ -153,6 +153,10 @@ const Ready: React.FC = () => {
           actions: []
         }
       ]
+    }).then(res => {
+      if (res.button.actions.includes('overwrite')) {
+        overrideNotebookConfig();
+      }
     });
   };
 
@@ -234,14 +238,6 @@ const Ready: React.FC = () => {
             </span>
             <div>View current Spark options</div>
           </div>
-          {notebookConfigDiffers && (
-            <div onClick={overrideNotebookConfig}>
-              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
-                attach_file_add
-              </span>
-              <div>Overwrite attached config</div>
-            </div>
-          )}
           {!notebookMetadata && !!activeNotebookPanel && (
             <div onClick={attachConfigToNotebook}>
               <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-ui-font-color2)' }}>
