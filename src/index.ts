@@ -150,6 +150,11 @@ function addNotebookListener(labShell: ILabShell, notebookTracker: INotebookTrac
 }
 
 function attachConfigToNotebook(notebook: NotebookPanel) {
+  const notebookHasConnectionMetadata = !!notebook.model?.getMetadata('sparkconnect');
+  if (notebookHasConnectionMetadata) {
+    return;
+  }
+
   requestAPI<SparkClusterStatus>('/cluster/status')
     .then(status => {
       if (status.status !== 'READY') {
