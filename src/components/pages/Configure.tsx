@@ -87,6 +87,7 @@ const Configure: React.FC = () => {
     return map;
   }, [configBundles, cluster?.value, selectedConfigBundles]);
 
+  // Note: existing config will be overriden WITHOUT concatenation
   const configuredOptions: { [key: string]: any } = { ...configuredOptionsFromBundle, ...extraConfig };
 
   const reviewConfiguration = () => {

@@ -8,6 +8,7 @@ import useCluster from '../../hooks/useCluster';
 import useJupyterLabApp from '../../hooks/useJupyterLabApp';
 import CodePreview from '../ready/CodePreview';
 import { UIStore } from '../../store/UIStore';
+import ConfigDiff from '../ready/ConfigDiff';
 
 const Ready: React.FC = () => {
   const { data, mutate } = useStatus();
@@ -102,6 +103,59 @@ const Ready: React.FC = () => {
     });
   };
 
+  const learnMoreDifferentConfig = () => {
+    if (!data) return;
+
+    const currentMetadata = {
+      cluster_name: data.clusterName,
+      bundled_options: data.configBundles,
+      list_of_options: Object.keys(data.extraConfig).map(k => ({
+        name: k,
+        value: data.extraConfig[k]
+      }))
+    };
+
+    showDialog({
+      title: 'Differring Spark configuration',
+      body: <ConfigDiff currentConfig={currentMetadata} notebookConfig={notebookMetadata} />,
+      buttons: [
+        {
+          label: 'Overwrite config',
+          caption: 'Overwrite notebook config',
+          className: '',
+          accept: false,
+          displayType: 'warn',
+          ariaLabel: '',
+          iconClass: '',
+          iconLabel: '',
+          actions: []
+        },
+        {
+          label: 'Restart connection',
+          caption: 'Restart connection',
+          className: '',
+          accept: false,
+          displayType: 'warn',
+          ariaLabel: '',
+          iconClass: '',
+          iconLabel: '',
+          actions: []
+        },
+        {
+          label: 'Dismiss',
+          caption: 'Dismiss',
+          className: '',
+          accept: false,
+          displayType: 'default',
+          ariaLabel: '',
+          iconClass: '',
+          iconLabel: '',
+          actions: []
+        }
+      ]
+    });
+  };
+
   const notebookConfigDiffers = useMemo(() => {
     if (!notebookMetadata || !data) return false;
 
@@ -129,7 +183,7 @@ const Ready: React.FC = () => {
       <div style={{ padding: 8 }}>
         <SparkLogo />
         <div style={{ marginTop: 16, color: 'var(--md-green-600)' }}>
-          <h3 className="jp-SparkConnectExtension-heading">
+          <h3 className="jp-SparkConnectExtension-heading" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <div>
               <span className="material-symbols-outlined" style={{ fontSize: 36 }}>
                 cloud_done
@@ -147,7 +201,12 @@ const Ready: React.FC = () => {
             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
               error
             </span>
-            <div>Different Spark configuration is attached to this notebook.</div>
+            <div>
+              Different Spark configuration is attached to this notebook.{' '}
+              <a className="jp-SparkConnectExtension-warning-learn-more" onClick={learnMoreDifferentConfig}>
+                Learn more
+              </a>
+            </div>
           </div>
         </div>
       )}
