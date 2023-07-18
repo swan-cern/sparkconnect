@@ -195,7 +195,7 @@ const Ready: React.FC = () => {
                 cloud_done
               </span>
             </div>
-            <div>
+            <div style={{textAlign: 'center'}}>
               Connected to <b>{cluster?.displayName}</b>
             </div>
           </h3>
