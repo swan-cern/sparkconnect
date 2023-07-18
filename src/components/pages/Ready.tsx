@@ -131,8 +131,8 @@ const Ready: React.FC = () => {
           actions: ['overwrite']
         },
         {
-          label: 'Restart connection',
-          caption: 'Restart connection',
+          label: 'Disconnect',
+          caption: 'Disconnect',
           className: '',
           accept: false,
           displayType: 'warn',
@@ -156,6 +156,8 @@ const Ready: React.FC = () => {
     }).then(res => {
       if (res.button.actions.includes('overwrite')) {
         overrideNotebookConfig();
+      } else if (res.button.actions.includes('restart')) {
+        disconnect();
       }
     });
   };
