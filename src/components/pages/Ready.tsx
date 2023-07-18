@@ -135,7 +135,9 @@ const Ready: React.FC = () => {
                 cloud_done
               </span>
             </div>
-            Connected to <b>{cluster?.displayName}</b>
+            <div>
+              Connected to <b>{cluster?.displayName}</b>
+            </div>
           </h3>
         </div>
       </div>
@@ -145,7 +147,7 @@ const Ready: React.FC = () => {
             <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
               error
             </span>
-            <div>Different configuration is attached to this notebook. Spark may not work correctly.</div>
+            <div>Different Spark configuration is attached to this notebook.</div>
           </div>
         </div>
       )}
