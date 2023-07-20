@@ -1,0 +1,8 @@
+{
+  "jupyter.lab.shortcuts": [],
+  "title": "spark-connect-labextension",
+  "description": "spark-connect-labextension settings.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}

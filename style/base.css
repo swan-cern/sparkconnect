@@ -1,0 +1,157 @@
+/*
+    See the JupyterLab Developer Guide for useful CSS Patterns:
+
+    https://jupyterlab.readthedocs.io/en/stable/developer/css.html
+*/
+
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+
+.jp-SparkConnectExtension-scrollable {
+  overflow: auto;
+  height: 100%;
+}
+
+.jp-SparkConnectExtension-heading {
+  font-weight: normal;
+  margin: 0;
+  margin-top: 8px;
+  padding: 0;
+}
+
+.jp-SparkConnectExtension-section-header {
+  flex: 0 0 auto;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px;
+  font-size: var(--jp-ui-font-size0);
+  border-bottom: var(--jp-border-width) solid var(--jp-border-color2);
+}
+
+.jp-SparkConnectExtension-configBundle-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jp-border-width);
+  background-color: var(--jp-border-color3);
+}
+
+.jp-SparkConnectExtension-configBundle-list > div {
+  padding: 6px 8px;
+  background-color: var(--jp-layout-color1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--jp-ui-font-size0);
+}
+
+.jp-SparkConnectExtension-configBundle-list > div:hover {
+  background-color: var(--jp-layout-color2);
+  cursor: pointer;
+}
+
+.jp-SparkConnectExtension-extraConfig-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jp-border-width);
+  background-color: var(--jp-border-color3);
+}
+
+.jp-SparkConnectExtension-extraConfig-list > div {
+  padding: 6px 8px;
+  background-color: var(--jp-layout-color1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--jp-ui-font-size0);
+}
+
+.jp-SparkConnectExtension-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jp-border-width);
+  background-color: var(--jp-border-color3);
+}
+
+.jp-SparkConnectExtension-menu-list > div {
+  padding: 8px 8px;
+  background-color: var(--jp-layout-color1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--jp-ui-font-size1);
+}
+
+.jp-SparkConnectExtension-menu-list > div:hover {
+  background-color: var(--jp-layout-color2);
+  cursor: pointer;
+}
+
+.jp-SparkConnectExtensionLogsWidget .cm-editor {
+  height: 100%;
+}
+
+.jp-SparkConnectExtension-configBundle-list-checkbox {
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid var(--jp-ui-font-color2);
+  border-radius: 3px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.jp-SparkConnectExtension-configBundle-list-checkbox.checked {
+  border: 1.5px solid var(--md-green-600);
+}
+
+.jp-SparkConnectExtension-configBundle-list-checkbox.checked > div {
+  background-color: var(--md-green-600);
+  width: 8px;
+  height: 8px;
+  margin: 2px;
+  border-radius: 1px;
+}
+
+a.jp-SparkConnectExtension-warning-learn-more {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+a.jp-SparkConnectExtension-warning-learn-more:hover {
+  text-decoration: underline;
+}
+
+.jp-SparkConnectExtension-warning-diffItem {
+  background: var(--jp-layout-color1);
+  border: var(--jp-border-width) solid var(--jp-border-color2);
+}
+
+.jp-SparkConnectExtension-warning-diffItem
+  .jp-SparkConnectExtension-warning-diffItem-title {
+  background: var(--jp-layout-color2);
+  padding: 6px 8px;
+}
+
+.jp-SparkConnectExtension-warning-diffItem
+  .jp-SparkConnectExtension-warning-diffItem-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border-top: var(--jp-border-width) solid var(--jp-border-color2);
+}
+
+.jp-SparkConnectExtension-warning-diffItem
+  .jp-SparkConnectExtension-warning-diffItem-row
+  .jp-SparkConnectExtension-warning-diffItem-row-title {
+  width: 100px;
+  border-right: var(--jp-border-width) solid var(--jp-border-color2);
+  padding: 6px 8px;
+}
+
+.jp-SparkConnectExtension-warning-diffItem
+  .jp-SparkConnectExtension-warning-diffItem-row
+  .jp-SparkConnectExtension-warning-diffItem-row-content {
+  padding: 6px 8px;
+}

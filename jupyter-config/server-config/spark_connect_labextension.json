@@ -1,0 +1,69 @@
+{
+  "ServerApp": {
+    "jpserver_extensions": {
+      "spark_connect_labextension": true
+    }
+  },
+  "SparkConnectConfig": {
+    "disable_cluster_selection_on_preselected": false,
+    "error_suggestions": [
+      {
+        "pattern": "ERROR SparkContext: Failed to add file:",
+        "type": "error",
+        "message": "Required files are missing."
+      },
+      {
+        "pattern": "org.apache.hadoop.security.AccessControlException: Client cannot authenticate via:[TOKEN, KERBEROS]",
+        "type": "info",
+        "message": "Please authenticate using <code>kinit</code> first."
+      }
+    ],
+    "clusters": {
+      "k8s": {
+        "display_name": "Cloud Containers (k8s)",
+        "env": {
+          "SPARK_CLUSTER_NAME": "k8s",
+          "SPARK_CONF_DIR": "",
+          "SPARK_AUTH_REQUIRED": "",
+          "SPARK_CONFIG_SCRIPT": ""
+        }
+      },
+      "analytix": {
+        "display_name": "Analytix",
+        "pre_script": ". jupyter-config/cern-config/analytix.sh",
+        "spark_env": {
+          "SPARK_CLUSTER_NAME": "analytix",
+          "SPARK_CONF_DIR": "",
+          "SPARK_AUTH_REQUIRED": "",
+          "SPARK_CONFIG_SCRIPT": ""
+        }
+      }
+    },
+    "config_bundles_from_file": {
+      "file": "jupyter-config/cern-config/cern_bundles.json",
+      "json_path": "bundled_options"
+    },
+    "config_bundles": {
+      "TestBundle": {
+        "options": [
+          {
+            "name": "spark.app.name",
+            "value": "Test App"
+          }
+        ]
+      }
+    },
+    "spark_options_from_file": {
+      "file": "jupyter-config/cern-config/cern_spark_options.json",
+      "json_path": "spark_options"
+    },
+    "spark_options": [
+      {
+        "data": {
+          "category": "Test Properties"
+        },
+        "value": "test"
+      }
+    ]
+  }
+}
