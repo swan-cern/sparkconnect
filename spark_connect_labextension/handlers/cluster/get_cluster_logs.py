@@ -1,3 +1,7 @@
+"""
+API Route Handler - Get cluster logs
+This file contains the route handler for retrieving Spark connection logs.
+"""
 from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import asyncio

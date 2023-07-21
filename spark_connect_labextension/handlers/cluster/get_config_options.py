@@ -1,3 +1,8 @@
+"""
+API Route Handler - Get available config options
+This file contains the route handler for retrieving Spark options available for use.
+"""
+
 from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json

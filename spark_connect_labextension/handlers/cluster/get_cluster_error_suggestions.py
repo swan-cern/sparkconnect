@@ -1,3 +1,7 @@
+"""
+API Route Handler - Get cluster error suggestions
+This file contains the route handler for retrieving cluster error troubleshooting suggestions.
+"""
 import re
 import json
 from spark_connect_labextension.handlers.base import SparkConnectAPIHandler

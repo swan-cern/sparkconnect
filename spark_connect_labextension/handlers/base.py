@@ -1,3 +1,10 @@
+"""
+Base API Route Handler
+
+This file contains the base class inherited by all API route handlers, 
+which provides common property for accessing the extension configuration.
+"""
+
 import json
 from jupyter_server.base.handlers import APIHandler
 from jupyter_server.extension.handler import ExtensionHandlerMixin

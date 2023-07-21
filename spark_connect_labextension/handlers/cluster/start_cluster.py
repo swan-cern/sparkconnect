@@ -1,3 +1,8 @@
+"""
+API Route Handler - Start Spark connection
+This file contains the route handler for starting the Spark connection (Spark Driver + Spark Connect server)
+"""
+
 from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json
