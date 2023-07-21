@@ -9,6 +9,11 @@ from spark_connect_labextension.sparkconnectserver.cluster import cluster
 class StopClusterRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     async def post(self):
+        """
+        POST handler for stopping running Spark connection
+
+        :returns: operation status (success or fail)
+        """
         try:
             await asyncio.to_thread(cluster.stop)
             self.finish(json.dumps({

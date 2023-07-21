@@ -6,6 +6,14 @@ import json
 class GetConfigOptionsRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     def get(self):
+        """
+        GET handler for retrieving Spark config options
+
+        :returns: Array of {
+            category: Category name,
+            name: Spark option key name
+        }
+        """
         options = []
         for option in self.spark_options:
             options.append({

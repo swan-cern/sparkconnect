@@ -9,6 +9,15 @@ from spark_connect_labextension.sparkconnectserver.cluster import cluster
 class StartClusterRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     async def post(self):
+        """
+        POST handler for starting a new Spark cluster connection
+
+        :param cluster: Spark cluster name
+        :param configBundles: Array of config bundle names
+        :param extraConfig: dict of configKey=configValue
+        :param options: dict of optionKey=optionValue
+        :returns: cluster initiation status (success or fail)
+        """
         json_body = self.get_json_body()
         cluster_name = json_body['cluster']
         config_bundles = json_body.get('configBundles', [])

@@ -9,6 +9,11 @@ from spark_connect_labextension.config import SPARK_CLUSTER_NAME
 class GetClusterStatusRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     async def get(self):
+        """
+        GET handler for retrieving Spark connection state
+
+        :returns: cluster state
+        """
         status = await asyncio.to_thread(cluster.get_status)
         self.finish(json.dumps({
             'status': status.name, 
