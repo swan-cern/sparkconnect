@@ -1,5 +1,10 @@
+"""
+Route Handler - Jupyter Server Proxy
+
+This file contains a class which extends Jupyter Server Proxy's ProxyHandler to customize the proxy's parameters.
+"""
+
 import socket
-import sys
 from jupyter_server_proxy.handlers import ProxyHandler
 from jupyter_server.extension.handler import ExtensionHandlerMixin
 from spark_connect_labextension.config import EXTENSION_ID

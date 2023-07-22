@@ -1,3 +1,9 @@
+"""
+Spark Connect Labextension Kernel Extension
+
+The kernel extension provides a helper function to create a SparkSession object which connects to the Spark Connect server through gRPC.
+"""
+
 from pyspark.sql import SparkSession
 from ipykernel.comm import Comm
 from .config import SPARK_CONNECT_PORT, EXTENSION_ID

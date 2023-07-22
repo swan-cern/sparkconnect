@@ -1,3 +1,9 @@
+"""
+Spark Connect cluster connection
+
+This file contains a singleton object `cluster` to start, stop, and get the status of the Spark Connect server process.
+"""
+
 import os
 import subprocess
 import tempfile
