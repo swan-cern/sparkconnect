@@ -13,6 +13,9 @@ from spark_connect_labextension.config import EXTENSION_ID
 
 
 class SparkConnectExtensionApp(ExtensionApp):
+    """
+    Jupyter Server App for the Spark Connect Labextension
+    """
     name = "spark_connect_labextension"
     default_url = f"/{EXTENSION_ID}"
     # base_url = f"${self.base_url}{EXTENSION_ID}"
@@ -25,11 +28,17 @@ class SparkConnectExtensionApp(ExtensionApp):
     template_paths = []
 
     def initialize_settings(self):
+        """
+        Initialize Jupyter server configuration
+        """
         self.settings.update(
             {"spark_connect_config": self.config["SparkConnectConfig"]}
         )
 
     def initialize_handlers(self):
+        """
+        Register API handlers
+        """
         base_url = f"/{EXTENSION_ID}"
         handlers = [
             (f"{base_url}/clusters", GetClustersRouteHandler),

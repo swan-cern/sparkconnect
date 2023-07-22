@@ -1,3 +1,8 @@
+"""
+API Route Handler - Get available clusters
+This file contains the route handler for retrieving clusters available for connection.
+"""
+
 from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json
@@ -6,6 +11,14 @@ import json
 class GetClustersRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     def get(self):
+        """
+        GET handler for retrieving list of available clusters
+
+        :returns: Array of {
+            name: machine-readable Spark cluster name,
+            displayName: human-readable Spark cluster name
+        }
+        """
         clusters = []
         for cluster_name in self.spark_clusters:
             cluster = self.spark_clusters[cluster_name]

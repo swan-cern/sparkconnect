@@ -1,3 +1,8 @@
+"""
+API Route Handler - Stop Spark connection
+This file contains the route handler for stopping the Spark Connect + Driver process.
+"""
+
 from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json
@@ -9,6 +14,11 @@ from spark_connect_labextension.sparkconnectserver.cluster import cluster
 class StopClusterRouteHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
     async def post(self):
+        """
+        POST handler for stopping running Spark connection
+
+        :returns: operation status (success or fail)
+        """
         try:
             await asyncio.to_thread(cluster.stop)
             self.finish(json.dumps({
