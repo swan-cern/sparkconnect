@@ -21,7 +21,7 @@ class GetClusterStatusRouteHandler(SparkConnectAPIHandler):
         """
         status = await asyncio.to_thread(cluster.get_status)
         self.finish(json.dumps({
-            'status': status.name, 
+            'status': status.name,
             'clusterName': cluster.cluster_name,
             'port': cluster.get_port(),
             'configBundles': cluster.config_bundles,

@@ -10,25 +10,26 @@ from jupyter_server.base.handlers import APIHandler
 from jupyter_server.extension.handler import ExtensionHandlerMixin
 from jsonpath_ng import jsonpath, parse
 
+
 class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
     @property
     def ext_config(self):
         """
         Property for retrieving extension config
-        
+
         :returns: extension config object
         """
         return self.settings['spark_connect_config']
-    
+
     @property
     def spark_clusters(self):
         """
         Property for retrieving available clusters from configuration
-        
+
         :returns: array of cluster config object
         """
         return self.ext_config['clusters']
-    
+
     @property
     def spark_config_bundles(self):
         """
@@ -49,9 +50,9 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
                 first_match = matches[0]
                 out_config_bundles = {**config_bundles, **first_match.value}
                 config_bundles = out_config_bundles
-            
+
         return config_bundles
-    
+
     @property
     def spark_options(self):
         """
@@ -74,7 +75,7 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
                 options = out_options
 
         return options
-    
+
     @property
     def error_suggestions(self):
         """
