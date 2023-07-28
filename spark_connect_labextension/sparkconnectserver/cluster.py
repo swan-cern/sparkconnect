@@ -57,8 +57,6 @@ class _SparkConnectCluster:
         self.tmpdir.cleanup()
 
         env_variables = self.get_envs(envs)
-        if SPARK_HOME:
-            env_variables['SPARK_HOME'] = SPARK_HOME
         env_variables['SPARK_LOG_DIR'] = self.tmpdir.name
         print("Spark log dir", self.tmpdir.name)
 
@@ -81,9 +79,7 @@ class _SparkConnectCluster:
         Stop the running Spark Connect server
         """
         print("Stopping Spark Connect server...")
-        env_variables = self.get_envs({})
-        if SPARK_HOME:
-            env_variables['SPARK_HOME'] = SPARK_HOME
+        env_variables = self.get_envs()
         run_script = f"sh $SPARK_HOME/sbin/stop-connect-server.sh"
         if self.pre_script:
             run_script = self.pre_script + ' && ' + run_script
@@ -152,10 +148,7 @@ class _SparkConnectCluster:
 
         :returns: boolean indicating if the server is running
         """
-        env_variables = self.get_envs({})
-        if SPARK_HOME:
-            env_variables['SPARK_HOME'] = SPARK_HOME
-
+        env_variables = self.get_envs()
         run_script = f"sh $SPARK_HOME/sbin/spark-daemon.sh status org.apache.spark.sql.connect.service.SparkConnectServer 1"
         if self.pre_script:
             run_script = self.pre_script + ' && ' + run_script
@@ -174,7 +167,7 @@ class _SparkConnectCluster:
         sock.close()
         return result == 0
  
-    def get_envs(self, envs: dict) -> dict:
+    def get_envs(self, envs: dict = {}) -> dict:
         """
         Get the current environment variables appended with the supplied env variables
 
@@ -185,6 +178,10 @@ class _SparkConnectCluster:
         if envs:
             for key in envs:
                 my_env[key] = envs[key]
+        
+        if SPARK_HOME:
+            my_env['SPARK_HOME'] = SPARK_HOME
+
         return my_env
 
     def get_config_args(self, options: dict) -> str:
