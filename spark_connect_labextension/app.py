@@ -49,8 +49,7 @@ class SparkConnectExtensionApp(ExtensionApp):
             (f"{base_url}/cluster/logs", GetClusterLogRouteHandler),
             (f"{base_url}/cluster/errors", GetClusterErrorSuggestionsRouteHandler),
             (f"{base_url}/cluster/status", GetClusterStatusRouteHandler),
-            (f"{base_url}/ui", SparkUIProxyRedirectHandler),
-            (f"{base_url}/ui/", SparkUIProxyRedirectHandler),
+            (f"{base_url}/ui(/)?", SparkUIProxyRedirectHandler),
             (f"{base_url}/ui(?P<proxied_path>.*)", SparkUIProxyHandler),
         ]
         self.handlers.extend(handlers)

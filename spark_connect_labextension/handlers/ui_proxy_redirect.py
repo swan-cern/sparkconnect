@@ -10,7 +10,7 @@ from spark_connect_labextension.config import EXTENSION_ID
 
 class SparkUIProxyRedirectHandler(SparkConnectAPIHandler):
     @tornado.web.authenticated
-    def get(self):
+    def get(self, *args, **kwargs):
         """
         GET handler for redirecting /ui/ to /ui/jobs/
         """
