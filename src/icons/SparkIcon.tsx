@@ -1,4 +1,5 @@
 import { LabIcon } from '@jupyterlab/ui-components';
+import { EXTENSION_ID } from '../const';
 
 /* eslint-disable max-len */
 const sparkIconSvg = `
@@ -7,7 +8,7 @@ const sparkIconSvg = `
 /* eslint-enable max-len */
 
 const SparkIcon = new LabIcon({
-  name: 'spark-connect-labextension:spark',
+  name: EXTENSION_ID + ':spark',
   svgstr: sparkIconSvg
 });
 
