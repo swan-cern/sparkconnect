@@ -2,7 +2,7 @@ import React from 'react';
 import { VDomRenderer } from '@jupyterlab/apputils';
 import { JupyterFrontEnd } from '@jupyterlab/application';
 import { launchIcon } from '@jupyterlab/ui-components';
-import { JupyterLabAppContext } from '../const';
+import { EXTENSION_ID, JupyterLabAppContext } from '../const';
 import { ServerConnection } from '@jupyterlab/services';
 import { URLExt } from '@jupyterlab/coreutils';
 
@@ -26,7 +26,8 @@ export class SparkWebuiMainAreaWidget extends VDomRenderer {
     const settings = ServerConnection.makeSettings();
     this.requestUrl = URLExt.join(
       settings.baseUrl,
-      'spark-connect-labextension', // API Namespace
+      'api',
+      EXTENSION_ID, // API Namespace
       'ui/'
     );
   }
@@ -52,7 +53,8 @@ export class SparkWebuiToolbarWidget extends VDomRenderer {
     const settings = ServerConnection.makeSettings();
     this.requestUrl = URLExt.join(
       settings.baseUrl,
-      'spark-connect-labextension', // API Namespace
+      'api',
+      EXTENSION_ID, // API Namespace
       'ui/'
     );
   }

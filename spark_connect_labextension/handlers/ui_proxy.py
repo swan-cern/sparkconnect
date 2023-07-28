@@ -16,35 +16,35 @@ class SparkUIProxyHandler(ExtensionHandlerMixin, ProxyHandler):
     def ext_config(self):
         """
         Property for retrieving extension config
-        
+
         :returns: extension config object
         """
         return self.settings['spark_connect_config']
-    
+
     @property
     def spark_clusters(self):
         """
         Property for retrieving available clusters from configuration
-        
+
         :returns: array of cluster config object
         """
         return self.ext_config['clusters']
-    
+
     @property
     def spark_webui_host(self):
         """
         Property for retrieving current Spark Web UI hostname
-        
+
         :returns: Spark Web UI hostname
         """
         current_cluster = self.spark_clusters[cluster.cluster_name]
         return current_cluster.get('webui_hostname', socket.gethostname())
-    
+
     @property
     def spark_webui_port(self):
         """
         Property for retrieving current Spark Web UI port
-        
+
         :returns: Spark Web UI port
         """
         current_cluster = self.spark_clusters[cluster.cluster_name]
@@ -55,7 +55,7 @@ class SparkUIProxyHandler(ExtensionHandlerMixin, ProxyHandler):
         Proxy handler constructor
         """
         super().__init__(*args, **kwargs)
-        self.proxy_base = f'/{EXTENSION_ID}/ui'
+        self.proxy_base = f'/api/{EXTENSION_ID}/ui'
         self.host_allowlist = [self.spark_webui_host]
 
     async def http_get(self, proxied_path):

@@ -10,3 +10,5 @@ dependencies:
   # labextension build dependencies
   - nodejs >=18,<19
   - pip
+  - pylint
+  - autopep8

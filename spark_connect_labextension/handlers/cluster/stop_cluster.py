@@ -31,4 +31,3 @@ class StopClusterRouteHandler(SparkConnectAPIHandler):
             self.finish(json.dumps({
                 "error": "FAILED_TO_STOP_CONNECT_SERVER"
             }))
-    

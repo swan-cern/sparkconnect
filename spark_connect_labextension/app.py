@@ -39,7 +39,7 @@ class SparkConnectExtensionApp(ExtensionApp):
         """
         Register API handlers
         """
-        base_url = f"/{EXTENSION_ID}"
+        base_url = f"/api/{EXTENSION_ID}"
         handlers = [
             (f"{base_url}/clusters", GetClustersRouteHandler),
             (f"{base_url}/config-bundles", GetConfigBundlesRouteHandler),
@@ -49,8 +49,7 @@ class SparkConnectExtensionApp(ExtensionApp):
             (f"{base_url}/cluster/logs", GetClusterLogRouteHandler),
             (f"{base_url}/cluster/errors", GetClusterErrorSuggestionsRouteHandler),
             (f"{base_url}/cluster/status", GetClusterStatusRouteHandler),
-            (f"{base_url}/ui", SparkUIProxyRedirectHandler),
-            (f"{base_url}/ui/", SparkUIProxyRedirectHandler),
+            (f"{base_url}/ui(/)?", SparkUIProxyRedirectHandler),
             (f"{base_url}/ui(?P<proxied_path>.*)", SparkUIProxyHandler),
         ]
         self.handlers.extend(handlers)

@@ -10,25 +10,26 @@ from jupyter_server.base.handlers import APIHandler
 from jupyter_server.extension.handler import ExtensionHandlerMixin
 from jsonpath_ng import jsonpath, parse
 
+
 class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
     @property
     def ext_config(self):
         """
         Property for retrieving extension config
-        
+
         :returns: extension config object
         """
         return self.settings['spark_connect_config']
-    
+
     @property
     def spark_clusters(self):
         """
         Property for retrieving available clusters from configuration
-        
+
         :returns: array of cluster config object
         """
         return self.ext_config['clusters']
-    
+
     @property
     def spark_config_bundles(self):
         """
@@ -38,6 +39,9 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
 
         :returns: dict of ConfigBundleName=ConfigBundleObject
         """
+        if hasattr(self, '_spark_config_bundles'):
+            return self._spark_config_bundles
+        
         config_bundles = self.ext_config.get('config_bundles', {})
         from_file_options = self.ext_config.get('config_bundles_from_file')
         if from_file_options:
@@ -49,9 +53,10 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
                 first_match = matches[0]
                 out_config_bundles = {**config_bundles, **first_match.value}
                 config_bundles = out_config_bundles
-            
+
+        self._spark_config_bundles = config_bundles
         return config_bundles
-    
+
     @property
     def spark_options(self):
         """
@@ -61,6 +66,9 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
 
         :returns: array of Spark option objects
         """
+        if hasattr(self, '_spark_options'):
+            return self._spark_options
+        
         options = self.ext_config.get('spark_options', [])
         from_file_options = self.ext_config.get('spark_options_from_file')
         if from_file_options:
@@ -73,8 +81,9 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
                 out_options = options + first_match.value
                 options = out_options
 
+        self._spark_options = options
         return options
-    
+
     @property
     def error_suggestions(self):
         """

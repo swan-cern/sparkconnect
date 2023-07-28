@@ -22,7 +22,7 @@ class GetClusterErrorSuggestionsRouteHandler(SparkConnectAPIHandler):
             valid_suggestions = self.get_valid_suggestions(logs)
 
         self.finish(json.dumps(valid_suggestions), set_content_type='application/json')
-    
+
     def get_valid_suggestions(self, logs):
         """
         Get error troubleshooting suggestions, given a string of logs.

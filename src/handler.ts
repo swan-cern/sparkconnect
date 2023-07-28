@@ -1,6 +1,7 @@
 import { URLExt } from '@jupyterlab/coreutils';
 
 import { ServerConnection } from '@jupyterlab/services';
+import { EXTENSION_ID } from './const';
 
 /**
  * Call the API extension
@@ -14,7 +15,8 @@ export async function requestAPI<T>(endPoint = '', init: RequestInit = {}, isJso
   const settings = ServerConnection.makeSettings();
   const requestUrl = URLExt.join(
     settings.baseUrl,
-    'spark-connect-labextension', // API Namespace
+    'api',
+    EXTENSION_ID, // API Namespace
     endPoint
   );
 
