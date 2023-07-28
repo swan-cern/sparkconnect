@@ -15,6 +15,7 @@ export async function requestAPI<T>(endPoint = '', init: RequestInit = {}, isJso
   const settings = ServerConnection.makeSettings();
   const requestUrl = URLExt.join(
     settings.baseUrl,
+    'api',
     EXTENSION_ID, // API Namespace
     endPoint
   );

@@ -26,6 +26,7 @@ export class SparkWebuiMainAreaWidget extends VDomRenderer {
     const settings = ServerConnection.makeSettings();
     this.requestUrl = URLExt.join(
       settings.baseUrl,
+      'api',
       EXTENSION_ID, // API Namespace
       'ui/'
     );
@@ -52,6 +53,7 @@ export class SparkWebuiToolbarWidget extends VDomRenderer {
     const settings = ServerConnection.makeSettings();
     this.requestUrl = URLExt.join(
       settings.baseUrl,
+      'api',
       EXTENSION_ID, // API Namespace
       'ui/'
     );

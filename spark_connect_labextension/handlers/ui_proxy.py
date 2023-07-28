@@ -55,7 +55,7 @@ class SparkUIProxyHandler(ExtensionHandlerMixin, ProxyHandler):
         Proxy handler constructor
         """
         super().__init__(*args, **kwargs)
-        self.proxy_base = f'/{EXTENSION_ID}/ui'
+        self.proxy_base = f'/api/{EXTENSION_ID}/ui'
         self.host_allowlist = [self.spark_webui_host]
 
     async def http_get(self, proxied_path):
