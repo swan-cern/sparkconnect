@@ -9,6 +9,7 @@ import subprocess
 import tempfile
 import glob
 import socket
+import logging
 from string import Formatter
 from enum import Enum
 from spark_connect_labextension.config import SPARK_HOME, SPARK_CONNECT_PORT, SPARK_CONNECT_PACKAGE
@@ -49,7 +50,7 @@ class _SparkConnectCluster:
         :param extra_config: dict of extra Spark options (OptionName=OptionValue)
         :param pre_script: script to run before starting the server
         """
-        print("Starting Spark Connect server...")
+        logging.debug("Starting Spark Connect server...")
         self.started = True
         self.cluster_name = cluster_name
         self.config_bundles = config_bundles
@@ -60,7 +61,7 @@ class _SparkConnectCluster:
 
         env_variables = self.get_envs(envs)
         env_variables['SPARK_LOG_DIR'] = self.tmpdir.name
-        print("Spark log dir", self.tmpdir.name)
+        logging.debug("Spark log dir", self.tmpdir.name)
 
         self.options = options
 
@@ -80,7 +81,7 @@ class _SparkConnectCluster:
         """
         Stop the running Spark Connect server
         """
-        print("Stopping Spark Connect server...")
+        logging.debug("Stopping Spark Connect server...")
         env_variables = self.get_envs()
         run_script = f"sh $SPARK_HOME/sbin/stop-connect-server.sh"
         if self.pre_script:
