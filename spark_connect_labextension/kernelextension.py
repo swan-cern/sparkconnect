@@ -29,7 +29,7 @@ def get_spark_session():
     """
     attach_config()
     global spark_session
-    if not spark_session:
+    if spark_session is None:
         spark_session = SparkSession.builder \
             .remote(f"sc://127.0.0.1:{SPARK_CONNECT_PORT}") \
             .getOrCreate()

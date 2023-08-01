@@ -3,9 +3,9 @@ API Route Handler - Get available clusters
 This file contains the route handler for retrieving clusters available for connection.
 """
 
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json
+from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 
 
 class GetClustersRouteHandler(SparkConnectAPIHandler):
