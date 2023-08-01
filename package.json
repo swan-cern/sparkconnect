@@ -11,7 +11,7 @@
   "bugs": {
     "url": "https://github.com/didithilmy/spark-connect-labextension.git/issues"
   },
-  "license": "BSD-3-Clause",
+  "license": "AGPLv3",
   "author": {
     "name": "Muhammad Aditya Hilmy",
     "email": "mhilmy@hey.com"
