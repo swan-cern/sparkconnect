@@ -1,15 +1,15 @@
 from jupyter_server.extension.application import ExtensionApp
-from spark_connect_labextension.handlers.cluster.start_cluster import StartClusterRouteHandler
-from spark_connect_labextension.handlers.cluster.stop_cluster import StopClusterRouteHandler
-from spark_connect_labextension.handlers.cluster.get_cluster_logs import GetClusterLogRouteHandler
-from spark_connect_labextension.handlers.cluster.get_cluster_error_suggestions import GetClusterErrorSuggestionsRouteHandler
-from spark_connect_labextension.handlers.cluster.get_cluster_status import GetClusterStatusRouteHandler
-from spark_connect_labextension.handlers.cluster.get_clusters import GetClustersRouteHandler
-from spark_connect_labextension.handlers.cluster.get_config_bundles import GetConfigBundlesRouteHandler
-from spark_connect_labextension.handlers.cluster.get_config_options import GetConfigOptionsRouteHandler
-from spark_connect_labextension.handlers.ui_proxy_redirect import SparkUIProxyRedirectHandler
-from spark_connect_labextension.handlers.ui_proxy import SparkUIProxyHandler
-from spark_connect_labextension.config import EXTENSION_ID
+from .handlers.cluster.start_cluster import StartClusterRouteHandler
+from .handlers.cluster.stop_cluster import StopClusterRouteHandler
+from .handlers.cluster.get_cluster_logs import GetClusterLogRouteHandler
+from .handlers.cluster.get_cluster_error_suggestions import GetClusterErrorSuggestionsRouteHandler
+from .handlers.cluster.get_cluster_status import GetClusterStatusRouteHandler
+from .handlers.cluster.get_clusters import GetClustersRouteHandler
+from .handlers.cluster.get_config_bundles import GetConfigBundlesRouteHandler
+from .handlers.cluster.get_config_options import GetConfigOptionsRouteHandler
+from .handlers.ui_proxy_redirect import SparkUIProxyRedirectHandler
+from .handlers.ui_proxy import SparkUIProxyHandler
+from .config import EXTENSION_ID
 
 
 class SparkConnectExtensionApp(ExtensionApp):
