@@ -4,10 +4,10 @@ This file contains the route handler for retrieving cluster error troubleshootin
 """
 import re
 import json
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
-import tornado
 import asyncio
+from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 from spark_connect_labextension.sparkconnectserver.cluster import cluster
+import tornado
 
 
 class GetClusterErrorSuggestionsRouteHandler(SparkConnectAPIHandler):
