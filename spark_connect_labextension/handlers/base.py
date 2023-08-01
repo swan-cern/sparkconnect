@@ -6,13 +6,14 @@ which provides common property for accessing the extension configuration.
 """
 
 import json
+from functools import cached_property
 from jupyter_server.base.handlers import APIHandler
 from jupyter_server.extension.handler import ExtensionHandlerMixin
-from jsonpath_ng import jsonpath, parse
+from jsonpath_ng import parse
 
 
 class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
-    @property
+    @cached_property
     def ext_config(self):
         """
         Property for retrieving extension config
@@ -21,7 +22,7 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
         """
         return self.settings['spark_connect_config']
 
-    @property
+    @cached_property
     def spark_clusters(self):
         """
         Property for retrieving available clusters from configuration
@@ -30,7 +31,7 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
         """
         return self.ext_config['clusters']
 
-    @property
+    @cached_property
     def spark_config_bundles(self):
         """
         Property for retrieving Spark config bundles.
@@ -39,9 +40,6 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
 
         :returns: dict of ConfigBundleName=ConfigBundleObject
         """
-        if hasattr(self, '_spark_config_bundles'):
-            return self._spark_config_bundles
-        
         config_bundles = self.ext_config.get('config_bundles', {})
         from_file_options = self.ext_config.get('config_bundles_from_file')
         if from_file_options:
@@ -54,10 +52,9 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
                 out_config_bundles = {**config_bundles, **first_match.value}
                 config_bundles = out_config_bundles
 
-        self._spark_config_bundles = config_bundles
         return config_bundles
 
-    @property
+    @cached_property
     def spark_options(self):
         """
         Property for retrieving available Spark options.
@@ -66,9 +63,6 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
 
         :returns: array of Spark option objects
         """
-        if hasattr(self, '_spark_options'):
-            return self._spark_options
-        
         options = self.ext_config.get('spark_options', [])
         from_file_options = self.ext_config.get('spark_options_from_file')
         if from_file_options:
@@ -81,10 +75,9 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
                 out_options = options + first_match.value
                 options = out_options
 
-        self._spark_options = options
         return options
 
-    @property
+    @cached_property
     def error_suggestions(self):
         """
         Property for retrieving error troubleshooting suggestions from the config file
