@@ -3,10 +3,10 @@ API Route Handler - Get cluster status
 This file contains the route handler for retrieving the connection state.
 """
 
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json
 import asyncio
+from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 from spark_connect_labextension.sparkconnectserver.cluster import cluster
 from spark_connect_labextension.config import SPARK_CLUSTER_NAME
 

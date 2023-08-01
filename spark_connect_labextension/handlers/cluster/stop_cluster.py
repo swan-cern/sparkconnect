@@ -3,11 +3,11 @@ API Route Handler - Stop Spark connection
 This file contains the route handler for stopping the Spark Connect + Driver process.
 """
 
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 import tornado
 import json
 import traceback
 import asyncio
+from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
 from spark_connect_labextension.sparkconnectserver.cluster import cluster
 
 
