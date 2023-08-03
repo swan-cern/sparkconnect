@@ -1,4 +1,5 @@
 from jupyter_server.extension.application import ExtensionApp
+from traitlets import Any, Bool, Dict, HasTraits, List, Unicode, default, Integer
 from .handlers.cluster.start_cluster import StartClusterRouteHandler
 from .handlers.cluster.stop_cluster import StopClusterRouteHandler
 from .handlers.cluster.get_cluster_logs import GetClusterLogRouteHandler
@@ -27,13 +28,159 @@ class SparkConnectExtensionApp(ExtensionApp):
     static_paths = []
     template_paths = []
 
-    def initialize_settings(self):
-        """
-        Initialize Jupyter server configuration
-        """
-        self.settings.update(
-            {"spark_connect_config": self.config["SparkConnectConfig"]}
+    clusters = Dict(
+        key_trait=Unicode(),
+        value_trait=Dict(
+            per_key_traits={
+                'display_name': Unicode(),
+                'env': Dict(
+                    key_trait=Unicode(),
+                    value_trait=Unicode(),
+                    default_value={}
+                ),
+                'opts': Dict(
+                    key_trait=Unicode(),
+                    value_trait=Unicode(),
+                    default_value={}
+                ),
+                'pre_script': Unicode(allow_none=True),
+                'webui_port': Integer(allow_none=True, default_value=4040)
+            }
         )
+    )
+
+    config_bundles = Dict(
+        allow_none=True,
+        default_value={},
+        key_trait=Unicode(),
+        value_trait=Dict(
+            per_key_traits={
+                'name': Unicode(),
+                'displayName': Unicode(),
+                'clusterFilter': List(trait=Unicode()),
+                'options': List(trait=Unicode(), default_value=[]),
+            }
+        )
+    )
+
+    config_bundles_from_file = Dict(
+        allow_none=True,
+        per_key_traits={
+            'file': Unicode(),
+            'json_path': Unicode()
+        }
+    )
+
+    spark_options = List(
+        allow_none=True,
+        trait=Dict(
+            per_key_traits={
+                'category': Dict(
+                    per_key_traits={
+                        'data': Dict(
+                            per_key_traits={
+                                'category': Unicode()
+                            }
+                        )
+                    }
+                ),
+                'name': Dict(
+                    per_key_traits={
+                        'value': Unicode()
+                    }
+                )
+            }
+        )
+    )
+
+    spark_options_from_file = Dict(
+        allow_none=True,
+        per_key_traits={
+            'file': Unicode(),
+            'json_path': Unicode()
+        }
+    )
+
+    spark_connector_config = Dict(
+        per_key_traits={
+            'clusters': Dict(
+                key_trait=Unicode(),
+                value_trait=Dict(
+                    per_key_traits={
+                        'display_name': Unicode(),
+                        'env': Dict(
+                            key_trait=Unicode(),
+                            value_trait=Unicode(),
+                            default_value={}
+                        ),
+                        'opts': Dict(
+                            key_trait=Unicode(),
+                            value_trait=Unicode(),
+                            default_value={}
+                        ),
+                        'pre_script': Unicode(allow_none=True),
+                        'webui_port': Integer(allow_none=True, default_value=4040)
+                    }
+                )
+            ),
+            'config_bundles': Dict(
+                allow_none=True,
+                default_value={},
+                key_trait=Unicode(),
+                value_trait=Dict(
+                    per_key_traits={
+                        'name': Unicode(),
+                        'displayName': Unicode(),
+                        'clusterFilter': List(trait=Unicode()),
+                        'options': List(trait=Unicode(), default_value=[]),
+                    }
+                )
+            ),
+            'config_bundles_from_file': Dict(
+                allow_none=True,
+                per_key_traits={
+                    'file': Unicode(),
+                    'json_path': Unicode()
+                }
+            ),
+            'spark_options': List(
+                allow_none=True,
+                trait=Dict(
+                    per_key_traits={
+                        'category': Dict(
+                            per_key_traits={
+                                'data': Dict(
+                                    per_key_traits={
+                                        'category': Unicode()
+                                    }
+                                )
+                            }
+                        ),
+                        'name': Dict(
+                            per_key_traits={
+                                'value': Unicode()
+                            }
+                        )
+                    }
+                )
+            ),
+            'spark_options_from_file': Dict(
+                allow_none=True,
+                per_key_traits={
+                    'file': Unicode(),
+                    'json_path': Unicode()
+                }
+            ),
+        }
+    )
+
+    # def initialize_settings(self):
+    #     """
+    #     Initialize Jupyter server configuration
+    #     """
+    #     self.settings.update(
+    #         {"spark_connect_config": self.config["SparkConnectConfig"]}
+    #     )
 
     def initialize_handlers(self):
         """
