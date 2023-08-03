@@ -20,8 +20,7 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
 
         :returns: extension config object
         """
-        print(self.settings)
-        return self.settings['spark_connector_config']
+        return self.settings['spark_connect_labextension_config']
 
     @cached_property
     def spark_clusters(self):
