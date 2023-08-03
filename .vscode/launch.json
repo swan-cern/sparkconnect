@@ -13,8 +13,7 @@
         "--notebook-dir=notebooks",
         "--no-browser",
         "--ServerApp.token=''",
-        "--port=9999",
-        "--JupyterApp.config_file=jupyter-config/server-config/spark_connect_labextension.json"
+        "--port=9999"
       ],
       "env": {
         "SPARK_CLUSTER_NAME": "analytix"

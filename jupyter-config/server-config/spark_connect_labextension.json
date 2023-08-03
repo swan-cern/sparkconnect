@@ -3,49 +3,5 @@
     "jpserver_extensions": {
       "spark_connect_labextension": true
     }
-  },
-  "SparkConnectConfig": {
-    "disable_cluster_selection_on_preselected": false,
-    "error_suggestions": [
-      {
-        "pattern": "ERROR SparkContext: Failed to add file:",
-        "type": "error",
-        "message": "Required files are missing."
-      },
-      {
-        "pattern": "org.apache.hadoop.security.AccessControlException: Client cannot authenticate via:[TOKEN, KERBEROS]",
-        "type": "info",
-        "message": "Please authenticate using <code>kinit</code> first."
-      }
-    ],
-    "clusters": {
-      "k8s": {
-        "display_name": "Local Cluster",
-        "env": {
-          "SPARK_CLUSTER_NAME": "local",
-          "SPARK_CONF_DIR": "",
-          "SPARK_AUTH_REQUIRED": "",
-          "SPARK_CONFIG_SCRIPT": ""
-        }
-      }
-    },
-    "config_bundles": {
-      "TestBundle": {
-        "options": [
-          {
-            "name": "spark.app.name",
-            "value": "Test App"
-          }
-        ]
-      }
-    },
-    "spark_options": [
-      {
-        "data": {
-          "category": "Spark App Name"
-        },
-        "value": "spark.app.name"
-      }
-    ]
   }
 }
