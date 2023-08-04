@@ -31,7 +31,7 @@ class _SparkConnectCluster:
     """
 
     def __init__(self):
-        self.tmpdir = tempfile.TemporaryDirectory()
+        self.tmpdir = None
         self.cluster_name = None
         self.config_bundles = []
         self.extra_config = {}
@@ -52,6 +52,7 @@ class _SparkConnectCluster:
         """
         logging.debug("Starting Spark Connect server...")
         self.started = True
+        self.tmpdir = tempfile.TemporaryDirectory()
         self.cluster_name = cluster_name
         self.config_bundles = config_bundles
         self.extra_config = extra_config
