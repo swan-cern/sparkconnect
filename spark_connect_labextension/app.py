@@ -18,14 +18,6 @@ class SparkConnectExtensionApp(ExtensionApp):
     Jupyter Server App for the Spark Connect Labextension
     """
     name = "spark_connect_labextension"
-    default_url = f"/{EXTENSION_ID}"
-    load_other_extensions = True
-    file_url_prefix = "/render"
-
-    settings = {}
-    handlers = []
-    static_paths = []
-    template_paths = []
 
     disable_cluster_selection_on_preselected = Bool(default_value=False, allow_none=True)
 
