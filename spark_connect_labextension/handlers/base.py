@@ -14,22 +14,13 @@ from jsonpath_ng import parse
 
 class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
     @cached_property
-    def ext_config(self):
-        """
-        Property for retrieving extension config
-
-        :returns: extension config object
-        """
-        return self.settings['spark_connect_labextension_config']
-
-    @cached_property
     def spark_clusters(self):
         """
         Property for retrieving available clusters from configuration
 
         :returns: array of cluster config object
         """
-        return self.ext_config['clusters']
+        return self.extensionapp.clusters
 
     @cached_property
     def spark_config_bundles(self):
@@ -40,8 +31,8 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
 
         :returns: dict of ConfigBundleName=ConfigBundleObject
         """
-        config_bundles = self.ext_config.get('config_bundles', {})
-        from_file_options = self.ext_config.get('config_bundles_from_file')
+        config_bundles = self.extensionapp.config_bundles
+        from_file_options = self.extensionapp.config_bundles_from_file
         if from_file_options:
             file_path = from_file_options['file']
             with open(file_path, 'r') as f:
@@ -63,8 +54,8 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
 
         :returns: array of Spark option objects
         """
-        options = self.ext_config.get('spark_options', [])
-        from_file_options = self.ext_config.get('spark_options_from_file')
+        options = self.extensionapp.spark_options
+        from_file_options = self.extensionapp.spark_options_from_file
         if from_file_options:
             file_path = from_file_options['file']
             with open(file_path, 'r') as f:
@@ -84,4 +75,4 @@ class SparkConnectAPIHandler(ExtensionHandlerMixin, APIHandler):
 
         :returns: array of error suggestions object
         """
-        return self.ext_config.get('error_suggestions', [])
+        return self.extensionapp.error_suggestions
