@@ -165,10 +165,13 @@ class _SparkConnectCluster:
 
         :returns: boolean indicating if the server is ready
         """
-        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        result = sock.connect_ex(('127.0.0.1', self.get_port()))
-        sock.close()
-        return result == 0
+        try:
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            result = sock.connect_ex(('127.0.0.1', self.get_port()))
+            sock.close()
+            return result == 0
+        except OSError as e:
+            raise Exception('Cannot determine if the Spark Connect server is ready') from e
 
     def get_envs(self, envs: dict = {}) -> dict:
         """
@@ -213,12 +216,12 @@ class _SparkConnectCluster:
         :returns: value with replaced {ENV_NAME}
         """
         value = f"{value}"
-        replacable_values = {}
+        replaceable_values = {}
         for _, variable, _, _ in Formatter().parse(value):
             if variable is not None:
-                replacable_values[variable] = os.getenv(variable, '')
+                replaceable_values[variable] = os.getenv(variable, '')
 
-        return value.format(**replacable_values)
+        return value.format(**replaceable_values)
 
     def __del__(self):
         if self.started:
