@@ -1,5 +1,5 @@
 from jupyter_server.extension.application import ExtensionApp
-from traitlets import Any, Bool, Dict, HasTraits, List, Unicode, default, Integer
+from traitlets import Bool, Dict, Enum, List, Unicode, default, Integer
 from .handlers.cluster.start_cluster import StartClusterRouteHandler
 from .handlers.cluster.stop_cluster import StopClusterRouteHandler
 from .handlers.cluster.get_cluster_logs import GetClusterLogRouteHandler
@@ -10,7 +10,7 @@ from .handlers.cluster.get_config_bundles import GetConfigBundlesRouteHandler
 from .handlers.cluster.get_config_options import GetConfigOptionsRouteHandler
 from .handlers.ui_proxy_redirect import SparkUIProxyRedirectHandler
 from .handlers.ui_proxy import SparkUIProxyHandler
-from .config import EXTENSION_ID
+from .config import EXTENSION_ID, EXTENSION_CONFIG_NAME
 
 
 class SparkConnectExtensionApp(ExtensionApp):
@@ -27,6 +27,20 @@ class SparkConnectExtensionApp(ExtensionApp):
     handlers = []
     static_paths = []
     template_paths = []
+
+    disable_cluster_selection_on_preselected = Bool(default_value=False, allow_none=True)
+
+    error_suggestions = List(
+        allow_none=True,
+        default_value=[],
+        trait=Dict(
+            per_key_traits={
+                'pattern': Unicode(),
+                'type': Enum(values=['error', 'info', 'warn']),
+                'message': Unicode(),
+            }
+        )
+    )
 
     clusters = Dict(
         key_trait=Unicode(),
@@ -55,10 +69,15 @@ class SparkConnectExtensionApp(ExtensionApp):
         key_trait=Unicode(),
         value_trait=Dict(
             per_key_traits={
-                'name': Unicode(),
-                'displayName': Unicode(),
+                'name': Unicode(allow_none=True),
+                'displayName': Unicode(allow_none=True),
                 'clusterFilter': List(trait=Unicode()),
-                'options': List(trait=Unicode(), default_value=[]),
+                'options': List(default_value=[], trait=Dict(
+                    per_key_traits={
+                        'name': Unicode(),
+                        'value': Unicode()
+                    }
+                )),
             }
         )
     )
@@ -101,13 +120,33 @@ class SparkConnectExtensionApp(ExtensionApp):
         }
     )
 
-    # def initialize_settings(self):
-    #     """
-    #     Initialize Jupyter server configuration
-    #     """
-    #     self.settings.update(
-    #         {"spark_connect_config": self.config["SparkConnectConfig"]}
-    #     )
+    @default("disable_cluster_selection_on_preselected")
+    def _default_disable_cluster_selection_on_preselected(self):
+        return self.config[EXTENSION_CONFIG_NAME].get("disable_cluster_selection_on_preselected")
+
+    @default("error_suggestions")
+    def _default_error_suggestions(self):
+        return self.config[EXTENSION_CONFIG_NAME].get("error_suggestions")
+
+    @default("clusters")
+    def _default_clusters(self):
+        return self.config[EXTENSION_CONFIG_NAME].get("clusters")
+
+    @default("config_bundles")
+    def _default_config_bundles(self):
+        return self.config[EXTENSION_CONFIG_NAME].get("config_bundles", {})
+
+    @default("config_bundles_from_file")
+    def _default_config_bundles_from_file(self):
+        return self.config[EXTENSION_CONFIG_NAME].get("config_bundles_from_file", None)
+
+    @default("spark_options")
+    def _default_spark_options(self):
+        return self.config[EXTENSION_CONFIG_NAME].get("spark_options", {})
+
+    @default("spark_options_from_file")
+    def _default_config_bundles(self):
+        return self.config[EXTENSION_CONFIG_NAME].get("spark_options_from_file", None)
 
     def initialize_handlers(self):
         """
