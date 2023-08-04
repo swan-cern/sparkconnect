@@ -98,14 +98,14 @@ class _SparkConnectCluster:
 
         :returns: log string
         """
-        logfile = self.get_logfile_path()
+        logfile = self._get_logfile_path()
         if not logfile:
             return None
 
         with open(logfile, 'r') as f:
             return f.read()
 
-    def get_logfile_path(self) -> str:
+    def _get_logfile_path(self) -> str:
         """
         Get the log file path
 
