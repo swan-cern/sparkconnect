@@ -13,22 +13,13 @@ from spark_connect_labextension.sparkconnectserver.cluster import cluster
 
 class SparkUIProxyHandler(ExtensionHandlerMixin, ProxyHandler):
     @property
-    def ext_config(self):
-        """
-        Property for retrieving extension config
-
-        :returns: extension config object
-        """
-        return self.settings['spark_connect_config']
-
-    @property
     def spark_clusters(self):
         """
         Property for retrieving available clusters from configuration
 
         :returns: array of cluster config object
         """
-        return self.ext_config['clusters']
+        return self.extensionapp.clusters
 
     @property
     def spark_webui_host(self):
