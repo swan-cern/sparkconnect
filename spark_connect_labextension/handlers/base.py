@@ -2,7 +2,7 @@
 Base API Route Handler
 
 This file contains the base class inherited by all API route handlers, 
-which provides common property for accessing the extension configuration.
+which provides common properties for accessing the extension configuration.
 """
 
 import json
