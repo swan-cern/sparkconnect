@@ -19,7 +19,6 @@ class SparkConnectExtensionApp(ExtensionApp):
     """
     name = "spark_connect_labextension"
     default_url = f"/{EXTENSION_ID}"
-    # base_url = f"${self.base_url}{EXTENSION_ID}"
     load_other_extensions = True
     file_url_prefix = "/render"
 
