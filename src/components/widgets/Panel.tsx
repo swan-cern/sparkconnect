@@ -7,6 +7,7 @@ import useStatus from '../../hooks/useStatus';
 import Ready from '../pages/Ready';
 import Failed from '../pages/Failed';
 import LoadingState from '../pages/LoadingState';
+import '../../../style/Panel.css';
 
 const Panel: React.FC = () => {
   const { data } = useStatus();
@@ -47,7 +48,7 @@ const Panel: React.FC = () => {
   }, [status, isConnecting, isConnectionFailed]);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+    <div className="jp-SparkConnectExtension-Panel">
       {currentState === undefined && <LoadingState />}
       {currentState === ExtensionState.CONFIGURING && <Configure />}
       {currentState === ExtensionState.PROVISIONING && <Provisioning />}
