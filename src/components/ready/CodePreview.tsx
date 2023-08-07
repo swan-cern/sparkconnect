@@ -6,6 +6,7 @@ import { jupyterTheme } from '@jupyterlab/codemirror';
 import { python } from '@codemirror/lang-python';
 import useStatus from '../../hooks/useStatus';
 import { UIStore } from '../../store/UIStore';
+import '../../../style/CodePreview.css';
 
 const CODE = `
 %load_ext spark_connect_labextension.kernelextension
@@ -29,7 +30,7 @@ export default function CodePreview() {
 
   return (
     <div>
-      <div style={{ border: '1px solid var(--jp-border-color2)' }}>
+      <div className="jp-SparkConnectExtension-CodePreview-codemirror-container">
         <CodeMirror
           value={code}
           height="200px"
@@ -43,13 +44,10 @@ export default function CodePreview() {
           }}
         />
       </div>
-      <div style={{ marginTop: 4, display: 'flex', flexDirection: 'row', justifyContent: 'end' }}>
+      <div className="jp-SparkConnectExtension-CodePreview-toolbar">
         {!!activeNotebookPanel && (
           <button className="jp-ToolbarButtonComponent jp-mod-minimal jp-Button" onClick={addCellToNotebook}>
-            <addIcon.react tag="span" width={16} height={16} marginTop={4} />{' '}
-            <span className="jp-ToolbarButtonComponent-label" style={{ color: 'var(--jp-ui-font-color2)' }}>
-              Add to Notebook
-            </span>
+            <addIcon.react tag="span" width={16} height={16} marginTop={4} /> <span className="jp-ToolbarButtonComponent-label add-to-notebook">Add to Notebook</span>
           </button>
         )}
       </div>
