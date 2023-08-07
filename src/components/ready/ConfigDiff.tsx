@@ -1,5 +1,6 @@
 import React from 'react';
 import { UIStore } from '../../store/UIStore';
+import '../../../style/ConfigDiff.css';
 
 interface NotebookMetadata {
   cluster_name: string;
@@ -53,7 +54,7 @@ export default function ConfigDiff({ currentConfig, notebookConfig }: MyProps) {
 
   return (
     <div>
-      <div style={{ marginTop: 0, display: 'flex', flexDirection: 'column', gap: 8 }}>
+      <div className="jp-SparkConnectExtension-ConfigDiff-main">
         {currentConfig.cluster_name !== notebookConfig.cluster_name && <DiffItem optionName="Cluster Name" currentValue={getClusterName(currentConfig.cluster_name)} notebookValue={getClusterName(notebookConfig.cluster_name)} />}
         {difference.map(opt => (
           <DiffItem key={opt} optionName={<code>{opt}</code>} currentValue={currentSparkOptions[opt]} notebookValue={notebookSparkOptions[opt]} />
