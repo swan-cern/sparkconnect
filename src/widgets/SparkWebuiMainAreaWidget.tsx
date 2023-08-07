@@ -5,6 +5,7 @@ import { launchIcon } from '@jupyterlab/ui-components';
 import { EXTENSION_ID, JupyterLabAppContext } from '../const';
 import { ServerConnection } from '@jupyterlab/services';
 import { URLExt } from '@jupyterlab/coreutils';
+import '../../style/SparkWebuiMainAreaWidget.css';
 
 export interface SparkWebuiWidgetOptions {
   app: JupyterFrontEnd;
@@ -61,7 +62,7 @@ export class SparkWebuiToolbarWidget extends VDomRenderer {
 
   render(): React.ReactElement {
     return (
-      <div style={{ display: 'flex', flexDirection: 'row', gap: 4 }}>
+      <div className="jp-SparkConnectExtension-SparkWebuiMainAreaWidget-root">
         <button className="jp-ToolbarButtonComponent jp-mod-minimal jp-Button" onClick={() => window.open(this.requestUrl, '_blank')}>
           <launchIcon.react tag="span" width={16} height={16} marginTop={4} />
           &nbsp;<span className="jp-ToolbarButtonComponent-label">Open in New Tab</span>
