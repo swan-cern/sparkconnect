@@ -1,0 +1,73 @@
+.jp-SparkConnectExtension-ExtraConfig-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jp-border-width);
+  background-color: var(--jp-border-color3);
+}
+
+.jp-SparkConnectExtension-ExtraConfig-list > div {
+  padding: 6px 8px;
+  background-color: var(--jp-layout-color1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--jp-ui-font-size0);
+}
+
+.jp-SparkConnectExtension-ExtraConfig-addContainer {
+  padding: 8px;
+}
+
+.jp-SparkConnectExtension-ExtraConfig-addContainer .jp-Button {
+  background: var(--jp-layout-color2);
+  width: 100%;
+}
+
+.jp-SparkConnectExtension-ExtraConfig-addContainer
+  .jp-Button
+  > .material-symbols-outlined {
+  font-size: 16px;
+}
+
+.jp-SparkConnectExtension-ExtraConfig-addContainer
+  .jp-Button
+  > .jp-ToolbarButtonComponent-label {
+  color: var(--jp-ui-font-color2);
+}
+
+.jp-SparkConnectExtension-ExtraConfig-list > div .icon-settings {
+  font-size: 16px;
+  color: var(--jp-ui-font-color2);
+}
+
+.jp-SparkConnectExtension-ExtraConfig-list > div .icon-delete {
+  font-size: 18px;
+  color: var(--jp-error-color1);
+  cursor: pointer;
+}
+
+.jp-SparkConnectExtension-ExtraConfig-list > div div.div-left {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.jp-SparkConnectExtension-ExtraConfig-list > div div.div-left > .config-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.jp-SparkConnectExtension-ExtraConfig-list > div div.div-left > .config-value {
+  color: var(--jp-ui-font-color2);
+}
+
+.jp-SparkConnectExtension-ExtraConfig-list
+  > div
+  div.div-left
+  > .override-warning {
+  color: var(--jp-warn-color1);
+  margin-top: 4px;
+}

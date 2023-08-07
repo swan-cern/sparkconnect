@@ -1,5 +1,6 @@
 import React from 'react';
 import { showDialog } from '@jupyterlab/apputils';
+import '../../../style/ConfigBundle.css';
 import { UIStore } from '../../store/UIStore';
 import { SparkConfigBundle } from '../../types';
 
@@ -44,11 +45,11 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
         }
       ],
       body: (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, width: 400 }}>
+        <div className="jp-SparkConnectExtension-ConfigBundle-bundleDetails-root">
           {bundle.options.map(option => (
             <div>
               <div>{option.name}</div>
-              <small style={{ color: 'var(--jp-ui-font-color2)' }}>{option.value}</small>
+              <small className="bundleValue">{option.value}</small>
             </div>
           ))}
         </div>
@@ -57,29 +58,27 @@ const ConfigBundle: React.FC<MyProps> = ({ clusterName, selected, setSelected })
   };
 
   return (
-    <div className="jp-SparkConnectExtension-configBundle-list">
+    <div className="jp-SparkConnectExtension-ConfigBundle-list">
       {configBundles.map(bundle => {
         const isSelected = selected.includes(bundle.value);
         return (
-          <div key={bundle.value} onClick={() => toggle(bundle.value)} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center' }}>
+          <div key={bundle.value} onClick={() => toggle(bundle.value)}>
             <div>
               {isSelected && (
-                <div className="jp-SparkConnectExtension-configBundle-list-checkbox checked">
+                <div className="jp-SparkConnectExtension-ConfigBundle-list-checkbox checked">
                   <div />
                 </div>
               )}
-              {!isSelected && <div className="jp-SparkConnectExtension-configBundle-list-checkbox"></div>}
+              {!isSelected && <div className="jp-SparkConnectExtension-ConfigBundle-list-checkbox"></div>}
             </div>
-            <span style={{ color: 'var(--jp-ui-font-color1)', flex: 1, textOverflow: 'ellipsis', overflow: 'hidden' }}>{bundle.label}</span>
+            <span className="bundleLabel">{bundle.label}</span>
             <div
               onClick={e => {
                 showDetails(bundle.bundle);
                 e.stopPropagation();
               }}
             >
-              <span className="material-symbols-outlined" style={{ fontSize: 18, color: 'var(--jp-content-link-color)' }}>
-                info
-              </span>
+              <span className="material-symbols-outlined">info</span>
             </div>
           </div>
         );

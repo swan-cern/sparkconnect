@@ -136,7 +136,7 @@ class SparkConnectExtensionApp(ExtensionApp):
         return self.config[EXTENSION_CONFIG_NAME].get("spark_options", {})
 
     @default("spark_options_from_file")
-    def _default_config_bundles(self):
+    def _default_spark_options_from_file(self):
         return self.config[EXTENSION_CONFIG_NAME].get("spark_options_from_file", None)
 
     def initialize_handlers(self):

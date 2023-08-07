@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import { showDialog } from '@jupyterlab/apputils';
 import AddExtraConfigDialog from './AddExtraConfigDialog';
 import { UIStore } from '../../store/UIStore';
+import '../../../style/ExtraConfig.css';
 
 interface MyProps {
   clusterName: string;
@@ -36,24 +37,21 @@ const ExtraConfig: React.FC<MyProps> = ({ clusterName, selectedConfigBundles, ex
 
   return (
     <div>
-      <div className="jp-SparkConnectExtension-extraConfig-list">
+      <div className="jp-SparkConnectExtension-ExtraConfig-list">
         {Object.keys(extraConfig).map(key => (
           <div key={key}>
-            <span className="material-symbols-outlined" style={{ fontSize: 16, color: 'var(--jp-ui-font-color2)' }}>
-              settings
-            </span>
-            <div style={{ flex: 1, overflow: 'hidden', display: 'flex', flexDirection: 'column', alignItems: 'stretch' }}>
-              <div style={{ textOverflow: 'ellipsis', overflow: 'hidden' }}>{key}</div>
-              <div style={{ color: 'var(--jp-ui-font-color2)' }}>{extraConfig[key]}</div>
+            <span className="icon-settings material-symbols-outlined">settings</span>
+            <div className="div-left">
+              <div className="config-name">{key}</div>
+              <div className="config-value">{extraConfig[key]}</div>
               {key in configuredOptionsFromBundle && (
-                <div style={{ color: 'var(--jp-warn-color1)', marginTop: 4 }}>
+                <div className="override-warning">
                   Overrides <b>{configuredOptionsFromBundle[key]}</b>
                 </div>
               )}
             </div>
             <span
-              className="material-symbols-outlined"
-              style={{ fontSize: 18, color: 'var(--jp-error-color1)', cursor: 'pointer' }}
+              className="icon-delete material-symbols-outlined"
               onClick={() => {
                 delete extraConfig[key];
                 setExtraConfig({ ...extraConfig });
@@ -64,14 +62,10 @@ const ExtraConfig: React.FC<MyProps> = ({ clusterName, selectedConfigBundles, ex
           </div>
         ))}
       </div>
-      <div style={{ padding: 8 }}>
-        <button className="jp-ToolbarButtonComponent jp-mod-minimal jp-Button" style={{ background: 'var(--jp-layout-color2)', width: '100%' }} onClick={addExtraConfig}>
-          <span className="material-symbols-outlined" style={{ fontSize: 16 }}>
-            add_circle
-          </span>
-          <span className="jp-ToolbarButtonComponent-label" style={{ color: 'var(--jp-ui-font-color2)' }}>
-            Add
-          </span>
+      <div className="jp-SparkConnectExtension-ExtraConfig-addContainer">
+        <button className="jp-ToolbarButtonComponent jp-mod-minimal jp-Button" onClick={addExtraConfig}>
+          <span className="material-symbols-outlined">add_circle</span>
+          <span className="jp-ToolbarButtonComponent-label">Add</span>
         </button>
       </div>
     </div>

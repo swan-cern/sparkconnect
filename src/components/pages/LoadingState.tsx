@@ -1,11 +1,12 @@
 import React from 'react';
 import MoonLoader from 'react-spinners/MoonLoader';
+import '../../../style/LoadingState.css';
 
 const LoadingState: React.FC = () => {
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 120, marginTop: 8 }}>
+    <div className="jp-SparkConnectExtension-LoadingState-root">
+      <div className="jp-SparkConnectExtension-LoadingState-content">
+        <div className="jp-SparkConnectExtension-LoadingState-loading-container">
           <MoonLoader size={36} color="var(--jp-ui-font-color1)" />
         </div>
       </div>

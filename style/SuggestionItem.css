@@ -1,0 +1,22 @@
+.jp-SparkConnectExtension-SuggestionItem-root {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+}
+
+.jp-SparkConnectExtension-SuggestionItem-root .material-symbols-outlined {
+  font-size: 18px;
+}
+
+.jp-SparkConnectExtension-SuggestionItem-root.info {
+  color: var(--jp-info-color1);
+}
+
+.jp-SparkConnectExtension-SuggestionItem-root.warn {
+  color: var(--jp-warn-color1);
+}
+
+.jp-SparkConnectExtension-SuggestionItem-root.error {
+  color: var(--jp-error-color1);
+}
