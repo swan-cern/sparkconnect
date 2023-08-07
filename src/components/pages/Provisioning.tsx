@@ -5,6 +5,7 @@ import useStatus from '../../hooks/useStatus';
 import useCluster from '../../hooks/useCluster';
 import useJupyterLabApp from '../../hooks/useJupyterLabApp';
 import { UIStore } from '../../store/UIStore';
+import '../../../style/Provisioning.css';
 
 const Provisioning: React.FC = () => {
   const { mutate } = useStatus();
@@ -34,19 +35,19 @@ const Provisioning: React.FC = () => {
   };
 
   return (
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', textAlign: 'center', alignItems: 'center', justifyContent: 'center' }}>
+    <div className="jp-SparkConnectExtension-Provisioning-root">
+      <div className="jp-SparkConnectExtension-Provisioning-main">
         <SparkLogo />
         <h3 className="jp-SparkConnectExtension-heading">Connecting</h3>
-        <p style={{ padding: 8 }}>
+        <p className="msg">
           Please wait, we're connecting to <b>{cluster?.displayName}</b>.
         </p>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: 120, marginTop: 8 }}>
+        <div className="loading-container">
           <MoonLoader size={36} color="var(--jp-ui-font-color1)" />
         </div>
       </div>
-      <div style={{ padding: 8 }}>
-        <button className="jp-Button jp-mod-styled jp-mod-reject" style={{ width: '100%' }} onClick={viewLogs}>
+      <div className="cta-container">
+        <button className="jp-Button jp-mod-styled jp-mod-reject" onClick={viewLogs}>
           View connection logs
         </button>
       </div>
