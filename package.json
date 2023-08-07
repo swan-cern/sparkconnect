@@ -7,9 +7,9 @@
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/didithilmy/spark-connect-labextension.git",
+  "homepage": "https://github.com/swan-cern/sparkconnect.git",
   "bugs": {
-    "url": "https://github.com/didithilmy/spark-connect-labextension.git/issues"
+    "url": "https://github.com/swan-cern/sparkconnect.git/issues"
   },
   "license": "AGPLv3",
   "author": {
@@ -26,7 +26,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/didithilmy/spark-connect-labextension.git"
+    "url": "https://github.com/swan-cern/sparkconnect.git"
   },
   "workspaces": [
     "ui-tests"

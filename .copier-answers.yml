@@ -14,7 +14,7 @@ mimetype_name: ''
 project_short_description: A JupyterLab Extension to connect to Apache Spark using
     Spark Connect
 python_name: spark_connect_labextension
-repository: https://github.com/didithilmy/spark-connect-labextension.git
+repository: https://github.com/swan-cern/sparkconnect.git
 test: true
 viewer_name: ''
 

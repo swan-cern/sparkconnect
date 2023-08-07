@@ -1,6 +1,6 @@
 # spark_connect_labextension
 
-[![Github Actions Status](https://github.com/didithilmy/spark-connect-labextension.git/workflows/Build/badge.svg)](https://github.com/didithilmy/spark-connect-labextension.git/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/swan-cern/sparkconnect.git/workflows/Build/badge.svg)](https://github.com/swan-cern/sparkconnect.git/actions/workflows/build.yml)
 A JupyterLab Extension to connect to Apache Spark using Spark Connect
 
 This extension is composed of a Python package named `spark_connect_labextension` for the frontend and backend extension.
