@@ -1,4 +1,5 @@
 import React from 'react';
+import '../../../style/SuggestionItem.css';
 
 export interface MyProps {
   type: 'info' | 'warn' | 'error';
@@ -6,15 +7,9 @@ export interface MyProps {
 }
 
 export default function SuggestionItem({ type, text }: MyProps) {
-  const color = {
-    info: 'var(--jp-info-color1)',
-    warn: 'var(--jp-warn-color1)',
-    error: 'var(--jp-error-color1)'
-  };
-
   return (
-    <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, color: color[type] }}>
-      <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
+    <div className={`jp-SparkConnectExtension-SuggestionItem-root ${type}`}>
+      <span className="material-symbols-outlined">
         {type === 'info' && 'info'}
         {type === 'error' && 'error'}
         {type === 'warn' && 'warning'}
