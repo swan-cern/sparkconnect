@@ -30,6 +30,10 @@
   -webkit-font-smoothing: antialiased;
 }
 
+.jp-SparkConnectExtension-spacer-8 {
+  margin-top: 8px;
+}
+
 .jp-SparkConnectExtension-scrollable {
   overflow: auto;
   height: 100%;

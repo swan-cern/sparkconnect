@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from 'react';
+import '../../../style/AddExtraConfigDialog.css';
 import { ReactWidget } from '@jupyterlab/ui-components';
 import { Dialog } from '@jupyterlab/apputils';
 import { UIStore } from '../../store/UIStore';
@@ -97,11 +98,11 @@ function _AddExtraConfigDialog({ clusterName, selectedConfigBundles, onSetConfig
   );
 
   return (
-    <div style={{ width: 400 }}>
+    <div className="jp-SparkConnectExtension-AddExtraConfigDialog-container">
       <Select placeholder="Option" menuPosition="fixed" options={groupedConfigOptions} formatGroupLabel={formatGroupLabel} value={configOption} onChange={v => setConfigOption(v as any)} isClearable />
-      <div style={{ marginTop: 8 }} />
+      <div className="jp-SparkConnectExtension-spacer-8" />
       <TextField placeholder="Value" value={value} onChange={e => setValue(e.target.value)} />
-      <div style={{ marginLeft: 8, marginTop: 4, color: 'var(--jp-ui-font-color2)' }}>
+      <div className="jp-SparkConnectExtension-AddExtraConfigDialog-helpText">
         <small>
           To use environment variables, input{' '}
           <code>
@@ -111,10 +112,8 @@ function _AddExtraConfigDialog({ clusterName, selectedConfigBundles, onSetConfig
         </small>
       </div>
       {!!overridenConfigBundle && (
-        <div style={{ fontSize: '11px', marginTop: 16, padding: 4, borderRadius: 'var(--jp-border-radius)', display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 4, color: 'var(--jp-warn-color1)', border: '1px solid var(--jp-warn-color2)' }}>
-          <span className="material-symbols-outlined" style={{ fontSize: 18 }}>
-            error
-          </span>
+        <div className="jp-SparkConnectExtension-AddExtraConfigDialog-duplicateWarning">
+          <span className="material-symbols-outlined">error</span>
           <div>
             This will override <b>{overridenConfigBundle}</b>.
           </div>
