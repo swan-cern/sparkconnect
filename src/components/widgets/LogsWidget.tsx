@@ -3,6 +3,7 @@ import useSWR from 'swr';
 import CodeMirror from '@uiw/react-codemirror';
 import { jupyterTheme } from '@jupyterlab/codemirror';
 import { requestAPI } from '../../handler';
+import '../../../style/LogsWidget.css';
 
 const LogsWidget: React.FC = () => {
   const { data, mutate } = useSWR('/cluster/logs', { fetcher: (url: string, init: RequestInit) => requestAPI<any>(url, init, false) });
@@ -13,7 +14,7 @@ const LogsWidget: React.FC = () => {
   }, []);
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'stretch', width: '100%', height: '100%' }}>
+    <div className="jp-SparkConnectExtension-LogsWidget-root">
       <CodeMirror
         value={data}
         style={{ height: '100%' }}
