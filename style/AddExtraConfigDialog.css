@@ -3,25 +3,25 @@
 }
 
 .jp-SparkConnectExtension-AddExtraConfigDialog-helpText {
-  margin-left: 8;
-  margin-top: 4;
-  color: 'var(--jp-ui-font-color2)';
+  margin-left: 8px;
+  margin-top: 4px;
+  color: var(--jp-ui-font-color2);
 }
 
 .jp-SparkConnectExtension-AddExtraConfigDialog-duplicateWarning {
-  font-size: '11px';
-  margin-top: 16;
-  padding: 4;
-  border-radius: 'var(--jp-border-radius)';
-  display: 'flex';
-  flex-direction: 'row';
-  align-items: 'center';
-  gap: 4;
-  color: 'var(--jp-warn-color1)';
-  border: '1px solid var(--jp-warn-color2)';
+  font-size: 11px;
+  margin-top: 16px;
+  padding: 4px;
+  border-radius: var(--jp-border-radius);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 4px;
+  color: var(--jp-warn-color1);
+  border: 1px solid var(--jp-warn-color2);
 }
 
 .jp-SparkConnectExtension-AddExtraConfigDialog-duplicateWarning
   .material-symbols-outlined {
-  font-size: 18pt;
+  font-size: 18px;
 }
