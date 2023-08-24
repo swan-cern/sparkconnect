@@ -5,8 +5,8 @@ This file contains the route handler for retrieving cluster error troubleshootin
 import re
 import json
 import asyncio
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
-from spark_connect_labextension.sparkconnectserver.cluster import cluster
+from sparkconnector.handlers.base import SparkConnectAPIHandler
+from sparkconnector.sparkconnectserver.cluster import cluster
 import tornado
 
 

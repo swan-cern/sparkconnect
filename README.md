@@ -1,9 +1,9 @@
-# spark_connect_labextension
+# sparkconnector
 
-[![Github Actions Status](https://github.com/didithilmy/spark-connect-labextension.git/workflows/Build/badge.svg)](https://github.com/didithilmy/spark-connect-labextension.git/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/didithilmy/sparkconnector.git/workflows/Build/badge.svg)](https://github.com/didithilmy/sparkconnector.git/actions/workflows/build.yml)
 A JupyterLab Extension to connect to Apache Spark using Spark Connect
 
-This extension is composed of a Python package named `spark_connect_labextension` for the frontend and backend extension.
+This extension is composed of a Python package named `sparkconnector` for the frontend and backend extension.
 
 ## Requirements
 
@@ -14,7 +14,7 @@ This extension is composed of a Python package named `spark_connect_labextension
 To install the extension, execute:
 
 ```bash
-pip install spark_connect_labextension
+pip install sparkconnector
 ```
 
 ## Uninstall
@@ -22,7 +22,7 @@ pip install spark_connect_labextension
 To remove the extension, execute:
 
 ```bash
-pip uninstall spark_connect_labextension
+pip uninstall sparkconnector
 ```
 
 ## Troubleshoot
@@ -53,13 +53,13 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the spark_connect_labextension directory
+# Change directory to the sparkconnector directory
 # Install package in development mode
 pip install -e ".[test]"
 # Link your development version of the extension with JupyterLab
 jupyter labextension develop . --overwrite
 # Server extension must be manually installed in develop mode
-jupyter server extension enable spark_connect_labextension
+jupyter server extension enable sparkconnector
 # Rebuild extension Typescript source after making changes
 jlpm build
 ```
@@ -85,13 +85,13 @@ jupyter lab build --minimize=False
 
 ```bash
 # Server extension must be manually disabled in develop mode
-jupyter server extension disable spark_connect_labextension
-pip uninstall spark_connect_labextension
+jupyter server extension disable sparkconnector
+pip uninstall sparkconnector
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
 command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
-folder is located. Then you can remove the symlink named `spark-connect-labextension` within that folder.
+folder is located. Then you can remove the symlink named `sparkconnector` within that folder.
 
 ### Testing the extension
 
@@ -110,7 +110,7 @@ jupyter labextension develop . --overwrite
 To execute them, run:
 
 ```sh
-pytest -vv -r ap --cov spark_connect_labextension
+pytest -vv -r ap --cov sparkconnector
 ```
 
 #### Frontend tests

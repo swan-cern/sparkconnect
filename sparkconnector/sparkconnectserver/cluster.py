@@ -12,7 +12,7 @@ import socket
 import logging
 from string import Formatter
 from enum import Enum
-from spark_connect_labextension.config import SPARK_HOME, SPARK_CONNECT_PORT, SPARK_CONNECT_PACKAGE
+from sparkconnector.config import SPARK_HOME, SPARK_CONNECT_PORT, SPARK_CONNECT_PACKAGE
 
 
 class ClusterStatus(Enum):

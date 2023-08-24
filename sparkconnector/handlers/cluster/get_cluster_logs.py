@@ -4,8 +4,8 @@ This file contains the route handler for retrieving Spark connection logs.
 """
 import tornado
 import asyncio
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
-from spark_connect_labextension.sparkconnectserver.cluster import cluster
+from sparkconnector.handlers.base import SparkConnectAPIHandler
+from sparkconnector.sparkconnectserver.cluster import cluster
 
 
 class GetClusterLogRouteHandler(SparkConnectAPIHandler):

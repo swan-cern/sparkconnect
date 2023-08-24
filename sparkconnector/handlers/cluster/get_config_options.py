@@ -5,7 +5,7 @@ This file contains the route handler for retrieving Spark options available for 
 
 import tornado
 import json
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
+from sparkconnector.handlers.base import SparkConnectAPIHandler
 
 
 class GetConfigOptionsRouteHandler(SparkConnectAPIHandler):

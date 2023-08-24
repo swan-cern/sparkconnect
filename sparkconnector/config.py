@@ -1,6 +1,6 @@
 import os
 
-EXTENSION_ID = 'spark-connect-labextension'
+EXTENSION_ID = 'sparkconnector'
 EXTENSION_CONFIG_NAME = 'SparkConnectorApp'
 
 SPARK_HOME = os.getenv('SPARK_HOME')

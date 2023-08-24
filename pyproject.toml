@@ -3,7 +3,7 @@ requires = ["hatchling>=1.5.0", "jupyterlab>=4.0.0,<5", "hatch-nodejs-version"]
 build-backend = "hatchling.build"
 
 [project]
-name = "spark_connect_labextension"
+name = "sparkconnector"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.8"
@@ -45,26 +45,26 @@ source = "nodejs"
 fields = ["description", "authors", "urls"]
 
 [tool.hatch.build.targets.sdist]
-artifacts = ["spark_connect_labextension/labextension"]
+artifacts = ["sparkconnector/labextension"]
 exclude = [".github", "binder"]
 
 [tool.hatch.build.targets.wheel.shared-data]
-"spark_connect_labextension/labextension" = "share/jupyter/labextensions/spark-connect-labextension"
-"install.json" = "share/jupyter/labextensions/spark-connect-labextension/install.json"
+"sparkconnector/labextension" = "share/jupyter/labextensions/sparkconnector"
+"install.json" = "share/jupyter/labextensions/sparkconnector/install.json"
 "jupyter-config/server-config" = "etc/jupyter/jupyter_server_config.d"
 "jupyter-config/nb-config" = "etc/jupyter/jupyter_notebook_config.d"
 
 [tool.hatch.build.hooks.version]
-path = "spark_connect_labextension/_version.py"
+path = "sparkconnector/_version.py"
 
 [tool.hatch.build.hooks.jupyter-builder]
 dependencies = ["hatch-jupyter-builder>=0.5"]
 build-function = "hatch_jupyter_builder.npm_builder"
 ensured-targets = [
-    "spark_connect_labextension/labextension/static/style.js",
-    "spark_connect_labextension/labextension/package.json",
+    "sparkconnector/labextension/static/style.js",
+    "sparkconnector/labextension/package.json",
 ]
-skip-if-exists = ["spark_connect_labextension/labextension/static/style.js"]
+skip-if-exists = ["sparkconnector/labextension/static/style.js"]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 build_cmd = "build:prod"
@@ -74,7 +74,7 @@ npm = ["jlpm"]
 build_cmd = "install:extension"
 npm = ["jlpm"]
 source_dir = "src"
-build_dir = "spark_connect_labextension/labextension"
+build_dir = "sparkconnector/labextension"
 
 [tool.jupyter-releaser.options]
 version_cmd = "hatch version"

@@ -10332,18 +10332,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"spark-connect-labextension-ui-tests@workspace:ui-tests":
+"sparkconnector-ui-tests@workspace:ui-tests":
   version: 0.0.0-use.local
-  resolution: "spark-connect-labextension-ui-tests@workspace:ui-tests"
+  resolution: "sparkconnector-ui-tests@workspace:ui-tests"
   dependencies:
     "@jupyterlab/galata": ^5.0.0
     "@playwright/test": ^1.32.0
   languageName: unknown
   linkType: soft
 
-"spark-connect-labextension@workspace:.":
+"sparkconnector@workspace:.":
   version: 0.0.0-use.local
-  resolution: "spark-connect-labextension@workspace:."
+  resolution: "sparkconnector@workspace:."
   dependencies:
     "@jupyterlab/application": ^4.0.0
     "@jupyterlab/builder": ^4.0.0

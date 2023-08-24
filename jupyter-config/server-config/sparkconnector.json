@@ -1,7 +1,7 @@
 {
   "ServerApp": {
     "jpserver_extensions": {
-      "spark_connect_labextension": true
+      "sparkconnector": true
     }
   }
 }

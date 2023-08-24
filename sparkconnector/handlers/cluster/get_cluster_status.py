@@ -6,9 +6,9 @@ This file contains the route handler for retrieving the connection state.
 import tornado
 import json
 import asyncio
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
-from spark_connect_labextension.sparkconnectserver.cluster import cluster
-from spark_connect_labextension.config import SPARK_CLUSTER_NAME
+from sparkconnector.handlers.base import SparkConnectAPIHandler
+from sparkconnector.sparkconnectserver.cluster import cluster
+from sparkconnector.config import SPARK_CLUSTER_NAME
 
 
 class GetClusterStatusRouteHandler(SparkConnectAPIHandler):

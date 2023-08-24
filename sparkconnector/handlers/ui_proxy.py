@@ -7,8 +7,8 @@ This file contains a class which extends Jupyter Server Proxy's ProxyHandler to 
 import socket
 from jupyter_server_proxy.handlers import ProxyHandler
 from jupyter_server.extension.handler import ExtensionHandlerMixin
-from spark_connect_labextension.config import EXTENSION_ID
-from spark_connect_labextension.sparkconnectserver.cluster import cluster
+from sparkconnector.config import EXTENSION_ID
+from sparkconnector.sparkconnectserver.cluster import cluster
 
 
 class SparkUIProxyHandler(ExtensionHandlerMixin, ProxyHandler):
