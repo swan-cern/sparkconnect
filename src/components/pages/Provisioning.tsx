@@ -1,3 +1,7 @@
+/**
+ * Provisioning
+ * This file contains a loading page shown when the server extension is starting the Spark Connect server.
+ */
 import React, { useEffect } from 'react';
 import MoonLoader from 'react-spinners/MoonLoader';
 import SparkLogo from '../SparkLogo';

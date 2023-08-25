@@ -1,3 +1,7 @@
+/**
+ * TextField
+ * A component that wraps <input> to match the extension's look and feel.
+ */
 import React from 'react';
 import { createUseStyles } from 'react-jss';
 

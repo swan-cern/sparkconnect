@@ -1,3 +1,7 @@
+/**
+ * useCluster
+ * A React hook to get the connected cluster data.
+ */
 import { UIStore } from '../store/UIStore';
 
 export default function useCluster() {

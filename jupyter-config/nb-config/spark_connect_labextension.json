@@ -1,7 +1,0 @@
-{
-  "NotebookApp": {
-    "nbserver_extensions": {
-      "spark_connect_labextension": true
-    }
-  }
-}

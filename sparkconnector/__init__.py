@@ -12,7 +12,7 @@ def _jupyter_labextension_paths():
 def _jupyter_server_extension_points():
     from .app import SparkConnectExtensionApp
     return [{
-        "module": "spark_connect_labextension",
+        "module": "sparkconnector",
         "app": SparkConnectExtensionApp
     }]
 

@@ -1,3 +1,7 @@
+/**
+ * Section
+ * A component to wrap a UI group with a title
+ */
 import React, { HTMLProps } from 'react';
 
 type Props = HTMLProps<HTMLDivElement> & {

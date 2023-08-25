@@ -1,3 +1,7 @@
+/**
+ * SparkWebuiMainAreaWidget
+ * Lumino Renderer for rendering the Spark Web UI iframe.
+ */
 import React from 'react';
 import { VDomRenderer } from '@jupyterlab/apputils';
 import { JupyterFrontEnd } from '@jupyterlab/application';

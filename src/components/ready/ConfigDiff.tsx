@@ -1,3 +1,7 @@
+/**
+ * ConfigDiff
+ * This file contains the UI of the dialog showing the diff of the attached and active configuration.
+ */
 import React from 'react';
 import { UIStore } from '../../store/UIStore';
 import '../../../style/ConfigDiff.css';

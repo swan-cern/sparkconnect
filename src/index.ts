@@ -1,3 +1,7 @@
+/**
+ * index
+ * The main entrypoint for the frontend extension.
+ */
 import { ILabShell, JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 import { INotebookTracker, NotebookPanel } from '@jupyterlab/notebook';
@@ -13,7 +17,7 @@ import { EXTENSION_ID, FRONTEND_COMM_ID } from './const';
 import { ICommMsgMsg } from '@jupyterlab/services/lib/kernel/messages';
 
 /**
- * Initialization data for the spark-connect-labextension extension.
+ * Initialization data for the sparkconnector extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
   id: EXTENSION_ID + ':plugin',
@@ -22,13 +26,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
   optional: [ISettingRegistry],
   requires: [ILabShell, INotebookTracker],
   activate: (app: JupyterFrontEnd, labShell: ILabShell, notebookTracker: INotebookTracker, settingRegistry: ISettingRegistry | null) => {
-    console.log('JupyterLab extension spark-connect-labextension is activated!');
+    console.log('JupyterLab extension sparkconnector is activated!');
 
     if (settingRegistry) {
       settingRegistry
         .load(plugin.id)
         .then(settings => {
-          console.log('spark-connect-labextension settings loaded:', settings.composite);
+          console.log('sparkconnector settings loaded:', settings.composite);
         })
         .then(loadExtensionState)
         .then(() => {
@@ -38,7 +42,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
           addNotebookListener(labShell, notebookTracker);
         })
         .catch(reason => {
-          console.error('Failed to load settings for spark-connect-labextension.', reason);
+          console.error('Failed to load settings for sparkconnector.', reason);
         });
     }
   }

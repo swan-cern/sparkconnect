@@ -7,8 +7,8 @@ import tornado
 import json
 import traceback
 import asyncio
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
-from spark_connect_labextension.sparkconnectserver.cluster import cluster
+from sparkconnector.handlers.base import SparkConnectAPIHandler
+from sparkconnector.sparkconnectserver.cluster import cluster
 
 
 class StartClusterRouteHandler(SparkConnectAPIHandler):

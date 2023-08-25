@@ -5,7 +5,7 @@ This file contains the route handler for retrieving clusters available for conne
 
 import tornado
 import json
-from spark_connect_labextension.handlers.base import SparkConnectAPIHandler
+from sparkconnector.handlers.base import SparkConnectAPIHandler
 
 
 class GetClustersRouteHandler(SparkConnectAPIHandler):

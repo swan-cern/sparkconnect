@@ -1,3 +1,7 @@
+/**
+ * Select
+ * A wrapper component for ReactSelect to match the extension look and feel.
+ */
 import React from 'react';
 import ReactSelect, { Props as ReactSelectProps } from 'react-select';
 

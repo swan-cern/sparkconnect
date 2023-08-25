@@ -5,6 +5,7 @@ This file contains a singleton object `cluster` to start, stop, and get the stat
 """
 
 import os
+import atexit
 import subprocess
 import tempfile
 import glob
@@ -12,7 +13,7 @@ import socket
 import logging
 from string import Formatter
 from enum import Enum
-from spark_connect_labextension.config import SPARK_HOME, SPARK_CONNECT_PORT, SPARK_CONNECT_PACKAGE
+from sparkconnector.config import SPARK_HOME, SPARK_CONNECT_PORT, SPARK_CONNECT_PACKAGE
 
 
 class ClusterStatus(Enum):
@@ -223,7 +224,8 @@ class _SparkConnectCluster:
 
         return value.format(**replaceable_values)
 
-    def __del__(self):
+    @atexit.register
+    def cleanup_atexit(self):
         if self.started:
             self.stop()
 

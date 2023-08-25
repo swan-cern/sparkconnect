@@ -1,3 +1,7 @@
+/**
+ * handler
+ * Exposes a function for invoking HTTP requests to the server extension.
+ */
 import { URLExt } from '@jupyterlab/coreutils';
 
 import { ServerConnection } from '@jupyterlab/services';

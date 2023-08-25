@@ -17,7 +17,7 @@ class SparkConnectExtensionApp(ExtensionApp):
     """
     Jupyter Server App for the Spark Connect Labextension
     """
-    name = "spark_connect_labextension"
+    name = "sparkconnector"
 
     disable_cluster_selection_on_preselected = Bool(default_value=False, allow_none=True)
 

@@ -1,5 +1,5 @@
 {
-  "name": "spark-connect-labextension",
+  "name": "sparkconnector",
   "version": "0.1.0",
   "description": "A JupyterLab Extension to connect to Apache Spark using Spark Connect",
   "keywords": [
@@ -7,9 +7,9 @@
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/swan-cern/sparkconnect.git",
+  "homepage": "https://github.com/didithilmy/sparkconnector.git",
   "bugs": {
-    "url": "https://github.com/swan-cern/sparkconnect.git/issues"
+    "url": "https://github.com/didithilmy/sparkconnector.git/issues"
   },
   "license": "AGPLv3",
   "author": {
@@ -26,7 +26,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/swan-cern/sparkconnect.git"
+    "url": "https://github.com/didithilmy/sparkconnector.git"
   },
   "workspaces": [
     "ui-tests"
@@ -41,7 +41,7 @@
     "clean": "jlpm clean:lib",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
     "clean:lintcache": "rimraf .eslintcache .stylelintcache",
-    "clean:labextension": "rimraf spark_connect_labextension/labextension spark_connect_labextension/_version.py",
+    "clean:labextension": "rimraf sparkconnector/labextension sparkconnector/_version.py",
     "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
     "eslint": "jlpm eslint:check --fix",
     "eslint:check": "eslint . --cache --ext .ts,.tsx",
@@ -113,12 +113,12 @@
           "pip"
         ],
         "base": {
-          "name": "spark_connect_labextension"
+          "name": "sparkconnector"
         }
       }
     },
     "extension": true,
-    "outputDir": "spark_connect_labextension/labextension",
+    "outputDir": "sparkconnector/labextension",
     "schemaDir": "schema"
   },
   "eslintIgnore": [

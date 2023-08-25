@@ -28,16 +28,16 @@ RUN apt-get update && \
     apt-get clean && \
     update-ca-certificates -f;
 
-COPY . /spark_connect_labextension
-WORKDIR /spark_connect_labextension
-RUN cp ./jupyter-config/server-config/spark_connect_labextension.json /etc/jupyter/jupyter_server_config.json
+COPY . /sparkconnector
+WORKDIR /sparkconnector
+RUN cp ./jupyter-config/server-config/sparkconnector.json /etc/jupyter/jupyter_server_config.json
 
-RUN fix-permissions /spark_connect_labextension
+RUN fix-permissions /sparkconnector
 
 USER $NB_UID
 
 RUN pip install -e . \
-    && jupyter server extension enable --py spark_connect_labextension --sys-prefix \
+    && jupyter server extension enable --py sparkconnector --sys-prefix \
     && jupyter labextension link . --dev-build=False \
     && jupyter lab clean -y \
     && npm cache clean --force \

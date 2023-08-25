@@ -1,3 +1,7 @@
+/**
+ * CodePreview
+ * This file contains the UI of the code snippet shown in the Connected page.
+ */
 import React from 'react';
 import { addIcon } from '@jupyterlab/ui-components';
 import { NotebookActions } from '@jupyterlab/notebook';
@@ -9,7 +13,7 @@ import { UIStore } from '../../store/UIStore';
 import '../../../style/CodePreview.css';
 
 const CODE = `
-%load_ext spark_connect_labextension.kernelextension
+%load_ext sparkconnector.kernelextension
 spark = get_spark_session()
 `.trim();
 

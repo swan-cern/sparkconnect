@@ -1,3 +1,7 @@
+/**
+ * LogsWidget
+ * This file contains the UI of the Spark connection logs tab.
+ */
 import React, { useEffect } from 'react';
 import useSWR from 'swr';
 import CodeMirror from '@uiw/react-codemirror';

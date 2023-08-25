@@ -1,3 +1,7 @@
+/**
+ * LogsMainAreaWidget
+ * The main area widget for displaying the Spark connection logs.
+ */
 import React from 'react';
 import { VDomRenderer } from '@jupyterlab/apputils';
 import { JupyterFrontEnd } from '@jupyterlab/application';

@@ -1,3 +1,7 @@
+/**
+ * Panel
+ * The root container of the main sidebar widget.
+ */
 import React, { useEffect, useMemo } from 'react';
 import { ExtensionState } from '../../types';
 import Configure from '../pages/Configure';

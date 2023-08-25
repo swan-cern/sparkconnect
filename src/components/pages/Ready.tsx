@@ -1,3 +1,7 @@
+/**
+ * Ready
+ * This file contains the UI of the "connected" page.
+ */
 import React, { useEffect, useMemo, useState } from 'react';
 import { showDialog } from '@jupyterlab/apputils';
 import SparkLogo from '../SparkLogo';

@@ -17,7 +17,7 @@ test('should emit an activation console message', async ({ page }) => {
 
   expect(
     logs.filter(
-      s => s === 'JupyterLab extension spark-connect-labextension is activated!'
+      s => s === 'JupyterLab extension sparkconnector is activated!'
     )
   ).toHaveLength(1);
 });

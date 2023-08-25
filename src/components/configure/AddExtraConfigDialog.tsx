@@ -1,3 +1,7 @@
+/**
+ * AddExtraConfigDialog
+ * This file contains the UI to add extra Spark configuration on the configuration page.
+ */
 import React, { useEffect, useMemo, useState } from 'react';
 import '../../../style/AddExtraConfigDialog.css';
 import { ReactWidget } from '@jupyterlab/ui-components';

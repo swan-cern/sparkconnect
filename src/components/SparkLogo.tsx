@@ -1,3 +1,8 @@
+/**
+ * SparkLogo
+ * A component containing the Spark logo with the color set to a variable color.
+ * This is done so the Spark logo changes color when the extension is set to dark mode.
+ */
 import React from 'react';
 
 /* eslint-disable max-len */

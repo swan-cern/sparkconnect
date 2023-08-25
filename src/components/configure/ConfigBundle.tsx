@@ -1,3 +1,7 @@
+/**
+ * ConfigBundle
+ * This file contains the UI to select configuration bundles in the configure page.
+ */
 import React from 'react';
 import { showDialog } from '@jupyterlab/apputils';
 import '../../../style/ConfigBundle.css';

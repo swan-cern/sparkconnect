@@ -8,13 +8,13 @@ file_extension: ''
 has_binder: false
 has_settings: true
 kind: server
-labextension_name: spark-connect-labextension
+labextension_name: sparkconnector
 mimetype: ''
 mimetype_name: ''
 project_short_description: A JupyterLab Extension to connect to Apache Spark using
     Spark Connect
-python_name: spark_connect_labextension
-repository: https://github.com/swan-cern/sparkconnect.git
+python_name: sparkconnector
+repository: https://github.com/didithilmy/sparkconnector.git
 test: true
 viewer_name: ''
 
