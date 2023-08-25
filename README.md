@@ -134,3 +134,125 @@ More information are provided within the [ui-tests](./ui-tests/README.md) README
 ### Packaging the extension
 
 See [RELEASE](RELEASE.md)
+
+### Configuration
+
+This extension can be configured using the standard Jupyter server configuration system. Here's an example configuration:
+
+```json
+{
+    "SparkConnectorApp": {
+        "clusters": {
+            "cluster_name": {
+                "display_name": "Local Cluster",
+                // ...
+            }
+        },
+        "disable_cluster_selection_on_preselected": false,
+        "error_suggestions": [
+            {
+                "pattern": "ERROR SparkContext: Failed to add file:",
+                "type": "error",
+                "message": "Required files are missing."
+            },
+            // ...
+        ],
+        "config_bundles": {
+            "TestBundle": {
+                "options": [
+                    {
+                        "name": "spark.app.name",
+                        "value": "Test App"
+                    },
+                    // ...
+                ]
+            }
+        },
+        "spark_options": [
+            {
+                "data": {
+                    "category": "Spark App Name"
+                },
+                "value": "spark.app.name"
+            }
+        ]
+    }
+}
+```
+
+#### Clusters - `clusters`
+
+For each cluster, the following values can be configured:
+- `display_name` (Optional): the human-readable display name of the cluster
+- `env` (Optional): a key-value pair of environment variables
+- `opts` (Optional): a key-value pair of Spark options
+- `pre_script` (Optional): a bash script to execute before starting the Spark Connect server.
+    - You can use this option to execute a bash script to set the environment variables.
+- `webui_port` (Optional): port number of the Spark Web UI
+
+#### Config bundles - `config_bundles`
+
+For each config bundle, the following values can be configured:
+- `name`: The name of the config bundle
+- `displayName` (Optional): The human-readable name of the config bundle
+- `clusterFilter` (Optional): An array of string containing the cluster names in which this config bundle will appear
+- `options`: An array of objects, containing:
+    - `name`: Spark option name
+    - `value`: Option value
+
+You can also put the config bundle in a separate file, and make a reference to it using `config_bundles_from_file` option.
+```json
+// ...
+{
+    "config_bundles_from_file": {
+        "file": "/path/to/json/file.json",
+        "json_path": "json-path-to-object"
+    }
+}
+```
+
+The JSON file must contain JSON object with the same format as above. However, you can put the object inside of another object (no need to be at the root), but you need to specify a JSON path.
+
+#### Spark options - `spark_options`
+
+For each Spark option, the following values can be configured:
+```json
+{
+    "category": {
+        "name": "spark.options.name",
+        "data": {
+            "category": "Category Name"
+        }
+    }
+}
+```
+
+You can also put the config bundle in a separate file, and make a reference to it using `spark_options_from_file` option.
+```json
+// ...
+{
+    "config_bundles_from_file": {
+        "file": "/path/to/json/file.json",
+        "json_path": "json-path-to-object"
+    }
+}
+```
+
+The JSON file must contain JSON object with the same format as above. However, you can put the object inside of another object (no need to be at the root), but you need to specify a JSON path.
+
+#### Disable cluster selection if preselected - `disable_cluster_selection_on_preselected`
+
+For JupyterHub installation, you might want to predefine the cluster when provisioning. You can set the `SPARK_CLUSTER_NAME` environment variable and have the extension select the cluster automatically.
+
+If you want the extension to disable the cluster selection option if the environment variable is set, you can set this option to `true`.
+
+#### Error suggestions - `error_suggestions`
+
+If the extension fails to establish a connection to a Spark cluster, users can review the connection logs to troubleshoot the error.
+
+To assist users in troubleshooting, you can configure the extension to show a prominent error message based on the connection logs using the `error_suggestions` option.
+
+For each object, the following values must be configured:
+- `pattern`: A regular expression pattern on the Spark connection log. If this expression matches on the log string, this error suggestion will be displayed.
+- `type`: One of `error`, `info`, or `warn`
+- `message`: The suggestion text
