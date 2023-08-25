@@ -5,6 +5,7 @@ This file contains a singleton object `cluster` to start, stop, and get the stat
 """
 
 import os
+import atexit
 import subprocess
 import tempfile
 import glob
@@ -223,7 +224,8 @@ class _SparkConnectCluster:
 
         return value.format(**replaceable_values)
 
-    def __del__(self):
+    @atexit.register
+    def cleanup_atexit(self):
         if self.started:
             self.stop()
 
