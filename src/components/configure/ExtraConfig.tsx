@@ -1,3 +1,7 @@
+/**
+ * ExtraConfig
+ * This file contains the UI to select extra configuration in the configure page.
+ */
 import React, { useMemo } from 'react';
 import { showDialog } from '@jupyterlab/apputils';
 import AddExtraConfigDialog from './AddExtraConfigDialog';

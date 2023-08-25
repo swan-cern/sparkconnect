@@ -1,3 +1,7 @@
+/**
+ * CodePreview
+ * This file contains the UI of the code snippet shown in the Connected page.
+ */
 import React from 'react';
 import { addIcon } from '@jupyterlab/ui-components';
 import { NotebookActions } from '@jupyterlab/notebook';

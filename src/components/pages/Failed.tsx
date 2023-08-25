@@ -1,3 +1,7 @@
+/**
+ * Failed
+ * This file contains the UI of the page displayed when the extension fails to connect.
+ */
 import React from 'react';
 import useSWR from 'swr';
 import SparkLogo from '../SparkLogo';

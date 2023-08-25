@@ -1,3 +1,7 @@
+/**
+ * UIStore
+ * Primary UI state store using pullstate
+ */
 import { Store } from 'pullstate';
 import { NotebookPanel } from '@jupyterlab/notebook';
 import { SparkCluster, SparkConfigBundle, SparkConfigOption } from '../types';

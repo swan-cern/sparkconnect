@@ -1,3 +1,7 @@
+/**
+ * SparkIcon
+ * Apache Spark icon shown on the sidebar
+ */
 import { LabIcon } from '@jupyterlab/ui-components';
 import { EXTENSION_ID } from '../const';
 

@@ -1,3 +1,7 @@
+/**
+ * SuggestionItem
+ * This file contains the list item displaying the Error Suggestions.
+ */
 import React from 'react';
 import '../../../style/SuggestionItem.css';
 

@@ -1,3 +1,7 @@
+/**
+ * types
+ * Types definitions
+ */
 export enum ExtensionState {
   CONFIGURING = 'CONFIGURING',
   PROVISIONING = 'PROVISIONING',

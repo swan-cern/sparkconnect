@@ -1,3 +1,7 @@
+/**
+ * index
+ * The main entrypoint for the frontend extension.
+ */
 import { ILabShell, JupyterFrontEnd, JupyterFrontEndPlugin } from '@jupyterlab/application';
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 import { INotebookTracker, NotebookPanel } from '@jupyterlab/notebook';

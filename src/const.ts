@@ -1,3 +1,7 @@
+/**
+ * const
+ * Constants definitions
+ */
 import { JupyterFrontEnd } from '@jupyterlab/application';
 import React from 'react';
 

@@ -1,3 +1,7 @@
+/**
+ * LoadingState
+ * This file contains an empty loading progress circle displayed when the extension is fetching its state from the server extension.
+ */
 import React from 'react';
 import MoonLoader from 'react-spinners/MoonLoader';
 import '../../../style/LoadingState.css';
