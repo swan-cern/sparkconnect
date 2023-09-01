@@ -1,0 +1,14 @@
+.jp-SparkConnectExtension-CodePreview-codemirror-container {
+  border: 1px solid var(--jp-border-color2);
+}
+
+.jp-SparkConnectExtension-CodePreview-toolbar {
+  margin-top: 4px;
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+}
+
+.jp-SparkConnectExtension-CodePreview-toolbar .add-to-notebook {
+  color: var(--jp-ui-font-color2) !important;
+}

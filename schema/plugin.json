@@ -1,0 +1,8 @@
+{
+  "jupyter.lab.shortcuts": [],
+  "title": "sparkconnector",
+  "description": "sparkconnector settings.",
+  "type": "object",
+  "properties": {},
+  "additionalProperties": false
+}

@@ -1,0 +1,125 @@
+/*
+    See the JupyterLab Developer Guide for useful CSS Patterns:
+
+    https://jupyterlab.readthedocs.io/en/stable/developer/css.html
+*/
+
+/* @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'); */
+
+/* fallback */
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 100 700;
+  src: url('./material-symbols-outlined.woff2') format('woff2');
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+.jp-SparkConnectExtension-spacer-8 {
+  margin-top: 8px;
+}
+
+.jp-SparkConnectExtension-scrollable {
+  overflow: auto;
+  height: 100%;
+}
+
+.jp-SparkConnectExtension-heading {
+  font-weight: normal;
+  margin: 0;
+  margin-top: 8px;
+  padding: 0;
+}
+
+.jp-SparkConnectExtension-section-header {
+  flex: 0 0 auto;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 8px;
+  font-size: var(--jp-ui-font-size0);
+  border-bottom: var(--jp-border-width) solid var(--jp-border-color2);
+}
+
+.jp-SparkConnectExtension-menu-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--jp-border-width);
+  background-color: var(--jp-border-color3);
+}
+
+.jp-SparkConnectExtension-menu-list > div {
+  padding: 8px 8px;
+  background-color: var(--jp-layout-color1);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--jp-ui-font-size1);
+}
+
+.jp-SparkConnectExtension-menu-list > div:hover {
+  background-color: var(--jp-layout-color2);
+  cursor: pointer;
+}
+
+.jp-SparkConnectExtensionLogsWidget .cm-editor {
+  height: 100%;
+}
+
+a.jp-SparkConnectExtension-warning-learn-more {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+a.jp-SparkConnectExtension-warning-learn-more:hover {
+  text-decoration: underline;
+}
+
+.jp-SparkConnectExtension-warning-diffItem {
+  background: var(--jp-layout-color1);
+  border: var(--jp-border-width) solid var(--jp-border-color2);
+}
+
+.jp-SparkConnectExtension-warning-diffItem
+  .jp-SparkConnectExtension-warning-diffItem-title {
+  background: var(--jp-layout-color2);
+  padding: 6px 8px;
+}
+
+.jp-SparkConnectExtension-warning-diffItem
+  .jp-SparkConnectExtension-warning-diffItem-row {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border-top: var(--jp-border-width) solid var(--jp-border-color2);
+}
+
+.jp-SparkConnectExtension-warning-diffItem
+  .jp-SparkConnectExtension-warning-diffItem-row
+  .jp-SparkConnectExtension-warning-diffItem-row-title {
+  width: 100px;
+  border-right: var(--jp-border-width) solid var(--jp-border-color2);
+  padding: 6px 8px;
+}
+
+.jp-SparkConnectExtension-warning-diffItem
+  .jp-SparkConnectExtension-warning-diffItem-row
+  .jp-SparkConnectExtension-warning-diffItem-row-content {
+  padding: 6px 8px;
+}

@@ -1,0 +1,20 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.0.5
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: mhilmy@hey.com
+author_name: Muhammad Aditya Hilmy
+data_format: string
+file_extension: ''
+has_binder: false
+has_settings: true
+kind: server
+labextension_name: sparkconnector
+mimetype: ''
+mimetype_name: ''
+project_short_description: A JupyterLab Extension to connect to Apache Spark using
+    Spark Connect
+python_name: sparkconnector
+repository: https://github.com/didithilmy/sparkconnector.git
+test: true
+viewer_name: ''
+
