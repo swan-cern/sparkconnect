@@ -199,7 +199,7 @@ const Ready: React.FC = () => {
                 cloud_done
               </span>
             </div>
-            <div style={{textAlign: 'center'}}>
+            <div style={{ textAlign: 'center' }}>
               Connected to <b>{cluster?.displayName}</b>
             </div>
           </h3>
@@ -221,7 +221,7 @@ const Ready: React.FC = () => {
         </div>
       )}
       <Section title="Code" style={{ padding: 8 }} headingStyle={{ marginTop: 16 }}>
-        <p style={{ marginTop: 4, fontSize: 'var(--jp-ui-font-size1)' }}>Use this code to create a Spark Session:</p>
+        <p style={{ marginTop: 4, fontSize: 'var(--jp-ui-font-size1)' }}>Simply copy and paste the code into a new cell and run it to create your Spark Connect session:</p>
         <CodePreview />
       </Section>
       <Section title="Menu" headingStyle={{ marginTop: 16 }}>
